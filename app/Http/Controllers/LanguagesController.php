@@ -20,7 +20,8 @@ class LanguagesController extends Controller {
 	 */
 	public function index()
 	{
-		return view('languages/index');
+		$languages = Language::sortedByName()->get();
+		return view('languages/index', compact('languages'));
 	}
 
 	/**
@@ -53,7 +54,9 @@ class LanguagesController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$language = Language::findOrFail($id);
+
+		return $language;
 	}
 
 	/**
