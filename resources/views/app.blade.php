@@ -32,7 +32,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url('/') }}">Home</a></li>
                 <li><a href="{{ url('/translations') }}">Translate</a></li>
-                @if ( Auth::user()->hasRole('Root'))
+                @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
                     <li><a href="{{ url('/users') }}">Users</a></li>
                     <li><a href="{{ url('/languages') }}">Languages</a></li>
                     <li><a href="{{ url('/projects') }}">Projects</a></li>
