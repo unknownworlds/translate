@@ -13,19 +13,7 @@
                         <h2>New language</h2>
 
                         {!! Form::open(['url' => 'languages']) !!}
-                        <div class="form-group">
-                            {!! Form::label('name', 'Name:') !!}
-                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('locale', 'Locale:') !!}
-                            {!! Form::text('locale', null, ['class' => 'form-control']) !!}
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::submit('Add language', ['class' => 'btn btn-primary form-control']) !!}
-                        </div>
+                            @include('languages/partials/form', [$submitButton => 'Add language'])
                         {!! Form::close() !!}
                     </div>
                 </div>
