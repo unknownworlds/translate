@@ -3,8 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\CreateLanguageRequest;
+use App\Http\Requests\DeleteLanguageRequest;
+use App\Http\Requests\UpdateLanguageRequest;
 use App\Language;
-use Illuminate\Http\Request;
+use Request;
 
 class LanguagesController extends Controller {
 
@@ -31,15 +34,17 @@ class LanguagesController extends Controller {
 	 */
 	public function create()
 	{
-		return view('languages/create');
+		return view('languages.create');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param CreateLanguageRequest $request
+	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store( CreateLanguageRequest $request )
 	{
 		Language::create(Request::all());
 
@@ -67,29 +72,41 @@ class LanguagesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$language = Language::findOrFail($id);
+
+		return view('languages.edit', compact('language'));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param UpdateLanguageRequest $request
+	 *
+	 * @param $id
+	 *
 	 * @return Response
+	 * @internal param int $id
 	 */
-	public function update($id)
+	public function update( UpdateLanguageRequest $request, $id )
 	{
-		//
+		Language::findOrFail($id)->update($request->all());
+
+		return redirect('languages');
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param DeleteLanguageRequest $request
+	 *
 	 * @return Response
+	 * @internal param int $id
 	 */
-	public function destroy($id)
+	public function destroy( DeleteLanguageRequest $request )
 	{
-		//
+		Language::findOrFail($request->id)->delete();
+
+		return redirect('languages');
 	}
 
 }
