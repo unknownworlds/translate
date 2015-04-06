@@ -13,7 +13,7 @@
                         <h2>Edit language</h2>
 
                         {!! Form::model($language, ['route' => ['languages.update', $language->id], 'method' => 'PATCH']) !!}
-                            @include('languages/partials/form', [$submitButton => 'Save language'])
+                            @include('languages/partials/form', ['submitButton' => 'Save language'])
                         {!! Form::close() !!}
                     </div>
                 </div>

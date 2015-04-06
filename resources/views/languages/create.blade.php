@@ -13,7 +13,7 @@
                         <h2>New language</h2>
 
                         {!! Form::open(['url' => 'languages']) !!}
-                            @include('languages/partials/form', [$submitButton => 'Add language'])
+                            @include('languages/partials/form', ['submitButton' => 'Add language'])
                         {!! Form::close() !!}
                     </div>
                 </div>
