@@ -31,11 +31,11 @@
                                     <td>{{ $language->locale }}</td>
                                     <td>
                                         <a href="{{ route('languages.edit', $language->id) }}" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+                                            <!--<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>--> Edit
                                         </a>
-                                        <a href="{{ route('languages.destroy', $language->id) }}" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
-                                        </a>
+                                        {!! Form::open(['route' => ['languages.destroy', $language->id], 'method' => 'DELETE', 'class' => 'list-inline']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-default']) !!}
+                                        {!! Form::close() !!}
                                     </td>
                                 </tr>
                             @endforeach

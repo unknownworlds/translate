@@ -34,7 +34,7 @@ class LanguageRequest extends Request {
                 'locale' => 'required|min:5',
             ];
         }
-        elseif($requestMethod == 'DESTROY') {
+        elseif($requestMethod == 'DELETE') {
             return [
                 'id'   => 'required',
             ];
