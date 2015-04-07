@@ -3,11 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\LanguageRequest;
-use App\Language;
+use App\Http\Requests\RoleRequest;
+use App\Role;
 use Request;
 
-class LanguagesController extends Controller {
+class RolesController extends Controller {
 
 	public function __construct() {
 		$this->middleware( 'auth' );
@@ -21,9 +21,9 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		$languages = Language::sortedByName()->get();
+		$roles = Role::orderBy('name')->get();
 
-		return view( 'languages/index', compact( 'languages' ) );
+		return view( 'roles/index', compact( 'roles' ) );
 	}
 
 	/**
@@ -32,20 +32,20 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function create() {
-		return view( 'languages.create' );
+		return view( 'roles.create' );
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param LanguageRequest $request
+	 * @param RoleRequest $request
 	 *
 	 * @return Response
 	 */
-	public function store( LanguageRequest $request ) {
-		Language::create( Request::all() );
+	public function store( RoleRequest $request ) {
+		Role::create( Request::all() );
 
-		return redirect( 'languages' );
+		return redirect( 'roles' );
 	}
 
 	/**
@@ -56,9 +56,9 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function show( $id ) {
-		$language = Language::findOrFail( $id );
+		$role = Role::findOrFail( $id );
 
-		return $language;
+		return $role;
 	}
 
 	/**
@@ -69,40 +69,40 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function edit( $id ) {
-		$language = Language::findOrFail( $id );
+		$role = Role::findOrFail( $id );
 
-		return view( 'languages.edit', compact( 'language' ) );
+		return view( 'roles.edit', compact( 'role' ) );
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param LanguageRequest $request
+	 * @param RoleRequest $request
 	 *
 	 * @param $id
 	 *
 	 * @return Response
 	 * @internal param int $id
 	 */
-	public function update( $id, LanguageRequest $request ) {
-		Language::findOrFail( $id )->update( $request->all() );
+	public function update( $id, RoleRequest $request ) {
+		Role::findOrFail( $id )->update( $request->all() );
 
-		return redirect( 'languages' );
+		return redirect( 'roles' );
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param $id
-	 * @param LanguageRequest $request
+	 * @param RoleRequest $request
 	 *
 	 * @return Response
 	 * @internal param int $id
 	 */
-	public function destroy( $id, LanguageRequest $request ) {
-		Language::findOrFail( $id )->delete();
+	public function destroy( $id, RoleRequest $request ) {
+		Role::findOrFail( $id )->delete();
 
-		return redirect( 'languages' );
+		return redirect( 'roles' );
 	}
 
 }

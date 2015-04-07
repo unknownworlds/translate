@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Log;
+
 class HomeController extends Controller {
 
 	/*
@@ -16,7 +18,6 @@ class HomeController extends Controller {
 	/**
 	 * Create a new controller instance.
 	 *
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -30,7 +31,9 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+		$log = Log::latest()->limit(50)->get();
+
+		return view('home', compact('log'));
 	}
 
 }

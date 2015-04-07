@@ -34,6 +34,7 @@
                 <li><a href="{{ url('/translations') }}">Translate</a></li>
                 @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
                     <li><a href="{{ url('/users') }}">Users</a></li>
+                    <li><a href="{{ url('/roles') }}">Roles</a></li>
                     <li><a href="{{ url('/languages') }}">Languages</a></li>
                     <li><a href="{{ url('/projects') }}">Projects</a></li>
                 @endif

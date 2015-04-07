@@ -7,9 +7,9 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading clearfix">
-                        Languages
-                        <a class="btn btn-default pull-right" href="{{ url('languages/create') }}" role="button">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new
+                        Projects
+                        <a class="btn btn-default pull-right" href="{{ url('projects/create') }}" project="button">
+                            Add new
                         </a>
                     </div>
 
@@ -19,22 +19,20 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Locale</th>
                                 <th>Options</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            @foreach($languages as $language)
+                            @foreach($projects as $project)
                                 <tr>
-                                    <td>{{ $language->name }}</td>
-                                    <td>{{ $language->locale }}</td>
+                                    <td>{{ $project->name }}</td>
                                     <td>
-                                        <a href="{{ route('languages.edit', $language->id) }}" class="btn btn-default">
+                                        <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-default">
                                             Edit
                                         </a>
 
-                                        {!! Form::open(['route' => ['languages.destroy', $language->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}
+                                        {!! Form::open(['route' => ['projects.destroy', $project->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}
                                         {!! Form::submit('Delete', ['class' => 'btn btn-default']) !!}
                                         {!! Form::close() !!}
                                     </td>

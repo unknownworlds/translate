@@ -8,8 +8,11 @@
 				<div class="panel-heading">Dashboard</div>
 
 				<div class="panel-body">
-					You are logged in! <br>
-                    This space will be occupied with log and translation status.
+                    <ul>
+					@foreach($log as $entry)
+                        <li>{{ $entry->text }}</li>
+                    @endforeach
+                    </ul>
 				</div>
 			</div>
 		</div>

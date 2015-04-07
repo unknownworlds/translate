@@ -7,10 +7,7 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading clearfix">
-                        Languages
-                        <a class="btn btn-default pull-right" href="{{ url('languages/create') }}" role="button">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new
-                        </a>
+                        Users
                     </div>
 
                     <div class="panel-body">
@@ -19,22 +16,26 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Locale</th>
+                                <th>Roles</th>
                                 <th>Options</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            @foreach($languages as $language)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $language->name }}</td>
-                                    <td>{{ $language->locale }}</td>
+                                    <td>{{ $user->name }}</td>
                                     <td>
-                                        <a href="{{ route('languages.edit', $language->id) }}" class="btn btn-default">
+                                        @foreach($user->roles as $role)
+                                        {{ $role->name }}
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-default">
                                             Edit
                                         </a>
 
-                                        {!! Form::open(['route' => ['languages.destroy', $language->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}
+                                        {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}
                                         {!! Form::submit('Delete', ['class' => 'btn btn-default']) !!}
                                         {!! Form::close() !!}
                                     </td>

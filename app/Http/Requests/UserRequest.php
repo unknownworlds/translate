@@ -3,7 +3,7 @@
 use App\Http\Requests\Request;
 use Auth;
 
-class LanguageRequest extends Request {
+class UserRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -25,13 +25,13 @@ class LanguageRequest extends Request {
         if($requestMethod == 'POST') {
             return [
                 'name'   => 'required|unique:languages',
-                'locale' => 'required|min:5|unique:languages',
+                'email' => 'required|email|unique:languages',
             ];
         }
         elseif($requestMethod == 'PATCH') {
             return [
                 'name'   => 'required',
-                'locale' => 'required|min:5',
+                'email' => 'required|email',
             ];
         }
         elseif($requestMethod == 'DELETE') {

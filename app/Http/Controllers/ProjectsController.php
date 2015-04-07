@@ -3,11 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\LanguageRequest;
-use App\Language;
+use App\Http\Requests\ProjectRequest;
+use App\Project;
 use Request;
 
-class LanguagesController extends Controller {
+class ProjectsController extends Controller {
 
 	public function __construct() {
 		$this->middleware( 'auth' );
@@ -21,9 +21,9 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		$languages = Language::sortedByName()->get();
+		$projects = Project::orderBy('name')->get();
 
-		return view( 'languages/index', compact( 'languages' ) );
+		return view( 'projects/index', compact( 'projects' ) );
 	}
 
 	/**
@@ -32,20 +32,20 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function create() {
-		return view( 'languages.create' );
+		return view( 'projects.create' );
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param LanguageRequest $request
+	 * @param ProjectRequest $request
 	 *
 	 * @return Response
 	 */
-	public function store( LanguageRequest $request ) {
-		Language::create( Request::all() );
+	public function store( ProjectRequest $request ) {
+		Project::create( Request::all() );
 
-		return redirect( 'languages' );
+		return redirect( 'projects' );
 	}
 
 	/**
@@ -56,9 +56,9 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function show( $id ) {
-		$language = Language::findOrFail( $id );
+		$project = Project::findOrFail( $id );
 
-		return $language;
+		return $project;
 	}
 
 	/**
@@ -69,40 +69,40 @@ class LanguagesController extends Controller {
 	 * @return Response
 	 */
 	public function edit( $id ) {
-		$language = Language::findOrFail( $id );
+		$project = Project::findOrFail( $id );
 
-		return view( 'languages.edit', compact( 'language' ) );
+		return view( 'projects.edit', compact( 'project' ) );
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param LanguageRequest $request
+	 * @param ProjectRequest $request
 	 *
 	 * @param $id
 	 *
 	 * @return Response
 	 * @internal param int $id
 	 */
-	public function update( $id, LanguageRequest $request ) {
-		Language::findOrFail( $id )->update( $request->all() );
+	public function update( $id, ProjectRequest $request ) {
+		Project::findOrFail( $id )->update( $request->all() );
 
-		return redirect( 'languages' );
+		return redirect( 'projects' );
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param $id
-	 * @param LanguageRequest $request
+	 * @param ProjectRequest $request
 	 *
 	 * @return Response
 	 * @internal param int $id
 	 */
-	public function destroy( $id, LanguageRequest $request ) {
-		Language::findOrFail( $id )->delete();
+	public function destroy( $id, ProjectRequest $request ) {
+		Project::findOrFail( $id )->delete();
 
-		return redirect( 'languages' );
+		return redirect( 'projects' );
 	}
 
 }

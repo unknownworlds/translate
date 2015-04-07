@@ -14,7 +14,11 @@
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
+Route::get('translations', 'TranslationsController@index');
+Route::resource('users', 'UsersController');
 Route::resource('languages', 'LanguagesController');
+Route::resource('roles', 'RolesController');
+Route::resource('projects', 'ProjectsController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
