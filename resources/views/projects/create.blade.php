@@ -6,14 +6,14 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
-                        Roles
+                        Projects
                     </div>
 
                     <div class="panel-body">
-                        <h2>New role</h2>
+                        <h2>New project</h2>
 
-                        {!! Form::open(['url' => 'roles']) !!}
-                            @include('roles/partials/form', ['submitButton' => 'Add role'])
+                        {!! Form::open(['url' => 'projects']) !!}
+                            @include('projects/partials/form', ['submitButton' => 'Add project'])
                         {!! Form::close() !!}
                     </div>
                 </div>

@@ -1,26 +1,31 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
+// Frontend
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
-
 Route::get('translations', 'TranslationsController@index');
 Route::resource('users', 'UsersController');
 Route::resource('languages', 'LanguagesController');
 Route::resource('roles', 'RolesController');
 Route::resource('projects', 'ProjectsController');
 
+// Auth
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+// API
+Route::group(array('prefix' => 'api'), function () {
+	// Frontend
+	Route::get('/base-strings', 'TranslationsController@baseStrings');
+	Route::get('/strings', 'TranslationsController@strings');
+	Route::get('/check-privileges', 'TranslationsController@checkPrivileges');
+	Route::post('/strings/store', 'TranslationsController@store');
+	Route::post('/strings/trash', 'TranslationsController@trash');
+	Route::post('/strings/accept', 'TranslationsController@accept');
+	Route::post('/strings/vote', 'TranslationsController@vote');
+
+	// Backend
+	Route::post('/strings/translation-file', 'TranslationFilesController@storeInputFile');
+	Route::get('/strings/translation-file', 'TranslationFilesController@processOutputFiles');
+});

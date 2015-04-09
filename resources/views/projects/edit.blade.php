@@ -10,10 +10,10 @@
                     </div>
 
                     <div class="panel-body">
-                        <h2>Edit role</h2>
+                        <h2>Edit project</h2>
 
-                        {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'PATCH']) !!}
-                            @include('roles/partials/form', ['submitButton' => 'Save role'])
+                        {!! Form::model($project, ['route' => ['projects.update', $project->id], 'method' => 'PATCH']) !!}
+                            @include('projects/partials/form', ['submitButton' => 'Save project'])
                         {!! Form::close() !!}
                     </div>
                 </div>

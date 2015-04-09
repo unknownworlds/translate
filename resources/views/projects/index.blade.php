@@ -19,6 +19,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>API key</th>
                                 <th>Options</th>
                             </tr>
                             </thead>
@@ -27,6 +28,7 @@
                             @foreach($projects as $project)
                                 <tr>
                                     <td>{{ $project->name }}</td>
+                                    <td>{{ $project->api_key }}</td>
                                     <td>
                                         <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-default">
                                             Edit

@@ -24,14 +24,16 @@ class ProjectRequest extends Request {
 
         if($requestMethod == 'POST') {
             return [
-                'name'   => 'required|unique:languages',
-                'locale' => 'required|min:5|unique:languages',
+                'name'   => 'required|unique:projects',
+                'file_handler' => 'required',
+                'api_key' => 'required|min:16|max:32',
             ];
         }
         elseif($requestMethod == 'PATCH') {
             return [
-                'name'   => 'required',
-                'locale' => 'required|min:5',
+	            'name'   => 'required',
+	            'file_handler' => 'required',
+	            'api_key' => 'required|min:16|max:32',
             ];
         }
         elseif($requestMethod == 'DELETE') {

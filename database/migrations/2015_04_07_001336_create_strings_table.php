@@ -28,9 +28,9 @@ class CreateStringsTable extends Migration {
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->text('text');
-            $table->integer('up_votes');
-            $table->integer('down_votes');
-            $table->boolean('is_accepted');
+            $table->integer('up_votes')->default(0);
+            $table->integer('down_votes')->default(0);
+            $table->boolean('is_accepted')->default(false);
             $table->timestamps();
         });
 	}
