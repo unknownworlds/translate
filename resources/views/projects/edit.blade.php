@@ -1,6 +1,8 @@
 @extends('app')
 
 @section('content')
+    @include('errors/list')
+
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -10,6 +12,9 @@
                     </div>
 
                     <div class="panel-body">
+
+                        @include('errors/list')
+
                         <h2>Edit project</h2>
 
                         {!! Form::model($project, ['route' => ['projects.update', $project->id], 'method' => 'PATCH']) !!}

@@ -10,6 +10,9 @@
                     </div>
 
                     <div class="panel-body">
+
+                        @include('errors/list')
+
                         <h2>New role</h2>
 
                         {!! Form::open(['url' => 'roles']) !!}

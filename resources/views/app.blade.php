@@ -10,12 +10,6 @@
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-
-    <!-- Javascript -->
-    {{--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
-    {{--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>--}}
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="js/translateController.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -61,25 +55,12 @@
     </div>
 </nav>
 
-
-@if ($errors->any())
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <ul class="alert alert-danger list-unstyled">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    </div>
-@endif
-
 @yield('content')
 
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="js/translateController.js"></script>
 </body>
 </html>
