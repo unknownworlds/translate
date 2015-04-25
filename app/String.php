@@ -8,4 +8,7 @@ class String extends Model {
 		'project_id', 'language_id', 'base_string_id', 'user_id', 'text', 'up_votes', 'down_votes', 'is_accepted'
 	];
 
+	public function user() {
+		return $this->hasOne('App\User');
+	}
 }

@@ -82,4 +82,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->roles()->detach( $role );
 	}
 
+	public function strings() {
+		return $this->hasMany('App\String');
+	}
+
 }

@@ -24,6 +24,8 @@ Route::group(array('prefix' => 'api'), function () {
 	Route::post('/strings/trash', 'TranslationsController@trash');
 	Route::post('/strings/accept', 'TranslationsController@accept');
 	Route::post('/strings/vote', 'TranslationsController@vote');
+	Route::get('/strings/users', 'TranslationsController@users');
+	Route::get('/strings/admins', 'TranslationsController@admins');
 
 	// Backend
 	Route::post('/strings/translation-file', 'TranslationFilesController@storeInputFile');

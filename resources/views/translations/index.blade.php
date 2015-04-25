@@ -23,19 +23,16 @@
                                         @{{string.up_votes-string.down_votes}}
                                     </button>
                                     <button type="button" class="btn btn-default" ng-click="vote(baseString.id, string.id, 1)" >
-                                        <span class="glyphicon glyphicon glyphicon-arrow-up"
-                                              aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default" ng-click="vote(baseString.id, string.id, -1)">
-                                        <span class="glyphicon glyphicon glyphicon-arrow-down"
-                                              aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default" ng-click="trash(baseString.id, string.id)" ng-if="isAdmin">
-                                        <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default" ng-click="accept(baseString.id, string.id)" ng-if="isAdmin">
-                                        <span class="glyphicon glyphicon glyphicon glyphicon-ok"
-                                              aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
                                 </div>
 

@@ -8,6 +8,7 @@ use App\Language;
 use App\Log;
 use App\Project;
 use App\String;
+use App\User;
 use App\Vote;
 use Auth;
 use Request;
@@ -74,7 +75,7 @@ class TranslationsController extends BaseApiController {
 		] );
 
 		if ( $vote->id ) {
-			return $this->respondWithError( 'Already voted!' );
+			return $this->respondValidationFailed( 'Already voted!' );
 		}
 
 		$vote->save();
@@ -101,14 +102,38 @@ class TranslationsController extends BaseApiController {
 	}
 
 	public function trash( StringAdminRequest $request ) {
-		$string = String::findOrFail( [
+		$string = String::where( [
 			'id'          => Request::get( 'string_id' ),
 			'language_id' => Request::get( 'language_id' )
-		] );
+		] )->firstOrFail();
 
 		$string->delete();
 
 		return $this->respond( 'String deleted.' );
+	}
+
+	public function users() {
+
+		$users = String::join( 'users', 'users.id', '=', 'strings.user_id' )
+		               ->selectRaw( 'count(*) AS count, user_id, name' )
+		               ->where( 'project_id', '=', Request::get( 'project_id' ) )
+		               ->where( 'language_id', '=', Request::get( 'language_id' ) )
+		               ->groupBy( 'strings.user_id' )
+		               ->limit( 25 )
+		               ->get();
+
+		return $this->respond( $users );
+	}
+
+	public function admins() {
+
+		$language = Language::where( 'id', '=', Request::get( 'language_id' ) )->first();
+
+		$admins = User::whereHas( 'roles', function ( $q ) use ( $language ) {
+			$q->where( 'name', '=', $language->name . ' admin' );
+		} )->get( [ 'id', 'name' ] );
+
+		return $this->respond( $admins );
 	}
 
 }
