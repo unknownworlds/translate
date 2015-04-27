@@ -153,7 +153,12 @@ angular.module('translate', [])
         }
 
         //$scope.hideAccepted = function () {
-        //    $scope.strings = $filter('filter')($scope.strings, {strings: [{is_accepted:1}]})
-        //    console.log(123)
+        //    console.log($scope.baseStrings)
+        //    console.log($scope.strings)
+        //    $scope.baseStrings = []
+        //
+        //    angular.forEach($scope.strings, function (string, key) {
+        //        //$scope.strings[string.id] = [];
+        //    });
         //}
     });
