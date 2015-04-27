@@ -2,7 +2,7 @@ import urllib.request, urllib.parse, sys, os, re
 
 # Settings
 languageFilesFolder = 'C:\\Projekty\\Subnautica\\unityproj\\SNUnmanagedData\\LanguageFiles'
-apiEndpoint = 'http://uwetranslate.dev/api/strings/translation-file/'
+apiEndpoint = 'http://uwetranslate.dev/api/strings/translation-file'
 
 # Read and process the file (remove the comments)
 f = open(languageFilesFolder+'/English.json', 'r')

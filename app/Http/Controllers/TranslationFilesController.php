@@ -64,7 +64,7 @@ class TranslationFilesController extends BaseApiController {
 		}
 
 		exec( 'rm ' . $outputFile );
-		exec( 'cd ' . public_path() . '/output/' . $project->id . ' && 7z a -tzip -r output.zip ' . $dir . '/*' );
+		exec( 'cd ' . public_path() . '/output/' . $project->id . ' && zip -j output.zip ' . $dir . '/*' );
 
 		File::deleteDirectory( $dir );
 
