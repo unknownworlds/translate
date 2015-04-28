@@ -92,7 +92,10 @@ class TranslationsController extends BaseApiController {
 			'language_id' => Request::get( 'language_id' )
 		] )->firstOrFail();
 
-		String::where( [ 'base_string_id' => Request::get( 'base_string_id' ) ] )->update( [
+		String::where( [
+			'base_string_id' => Request::get( 'base_string_id' ),
+			'language_id'    => Request::get( 'language_id' )
+		] )->update( [
 			'is_accepted' => false
 		] );
 

@@ -31,7 +31,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$log = Log::latest()->limit(50)->get();
+		$log = Log::latest()->limit(100)->get();
 
 		return view('home', compact('log'));
 	}
