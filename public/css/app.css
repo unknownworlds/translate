@@ -6231,3 +6231,7 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+
+.top15 {
+    padding-top: 15px;
+}

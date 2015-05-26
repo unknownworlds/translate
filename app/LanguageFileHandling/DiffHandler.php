@@ -45,7 +45,7 @@ class DiffHandler {
 				'project_id' => $this->projectId
 			] )->firstOrFail()->delete();
 
-			$this->log('String ' . $key . ' was deleted');
+			$this->log( 'String ' . $key . ' was deleted' );
 		}
 
 		// Add new strings
@@ -57,7 +57,7 @@ class DiffHandler {
 				'project_id' => $this->projectId
 			] );
 
-			$this->log('String ' . $key . ' added');
+			$this->log( 'String ' . $key . ' added' );
 		}
 
 		// Update current strings
@@ -78,7 +78,7 @@ class DiffHandler {
 				'base_string_id' => $baseString->id
 			] )->delete();
 
-			$this->log('String ' . $key . ' changed');
+			$this->log( 'String ' . $key . ' changed' );
 		}
 	}
 
@@ -86,6 +86,7 @@ class DiffHandler {
 		Log::create( [
 			'project_id' => $this->projectId,
 			'user_id'    => 1,
+			'log_type'   => 2,
 			'text'       => $text
 		] );
 	}

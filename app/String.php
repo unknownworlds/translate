@@ -11,4 +11,12 @@ class String extends Model {
 	public function user() {
 		return $this->hasOne('App\User');
 	}
+
+	public function language() {
+		return $this->belongsTo('App\Language');
+	}
+
+	public function project() {
+		return $this->belongsTo('App\Project');
+	}
 }
