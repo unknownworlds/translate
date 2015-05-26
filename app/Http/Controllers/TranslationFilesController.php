@@ -54,7 +54,7 @@ class TranslationFilesController extends BaseApiController {
 			$output = array_merge( $baseStrings, $translatedStrings );
 
 			$file = fopen( $dir . '/' . $language->name . '.json', 'w+' );
-			fputs( $file, json_encode( $output ) );
+			fputs( $file, json_encode( $output, JSON_PRETTY_PRINT ) );
 			fclose( $file );
 		}
 
