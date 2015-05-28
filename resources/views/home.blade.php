@@ -13,7 +13,8 @@
                         <div class="alert alert-info">
                             <strong>Important!</strong> Application is in testing phase. Things might break. Please
                             report any bugs and feature requests to lukas@unknownworlds.com or via twitter
-                            to @lnowaczek.
+                            to @lnowaczek. For introduction, guidelines, and instructions please see the Guidelines,
+                            link available in main menu.
                         </div>
 
                         <ul class="nav nav-tabs" role="tablist">
@@ -62,8 +63,10 @@
                                             {{ $entry->project->name }}, {{ $entry->language->name }}:
                                             {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%
                                             <div class="progress">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                                                     aria-valuemax="100" style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100"
+                                                     style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">
                                                 </div>
                                             </div>
                                         </li>

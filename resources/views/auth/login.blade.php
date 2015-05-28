@@ -6,8 +6,9 @@
             <div class="col-md-8 col-md-offset-2">
                 <ul class="alert alert-info list-unstyled">
                     <li>
-                        Looking for Natural Selection 2 translation website? Follow <a
-                                href="http://translate.naturalselection2.com/">this link</a> then!
+                        Hello, and welcome to Unknown Worlds Translations! We use this community-powered application to
+                        translate our projects to as many languages as possible, with your help! To get started - create
+                        an account using the link in top right corner or log in if you already have one.
                     </li>
                 </ul>
             </div>
