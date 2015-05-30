@@ -152,13 +152,20 @@ angular.module('translate', [])
                 });
         }
 
-        //$scope.hideAccepted = function () {
-        //    console.log($scope.baseStrings)
-        //    console.log($scope.strings)
-        //    $scope.baseStrings = []
-        //
-        //    angular.forEach($scope.strings, function (string, key) {
-        //        //$scope.strings[string.id] = [];
-        //    });
-        //}
+        $scope.hideAccepted = function () {
+            angular.forEach($scope.baseStrings, function (baseString, key) {
+                $scope.baseStrings[key].is_translated = false;
+
+                angular.forEach($scope.strings[baseString.id], function (string) {
+                    if ($scope.baseStrings[key].is_translated !== true)
+                        $scope.baseStrings[key].is_translated = false;
+
+                    if (string.is_accepted == true) {
+                        $scope.baseStrings[key].is_translated = true;
+                    }
+                });
+            });
+
+            $scope.baseStrings = $filter('filter')($scope.baseStrings, {is_translated: false})
+        }
     });

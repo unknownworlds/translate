@@ -37,11 +37,12 @@
                     <li ng-show="!topUsers.length">Noone contributed yet</li>
                 </ul>
 
-                {{--<hr>--}}
+                <hr>
 
-                {{--<div class="filters">--}}
-                    {{--<button class="btn btn-default" ng-click="hideAccepted()">Hide accepted</button>--}}
-                {{--</div>--}}
+                <div class="filters">
+                    <button class="btn btn-default" ng-click="hideAccepted()">Hide strings with accepted translations</button>
+                    <i>Load data again to reset</i>
+                </div>
 
             </div>
         </div>
