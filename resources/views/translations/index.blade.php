@@ -3,6 +3,8 @@
 @section('content')
     <div class="container" ng-controller="TranslateController as Translate">
 
+        <div id="ajax-loader" ng-show="loading"><img src="img/ajax-loader.svg" alt="AJAX loader" /></div>
+
         @include('translations/partials/projectSelectForm')
 
         <div class="row">

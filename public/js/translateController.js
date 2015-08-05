@@ -6,8 +6,10 @@ angular.module('translate', [])
         $scope.strings = []
         $scope.topUsers = [];
         $scope.admins = [];
+        $scope.loading = 0;
 
         $scope.loadTranslatedStrings = function () {
+            $scope.loading++;
             $http.get('/api/strings?project_id=' + $scope.currentProject + '&language_id=' + $scope.currentLanguage).
                 success(function (data, status, headers, config) {
                     angular.forEach(data, function (string) {
@@ -16,40 +18,56 @@ angular.module('translate', [])
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.loadInvolvedUsers = function () {
+            $scope.loading++;
             $http.get('/api/strings/users?project_id=' + $scope.currentProject + '&language_id=' + $scope.currentLanguage).
                 success(function (data, status, headers, config) {
                     $scope.topUsers = data
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.loadAdmins = function () {
+            $scope.loading++;
             $http.get('/api/strings/admins?project_id=' + $scope.currentProject + '&language_id=' + $scope.currentLanguage).
                 success(function (data, status, headers, config) {
                     $scope.admins = data
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.checkPrivileges = function () {
+            $scope.loading++;
             $http.get('/api/check-privileges?language_id=' + $scope.currentLanguage).
                 success(function (data, status, headers, config) {
                     $scope.isAdmin = data;
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.loadData = function () {
+            $scope.loading++;
             $scope.currentProject = $('#project').val();
             $scope.currentLanguage = $('#language').val();
 
@@ -68,10 +86,14 @@ angular.module('translate', [])
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.vote = function (base_string_id, string_id, vote) {
+            $scope.loading++;
             var postData = {
                 'string_id': string_id,
                 'vote': vote
@@ -90,10 +112,14 @@ angular.module('translate', [])
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. ' + data.error.message)
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.trash = function (base_string_id, string_id) {
+            $scope.loading++;
             var postData = {
                 'string_id': string_id,
                 'language_id': $scope.currentLanguage
@@ -108,10 +134,14 @@ angular.module('translate', [])
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.accept = function (base_string_id, string_id) {
+            $scope.loading++;
             var postData = {
                 'string_id': string_id,
                 'base_string_id': base_string_id,
@@ -129,10 +159,14 @@ angular.module('translate', [])
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
         $scope.add = function (base_string_id) {
+            $scope.loading++;
             var textInput = $('#stringInput' + base_string_id);
 
             var postData = {
@@ -149,6 +183,9 @@ angular.module('translate', [])
                 }).
                 error(function (data, status, headers, config) {
                     alert('Error ' + status + ' occured. Please try again.')
+                }).
+                finally(function () {
+                    $scope.loading--;
                 });
         }
 
