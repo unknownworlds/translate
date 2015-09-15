@@ -4,6 +4,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('translations', 'TranslationsController@index');
 Route::get('pages/{name}', 'PagesController@index');
+Route::get('theme/{name}', 'ThemesController@index');
 
 // Backend
 Route::resource('users', 'UsersController');
