@@ -6242,7 +6242,7 @@ label,
     line-height: 50px;
     height: 50px;
     position: fixed;
-    right: 100px;
+    left: 100px;
     top: 100px;
     width: 50px;
     border: 1px dashed #c3c3c3;
