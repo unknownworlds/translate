@@ -54,6 +54,17 @@ class TranslationsController extends BaseApiController {
 		$input            = Request::all();
 		$input['user_id'] = Auth::user()->id;
 
+		$duplicate = String::where( [
+			'project_id' => Request::get( 'project_id' ),
+			'language_id' => Request::get( 'language_id' ),
+			'base_string_id' => Request::get( 'base_string_id' ),
+			'text' => Request::get( 'text' ),
+		] )->first();
+
+		if ( $duplicate ) {
+			return $this->respondValidationFailed( 'Translation already exist!' );
+		}
+
 		$string = String::create( $input );
 
 		$baseString = BaseString::findOrFail( Request::get( 'base_string_id' ) )->key;

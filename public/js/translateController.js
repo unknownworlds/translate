@@ -182,7 +182,7 @@ angular.module('translate', [])
                     textInput.val('');
                 }).
                 error(function (data, status, headers, config) {
-                    alert('Error ' + status + ' occured. Please try again.')
+                    alert('Error ' + status + ' occured. Please try again. (' + data.error.message + ')')
                 }).
                 finally(function () {
                     $scope.loading--;
