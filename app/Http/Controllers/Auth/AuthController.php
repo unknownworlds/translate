@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Services\SocialiteWrapper;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\User;
 use Validator;
@@ -62,8 +63,12 @@ class AuthController extends Controller {
 		return $socialiteWrapper->redirectToProvider( $provider );
 	}
 
-	public function getSocialCallback( $provider, SocialiteWrapper $socialiteWrapper) {
-		return $socialiteWrapper->handleProviderCallback( $provider );
+	public function getSocialCallback( $provider, SocialiteWrapper $socialiteWrapper ) {
+		try {
+			return $socialiteWrapper->handleProviderCallback( $provider );
+		} catch ( QueryException $e ) {
+			return redirect( '/auth/login' )->withErrors( 'Looks like the email you are trying to use is taken.' );
+		}
 	}
 
 }

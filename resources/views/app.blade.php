@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Translations :: Unknown Worlds</title>
 
-    <link href="{{ asset('/css/bootstrap_'.(isset(Auth::user()->name) ? Auth::user()->theme : 'dark').'.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap_'.(isset(Auth::user()->name) ? Auth::user()->theme : 'light').'.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
