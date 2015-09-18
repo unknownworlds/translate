@@ -69,6 +69,16 @@
                                         Password?</a>
                                 </div>
                             </div>
+
+                            <hr>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <a class="btn btn-primary" href="{{ url('/auth/social-login/github') }}">Login with GitHub</a>
+                                    <a class="btn btn-primary" href="{{ url('/auth/social-login/facebook') }}">Login with Facebook</a>
+                                    <a class="btn btn-primary" href="{{ url('/auth/social-login/google') }}">Login with Google</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

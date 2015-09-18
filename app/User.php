@@ -3,17 +3,21 @@
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
  * App\User
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role' )->withTimestamps([] $roles 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role' )->withTimestamps([] $roles
  */
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Model implements AuthenticatableContract,
+	AuthorizableContract,
+	CanResetPasswordContract {
 
-	use Authenticatable, CanResetPassword;
+	use Authenticatable, Authorizable, CanResetPassword;
 
 	/**
 	 * The database table used by the model.
@@ -83,7 +87,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	public function strings() {
-		return $this->hasMany('App\String');
+		return $this->hasMany( 'App\String' );
+	}
+
+	public function getSocialiteUser( $provider, $userData ) {
+		$user = $this->where( 'oauth_provider', $provider )->where( 'oauth_id', $userData->id )->first();
+
+		if ( $user === null ) {
+			$user = new User();
+		}
+
+		$user->oauth_provider = $provider;
+		$user->oauth_id       = $userData->id;
+		$user->name           = ( ! empty( $userData->name ) ) ? $userData->name : $userData->nickname;
+		$user->email          = $userData->email;
+		$user->save();
+
+		return $user;
 	}
 
 }
