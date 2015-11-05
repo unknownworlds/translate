@@ -40,7 +40,7 @@ class TranslationFilesController extends BaseApiController {
 		$dir = public_path() . '/output/' . $project->id . '/' . time();
 		mkdir( $dir, 0777, true );
 
-		$baseStrings = BaseString::where( 'project_id', '=', $project->id )->lists( 'text', 'key' );
+		$baseStrings = BaseString::where( 'project_id', '=', $project->id )->lists( 'text', 'key' )->toArray();
 		$languages   = Language::all();
 
 		foreach ( $languages as $language ) {
@@ -49,7 +49,8 @@ class TranslationFilesController extends BaseApiController {
 			                           ->where( 'language_id', '=', $language->id )
 			                           ->where( 'is_accepted', '=', true )
 			                           ->get( [ 'key', 'strings.text' ] )
-			                           ->lists( 'text', 'key' );
+			                           ->lists( 'text', 'key' )
+			                           ->toArray();
 
 			$output = array_merge( $baseStrings, $translatedStrings );
 
@@ -68,7 +69,7 @@ class TranslationFilesController extends BaseApiController {
 
 		File::deleteDirectory( $dir );
 
-		return Response::download($outputFile);
+		return Response::download( $outputFile );
 	}
 
 }
