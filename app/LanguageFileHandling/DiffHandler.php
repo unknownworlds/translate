@@ -35,7 +35,7 @@ class DiffHandler {
 
 	private function process() {
 		// Scaffold
-		$baseStrings = BaseString::where( 'project_id', '=', $this->projectId )->lists( 'text', 'key' );
+		$baseStrings = BaseString::where( 'project_id', '=', $this->projectId )->lists( 'text', 'key' )->toArray();
 
 		// Remove old strings
 		$unusedKeys = array_diff_key( $baseStrings, $this->input );
@@ -61,7 +61,7 @@ class DiffHandler {
 		}
 
 		// Update current strings
-		$baseStrings = BaseString::where( 'project_id', '=', $this->projectId )->lists( 'text', 'key' );
+		$baseStrings = BaseString::where( 'project_id', '=', $this->projectId )->lists( 'text', 'key' )->toArray();
 		$updatedKeys = array_diff( $this->input, $baseStrings );
 		foreach ( $updatedKeys as $key => $text ) {
 			$baseString = BaseString::where( [
