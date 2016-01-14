@@ -18,7 +18,9 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface {
 	 */
 	private function processInput() {
 		$output = $this->rawData;
-		// Remove whitespace from the start of the doc
+		// Remove whitespace from string
+		$output = trim( $output );
+		// Remove whitespace from the start of the JSON object
 		$output = preg_replace( '/{(\s+(.*)+\s+")/im', '{ "', $output );
 		// Remove whitespace from the end of the doc
 		$output = preg_replace( '/"(\s)+}/im', '" }', $output );
@@ -26,6 +28,8 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface {
 		$output = preg_replace( '/",([\s]+)"/im', '", "', $output );
 		// Replace remaining newlines with <br>
 		$output = str_replace( array( "\r\n", "\r", "\n" ), "<br>", $output );
+		// Remove tab character
+		$output = preg_replace( '/\t/im', ' ', $output );
 		// Decode JSON
 		$output = json_decode( $output, true );
 		// Bring back the newline char
