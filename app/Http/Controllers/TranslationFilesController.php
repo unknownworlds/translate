@@ -25,6 +25,11 @@ class TranslationFilesController extends BaseApiController {
 		$inputHandler = $inputHandler->getFileHandler();
 
 		// pass reader results to diff handler
+		$input = $inputHandler->getParsedInput();
+
+		if ( $input == null ) {
+			return $this->respond( 'Fail, probably the input file is corrupted' );
+		}
 		new DiffHandler( $inputHandler->getParsedInput(), $project->id );
 
 		return $this->respond( 'Success!' );
@@ -64,7 +69,7 @@ class TranslationFilesController extends BaseApiController {
 			unlink( $outputFile );
 		}
 
-		exec( 'rm ' . $outputFile );
+//		exec( 'rm ' . $outputFile );
 		exec( 'cd ' . public_path() . '/output/' . $project->id . ' && zip -j output.zip ' . $dir . '/*' );
 
 		File::deleteDirectory( $dir );
