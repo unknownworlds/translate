@@ -58,9 +58,11 @@ class TranslationFilesController extends BaseApiController {
 			                           ->toArray();
 
 			$output = array_merge( $baseStrings, $translatedStrings );
+			$output = json_encode( $output, JSON_PRETTY_PRINT );
+			$output = str_replace( '\n', "\n", $output );
 
 			$file = fopen( $dir . '/' . $language->name . '.json', 'w+' );
-			fputs( $file, json_encode( $output, JSON_PRETTY_PRINT ) );
+			fputs( $file, $output );
 			fclose( $file );
 		}
 
@@ -69,7 +71,6 @@ class TranslationFilesController extends BaseApiController {
 			unlink( $outputFile );
 		}
 
-//		exec( 'rm ' . $outputFile );
 		exec( 'cd ' . public_path() . '/output/' . $project->id . ' && zip -j output.zip ' . $dir . '/*' );
 
 		File::deleteDirectory( $dir );

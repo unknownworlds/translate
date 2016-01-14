@@ -9,7 +9,7 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface {
 	private $baseStrings;
 
 	public function __construct() {
-		$this->rawData = Request::get('data');
+		$this->rawData = Request::get( 'data' );
 		$this->processInput();
 	}
 
@@ -17,7 +17,23 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface {
 	 * @return bool
 	 */
 	private function processInput() {
-		$this->baseStrings = json_decode($this->rawData, true);
+		$output = $this->rawData;
+		// Remove whitespace from the start of the doc
+		$output = preg_replace( '/{(\s+(.*)+\s+")/im', '{ "', $output );
+		// Remove whitespace from the end of the doc
+		$output = preg_replace( '/"(\s)+}/im', '" }', $output );
+		// Remove whitespace between entries
+		$output = preg_replace( '/",([\s]+)"/im', '", "', $output );
+		// Replace remaining newlines with <br>
+		$output = str_replace( array( "\r\n", "\r", "\n" ), "<br>", $output );
+		// Decode JSON
+		$output = json_decode( $output, true );
+		// Bring back the newline char
+		foreach ( $output as $key => $value ) {
+			$output[ $key ] = str_replace( '<br>', "\n", $value );
+		}
+
+		$this->baseStrings = $output;
 	}
 
 	/**
