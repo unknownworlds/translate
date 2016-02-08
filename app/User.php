@@ -86,7 +86,7 @@ class User extends Model implements AuthenticatableContract,
 		return $this->roles()->detach( $role );
 	}
 
-	public function strings() {
+	public function translatedStrings() {
 		return $this->hasMany( 'App\String' );
 	}
 
