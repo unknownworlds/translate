@@ -5,7 +5,7 @@ use App\Language;
 use App\LanguageFileHandling\DiffHandler;
 use App\LanguageFileHandling\InputHandlerFactory;
 use App\Project;
-use App\String;
+use App\TranslatedString;
 use File;
 use Request;
 use Response;
@@ -49,13 +49,13 @@ class TranslationFilesController extends BaseApiController {
 		$languages   = Language::all();
 
 		foreach ( $languages as $language ) {
-			$translatedStrings = String::join( 'base_strings', 'strings.base_string_id', '=', 'base_strings.id' )
-			                           ->where( 'strings.project_id', '=', $project->id )
-			                           ->where( 'language_id', '=', $language->id )
-			                           ->where( 'is_accepted', '=', true )
-			                           ->get( [ 'key', 'strings.text' ] )
-			                           ->lists( 'text', 'key' )
-			                           ->toArray();
+			$translatedStrings = TranslatedString::join( 'base_strings', 'strings.base_string_id', '=', 'base_strings.id' )
+			                                     ->where( 'strings.project_id', '=', $project->id )
+			                                     ->where( 'language_id', '=', $language->id )
+			                                     ->where( 'is_accepted', '=', true )
+			                                     ->get( [ 'key', 'strings.text' ] )
+			                                     ->lists( 'text', 'key' )
+			                                     ->toArray();
 
 			$output = array_merge( $baseStrings, $translatedStrings );
 			$output = json_encode( $output, JSON_PRETTY_PRINT );

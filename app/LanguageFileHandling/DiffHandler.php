@@ -10,7 +10,7 @@ namespace App\LanguageFileHandling;
 
 use App\BaseString;
 use App\Log;
-use App\String;
+use App\TranslatedString;
 
 class DiffHandler {
 	/**
@@ -74,7 +74,7 @@ class DiffHandler {
 			] );
 
 			// Remove related translations
-			String::where( [
+			TranslatedString::where( [
 				'base_string_id' => $baseString->id
 			] )->delete();
 

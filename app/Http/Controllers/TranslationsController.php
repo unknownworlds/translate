@@ -7,7 +7,7 @@ use App\Http\Requests\StringVoteRequest;
 use App\Language;
 use App\Log;
 use App\Project;
-use App\String;
+use App\TranslatedString;
 use App\User;
 use App\Vote;
 use Auth;
@@ -37,7 +37,7 @@ class TranslationsController extends BaseApiController {
 	}
 
 	public function strings() {
-		$baseStrings = String::where( 'project_id', '=', Request::get( 'project_id' ) )->where( 'language_id', '=', Request::get( 'language_id' ) )->get();
+		$baseStrings = TranslatedString::where( 'project_id', '=', Request::get( 'project_id' ) )->where( 'language_id', '=', Request::get( 'language_id' ) )->get();
 
 		return $this->respond( $baseStrings );
 	}
@@ -54,7 +54,7 @@ class TranslationsController extends BaseApiController {
 		$input            = Request::all();
 		$input['user_id'] = Auth::user()->id;
 
-		$duplicate = String::where( [
+		$duplicate = TranslatedString::where( [
 			'project_id' => Request::get( 'project_id' ),
 			'language_id' => Request::get( 'language_id' ),
 			'base_string_id' => Request::get( 'base_string_id' ),
@@ -65,7 +65,7 @@ class TranslationsController extends BaseApiController {
 			return $this->respondValidationFailed( 'Translation already exist!' );
 		}
 
-		$string = String::create( $input );
+		$string = TranslatedString::create( $input );
 
 		$baseString = BaseString::findOrFail( Request::get( 'base_string_id' ) )->key;
 		Log::create( [
@@ -78,7 +78,7 @@ class TranslationsController extends BaseApiController {
 	}
 
 	public function vote( StringVoteRequest $request ) {
-		$string = String::findOrFail( Request::get( 'string_id' ) );
+		$string = TranslatedString::findOrFail( Request::get( 'string_id' ) );
 
 		$vote = Vote::firstOrNew( [
 			'string_id' => Request::get( 'string_id' ),
@@ -98,12 +98,12 @@ class TranslationsController extends BaseApiController {
 	}
 
 	public function accept( StringAdminRequest $request ) {
-		$string = String::where( [
+		$string = TranslatedString::where( [
 			'id'          => Request::get( 'string_id' ),
 			'language_id' => Request::get( 'language_id' )
 		] )->firstOrFail();
 
-		String::where( [
+		TranslatedString::where( [
 			'base_string_id' => Request::get( 'base_string_id' ),
 			'language_id'    => Request::get( 'language_id' )
 		] )->update( [
@@ -116,7 +116,7 @@ class TranslationsController extends BaseApiController {
 	}
 
 	public function trash( StringAdminRequest $request ) {
-		$string = String::where( [
+		$string = TranslatedString::where( [
 			'id'          => Request::get( 'string_id' ),
 			'language_id' => Request::get( 'language_id' )
 		] )->firstOrFail();
@@ -128,13 +128,13 @@ class TranslationsController extends BaseApiController {
 
 	public function users() {
 
-		$users = String::join( 'users', 'users.id', '=', 'strings.user_id' )
-		               ->selectRaw( 'count(*) AS count, user_id, name' )
-		               ->where( 'project_id', '=', Request::get( 'project_id' ) )
-		               ->where( 'language_id', '=', Request::get( 'language_id' ) )
-		               ->groupBy( 'strings.user_id' )
-		               ->limit( 25 )
-		               ->get();
+		$users = TranslatedString::join( 'users', 'users.id', '=', 'strings.user_id' )
+		                         ->selectRaw( 'count(*) AS count, user_id, name' )
+		                         ->where( 'project_id', '=', Request::get( 'project_id' ) )
+		                         ->where( 'language_id', '=', Request::get( 'language_id' ) )
+		                         ->groupBy( 'strings.user_id' )
+		                         ->limit( 25 )
+		                         ->get();
 
 		return $this->respond( $users );
 	}

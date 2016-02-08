@@ -8,7 +8,7 @@ use App\Language;
 use App\Project;
 use App\User;
 use File;
-use App\String;
+use App\TranslatedString;
 use Request;
 
 class ToolsController extends Controller {
@@ -64,7 +64,7 @@ class ToolsController extends Controller {
 				continue;
 			}
 
-			String::firstOrCreate( [
+			TranslatedString::firstOrCreate( [
 				'project_id'     => Request::get( 'project_id' ),
 				'language_id'    => Request::get( 'language_id' ),
 				'base_string_id' => $baseString->id,

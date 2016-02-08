@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class String extends Model {
+class TranslatedString extends Model {
 
 	protected $fillable = [
 		'project_id', 'language_id', 'base_string_id', 'user_id', 'text', 'up_votes', 'down_votes', 'is_accepted'
