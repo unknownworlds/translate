@@ -21,6 +21,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Email</th>
                                 <th>Roles</th>
                                 <th>Options</th>
                             </tr>
@@ -30,6 +31,7 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>
                                         @foreach($user->roles as $role)
                                         {{ $role->name }}
