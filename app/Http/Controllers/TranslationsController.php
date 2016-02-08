@@ -128,11 +128,11 @@ class TranslationsController extends BaseApiController {
 
 	public function users() {
 
-		$users = TranslatedString::join( 'users', 'users.id', '=', 'strings.user_id' )
+		$users = TranslatedString::join( 'users', 'users.id', '=', 'translated_strings.user_id' )
 		                         ->selectRaw( 'count(*) AS count, user_id, name' )
 		                         ->where( 'project_id', '=', Request::get( 'project_id' ) )
 		                         ->where( 'language_id', '=', Request::get( 'language_id' ) )
-		                         ->groupBy( 'strings.user_id' )
+		                         ->groupBy( 'translated_strings.user_id' )
 		                         ->limit( 25 )
 		                         ->get();
 

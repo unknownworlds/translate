@@ -49,11 +49,11 @@ class TranslationFilesController extends BaseApiController {
 		$languages   = Language::all();
 
 		foreach ( $languages as $language ) {
-			$translatedStrings = TranslatedString::join( 'base_strings', 'strings.base_string_id', '=', 'base_strings.id' )
-			                                     ->where( 'strings.project_id', '=', $project->id )
+			$translatedStrings = TranslatedString::join( 'base_strings', 'translated_strings.base_string_id', '=', 'base_strings.id' )
+			                                     ->where( 'translated_strings.project_id', '=', $project->id )
 			                                     ->where( 'language_id', '=', $language->id )
 			                                     ->where( 'is_accepted', '=', true )
-			                                     ->get( [ 'key', 'strings.text' ] )
+			                                     ->get( [ 'key', 'translated_strings.text' ] )
 			                                     ->lists( 'text', 'key' )
 			                                     ->toArray();
 
