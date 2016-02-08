@@ -87,7 +87,7 @@ class User extends Model implements AuthenticatableContract,
 	}
 
 	public function translatedStrings() {
-		return $this->hasMany( 'App\String' );
+		return $this->hasMany( 'App\TransaltedString' );
 	}
 
 	public function getSocialiteUser( $provider, $userData ) {
