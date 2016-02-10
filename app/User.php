@@ -106,4 +106,14 @@ class User extends Model implements AuthenticatableContract,
 		return $user;
 	}
 
+	/**
+	 * Set the password to be hashed when saved
+	 *
+	 * @param $password
+	 */
+	public function setPasswordAttribute($password)
+	{
+		$this->attributes['password'] = \Hash::make($password);
+	}
+
 }
