@@ -33,6 +33,7 @@
                 <li><a href="{{ url('/pages/instructions') }}">Instructions</a></li>
                 <li><a href="{{ url('/pages/guidelines') }}">Guidelines</a></li>
                 <li><a href="{{ url('/pages/faq') }}">FAQ</a></li>
+                <li><a href="http://forums.unknownworlds.com/categories/subnautica-translations">Translations forums</a></li>
                 @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
                     <li><a href="{{ url('/users') }}">Users</a></li>
                     <li><a href="{{ url('/roles') }}">Roles</a></li>
