@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'mailer@translate.unknownworlds.com', 'name' => 'Unknown Worlds Translations'],
+	'from' => ['address' => 'no-reply@unknownworlds.com', 'name' => 'Unknown Worlds Translations'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,8 +67,7 @@ return [
 	|
 	*/
 
-	// Crap.
-	'encryption' => null,
+	'encryption' => env('MAIL_ENCRYPTION', null),
 
 	/*
 	|--------------------------------------------------------------------------
