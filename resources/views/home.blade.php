@@ -11,10 +11,15 @@
                     <div class="panel-body">
 
                         <div class="alert alert-info">
-                            <strong>Important!</strong> Application is in testing phase. Things might break. Please
-                            report any bugs and feature requests to lukas@unknownworlds.com or via twitter
-                            to @lnowaczek. For introduction, guidelines, and instructions please see the Guidelines,
-                            link available in main menu.
+                            Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
+                            to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.
+                        </div>
+
+                        <div class="alert alert-info">
+                            <strong>Message for all admins:</strong> translation forum was created recently, it should
+                            help with the communication issue. It's available <a
+                                    href="http://forums.unknownworlds.com/categories/subnautica-translations">here</a>.
+                            Keep an eye on them ;)
                         </div>
 
                         <ul class="nav nav-tabs" role="tablist">
