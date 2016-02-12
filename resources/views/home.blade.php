@@ -19,7 +19,7 @@
                             <strong>Message for all admins:</strong> translation forum was created recently, it should
                             help with the communication issue. It's available <a
                                     href="http://forums.unknownworlds.com/categories/subnautica-translations">here</a>.
-                            Keep an eye on them ;)
+                            Keep an eye on it ;)
                         </div>
 
                         <ul class="nav nav-tabs" role="tablist">
