@@ -12,7 +12,7 @@ class CreateStringsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('strings', function(Blueprint $table) {
+		Schema::create('translated_strings', function(Blueprint $table) {
             $table->increments('id');
 
             $table->integer('project_id')->unsigned()->index();
@@ -42,7 +42,7 @@ class CreateStringsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('strings');
+		Schema::drop('translated_strings');
 	}
 
 }
