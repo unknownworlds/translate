@@ -150,4 +150,10 @@ class TranslationsController extends BaseApiController {
 		return $this->respond( $admins );
 	}
 
+	public function translationHistory() {
+		$baseStrings = TranslatedString::withTrashed()->where( 'project_id', '=', Request::get( 'project_id' ) )->where( 'language_id', '=', Request::get( 'language_id' ) )->where( 'base_string_id', '=', Request::get( 'base_string_id' ) )->get();
+
+		return $this->respond( $baseStrings );
+	}
+
 }

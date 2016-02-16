@@ -7,12 +7,21 @@
 
         @include('translations/partials/projectSelectForm')
 
+        @include('translations/partials/translationHistoryModal')
+
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
                 <div class="panel panel-default" ng-repeat="baseString in baseStrings">
                     <div class="panel-heading">
-                        <h3 class="panel-title">@{{baseString.key}}</h3>
+                        <h3 class="panel-title">@{{baseString.key}}
+                            <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
+                                <button type="button" class="btn btn-default"
+                                        ng-click="showTranslationHistory(baseString.id)">
+                                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </h3>
                         <i style="white-space: pre-line">
                             @{{baseString.text}}
                         </i>
@@ -22,7 +31,7 @@
                             <li class="list-group-item clearfix"
                                 ng-class="{'list-group-item-success': string.is_accepted}"
                                 ng-repeat="string in strings[baseString.id]">
-                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                <div class="btn-group pull-right" role="group" aria-label="actions">
                                     <button type="button" class="btn btn-default" disabled="disabled">
                                         @{{string.up_votes-string.down_votes}}
                                     </button>
