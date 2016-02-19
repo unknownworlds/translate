@@ -12,7 +12,7 @@ angular.module('translate', [])
         $scope.loadTranslatedStrings = function () {
             $scope.loading++;
             $http.get('/api/strings?project_id=' + $scope.currentProject + '&language_id=' + $scope.currentLanguage).success(function (data, status, headers, config) {
-                var strings = [];
+                var strings = $scope.strings;
                 angular.forEach(data, function (string) {
                     strings[string.base_string_id].push(string);
                 });
