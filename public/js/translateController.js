@@ -12,9 +12,11 @@ angular.module('translate', [])
         $scope.loadTranslatedStrings = function () {
             $scope.loading++;
             $http.get('/api/strings?project_id=' + $scope.currentProject + '&language_id=' + $scope.currentLanguage).success(function (data, status, headers, config) {
+                var strings = [];
                 angular.forEach(data, function (string) {
-                    $scope.strings[string.base_string_id].push(string);
+                    strings[string.base_string_id].push(string);
                 });
+                $scope.strings = strings;
             }).error(function (data, status, headers, config) {
                 alert('Error ' + status + ' occured. Please try again.')
             }).finally(function () {
@@ -62,11 +64,13 @@ angular.module('translate', [])
 
             $http.get('/api/base-strings?project_id=' + $scope.currentProject).success(function (data, status, headers, config) {
                 $scope.baseStrings = data;
+                var strings = [];
 
                 angular.forEach(data, function (string) {
-                    $scope.strings[string.id] = [];
+                    strings[string.id] = [];
                 });
 
+                $scope.strings = strings;
                 $scope.loadTranslatedStrings();
                 $scope.loadInvolvedUsers();
                 $scope.loadAdmins();
