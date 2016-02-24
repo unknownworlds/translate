@@ -19,7 +19,7 @@
                         <h3 class="panel-title">@{{baseString.key}}
                             <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
                                 <button type="button" class="btn btn-default"
-                                        ng-click="showTranslationHistory(baseString.id)">
+                                        ng-click="showTranslationHistory(baseString.id)" title="Translations history">
                                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                 </button>
                             </div>
@@ -34,23 +34,23 @@
                                 ng-class="{'list-group-item-success': string.is_accepted}"
                                 ng-repeat="string in strings[baseString.id]">
                                 <div class="btn-group pull-right" role="group" aria-label="actions">
-                                    <button type="button" class="btn btn-default" disabled="disabled">
+                                    <button type="button" class="btn btn-default" disabled="disabled" title="Score">
                                         @{{string.up_votes-string.down_votes}}
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="vote(baseString.id, string.id, 1)">
+                                            ng-click="vote(baseString.id, string.id, 1)" title="Vote up, good translation">
                                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="vote(baseString.id, string.id, -1)">
+                                            ng-click="vote(baseString.id, string.id, -1)" title="Vote down, bad translation">
                                         <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="trash(baseString.id, string.id)" ng-if="isAdmin">
+                                            ng-click="trash(baseString.id, string.id)" ng-if="isAdmin" title="Move to trash">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="accept(baseString.id, string.id)" ng-if="isAdmin">
+                                            ng-click="accept(baseString.id, string.id)" ng-if="isAdmin" title="Accept">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
                                 </div>
