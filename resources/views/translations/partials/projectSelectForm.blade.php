@@ -23,25 +23,29 @@
                 </div>
                 {!! Form::close() !!}
 
-                <hr>
+                <div ng-if="pagedData.length">
+                    <hr>
 
-                <ul class="list-inline">
-                    <li><b>Language administrators:</b></li>
-                    <li ng-repeat="user in admins">@{{user.name}}</li>
-                    <li ng-show="!admins.length">No admins for this language</li>
-                </ul>
+                    <ul class="list-inline">
+                        <li><b>Language administrators:</b></li>
+                        <li ng-repeat="user in admins">@{{user.name}}</li>
+                        <li ng-show="!admins.length">No admins for this language</li>
+                    </ul>
 
-                <ul class="list-inline">
-                    <li><b>Top contributors:</b></li>
-                    <li ng-repeat="user in topUsers">@{{user.name}} (@{{user.count}})</li>
-                    <li ng-show="!topUsers.length">Noone contributed yet</li>
-                </ul>
+                    <ul class="list-inline">
+                        <li><b>Top contributors:</b></li>
+                        <li ng-repeat="user in topUsers">@{{user.name}} (@{{user.count}})</li>
+                        <li ng-show="!topUsers.length">Noone contributed yet</li>
+                    </ul>
 
-                <hr>
+                    <hr>
 
-                <div class="filters">
-                    <button class="btn btn-default" ng-click="hideAccepted()">Hide strings with accepted translations</button>
-                    <i>Load data again to reset</i>
+                    <div class="filters">
+                        <button class="btn btn-default" ng-click="hideAccepted()"
+                                ng-class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
+                            translations
+                        </button>
+                    </div>
                 </div>
 
             </div>

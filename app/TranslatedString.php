@@ -19,7 +19,7 @@ class TranslatedString extends Model {
 	protected $dates = [ 'deleted_at' ];
 
 	public function user() {
-		return $this->hasOne('App\User');
+		return $this->belongsTo('App\User');
 	}
 
 	public function language() {

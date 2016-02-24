@@ -38,7 +38,7 @@ class User extends Model implements AuthenticatableContract,
 	 *
 	 * @var array
 	 */
-	protected $hidden = [ 'password', 'remember_token' ];
+	protected $hidden = [ 'password', 'remember_token', 'oauth_provider', 'oauth_id' ];
 
 	/**
 	 * @return mixed

@@ -3,20 +3,27 @@ angular.module('translate', [])
         $scope.currentProject = null;
         $scope.currentLanguage = null;
         $scope.isAdmin = false;
+        $scope.baseStrings = [];
         $scope.strings = [];
+        $scope.filteredData = [];
+        $scope.pagedData = [];
         $scope.translatedStringsHistory = [];
         $scope.topUsers = [];
         $scope.admins = [];
         $scope.loading = 0;
+        $scope.acceptedStringsHidden = false;
+
+        // Pagination
+        $scope.currentPage = 0;
+        $scope.pageSize = 100;
+        $scope.numberOfPages = 0;
 
         $scope.loadTranslatedStrings = function () {
             $scope.loading++;
             $http.get('/api/strings?project_id=' + $scope.currentProject + '&language_id=' + $scope.currentLanguage).success(function (data, status, headers, config) {
-                var strings = $scope.strings;
                 angular.forEach(data, function (string) {
-                    strings[string.base_string_id].push(string);
+                    $scope.strings[string.base_string_id].push(string);
                 });
-                $scope.strings = strings;
             }).error(function (data, status, headers, config) {
                 alert('Error ' + status + ' occured. Please try again.')
             }).finally(function () {
@@ -64,13 +71,14 @@ angular.module('translate', [])
 
             $http.get('/api/base-strings?project_id=' + $scope.currentProject).success(function (data, status, headers, config) {
                 $scope.baseStrings = data;
-                var strings = [];
 
                 angular.forEach(data, function (string) {
-                    strings[string.id] = [];
+                    $scope.strings[string.id] = [];
                 });
 
-                $scope.strings = strings;
+                $scope.pagedData = $scope.filteredData = $scope.baseStrings;
+                $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
+
                 $scope.loadTranslatedStrings();
                 $scope.loadInvolvedUsers();
                 $scope.loadAdmins();
@@ -180,19 +188,58 @@ angular.module('translate', [])
         }
 
         $scope.hideAccepted = function () {
-            angular.forEach($scope.baseStrings, function (baseString, key) {
-                $scope.baseStrings[key].is_translated = false;
+            if ($scope.acceptedStringsHidden) {
+                $scope.filteredData = $scope.baseStrings;
+                $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
+                $scope.setPage(0);
+                $scope.acceptedStringsHidden = false;
+            }
+            else {
+                angular.forEach($scope.baseStrings, function (baseString, key) {
+                    $scope.baseStrings[key].is_translated = false;
 
-                angular.forEach($scope.strings[baseString.id], function (string) {
-                    if ($scope.baseStrings[key].is_translated !== true)
-                        $scope.baseStrings[key].is_translated = false;
+                    angular.forEach($scope.strings[baseString.id], function (string) {
+                        if ($scope.baseStrings[key].is_translated !== true)
+                            $scope.baseStrings[key].is_translated = false;
 
-                    if (string.is_accepted == true) {
-                        $scope.baseStrings[key].is_translated = true;
-                    }
+                        if (string.is_accepted == true) {
+                            $scope.baseStrings[key].is_translated = true;
+                        }
+                    });
                 });
-            });
 
-            $scope.baseStrings = $filter('filter')($scope.baseStrings, {is_translated: false})
+                $scope.filteredData = $filter('filter')($scope.baseStrings, {is_translated: false})
+                $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
+                $scope.setPage(0);
+                $scope.acceptedStringsHidden = true;
+            }
         }
+
+        $scope.range = function (start, end) {
+            var ret = [];
+            if (!end) {
+                end = start;
+                start = 0;
+            }
+            for (var i = start; i < end; i++) {
+                ret.push(i);
+            }
+            return ret;
+        };
+
+        $scope.previousPage = function () {
+            $scope.setPage($scope.currentPage - 1);
+        };
+
+        $scope.nextPage = function () {
+            $scope.setPage($scope.currentPage + 1);
+        };
+
+        $scope.setPage = function (page) {
+            $scope.currentPage = page;
+
+            var start = ($scope.currentPage * $scope.pageSize);
+            var end = start + $scope.pageSize;
+            $scope.pagedData = $scope.filteredData.slice(start, end)
+        };
     });

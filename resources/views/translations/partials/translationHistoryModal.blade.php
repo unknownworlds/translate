@@ -9,8 +9,9 @@
             <div class="modal-body">
                 <ul class="list-group">
                     <li class="list-group-item clearfix"
-                        ng-repeat="string in translatedStringsHistory" style="white-space: pre-line">
-                        @{{string.text}}
+                        ng-repeat="string in translatedStringsHistory">
+                        <strong>@{{string.user.name}}</strong> (@{{string.created_at}})
+                        <p style="white-space: pre-line">@{{string.text}}</p>
                     </li>
                 </ul>
             </div>

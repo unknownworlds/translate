@@ -9,10 +9,12 @@
 
         @include('translations/partials/translationHistoryModal')
 
+        @include('translations/partials/pagination')
+
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <div class="panel panel-default" ng-repeat="baseString in baseStrings">
+                <div class="panel panel-default" ng-repeat="baseString in pagedData | limitTo:100">
                     <div class="panel-heading">
                         <h3 class="panel-title">@{{baseString.key}}
                             <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
@@ -52,8 +54,7 @@
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
                                 </div>
-                                <p style="white-space: pre-line">
-                                    @{{string.text}}
+                                <p style="white-space: pre-line">@{{string.text}}
                                 </p>
                             </li>
                         </ul>
@@ -76,5 +77,7 @@
             </div>
 
         </div>
+
+        @include('translations/partials/pagination')
     </div>
 @endsection
