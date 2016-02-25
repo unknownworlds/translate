@@ -54,15 +54,18 @@ class TranslationsController extends BaseApiController {
 		$input            = Request::all();
 		$input['user_id'] = Auth::user()->id;
 
-		$duplicate = TranslatedString::where( [
-			'project_id' => Request::get( 'project_id' ),
-			'language_id' => Request::get( 'language_id' ),
+		$duplicates = TranslatedString::where( [
+			'project_id'     => Request::get( 'project_id' ),
+			'language_id'    => Request::get( 'language_id' ),
 			'base_string_id' => Request::get( 'base_string_id' ),
-			'text' => Request::get( 'text' ),
-		] )->first();
+			'text'           => Request::get( 'text' ),
+		] )->get();
 
-		if ( $duplicate ) {
-			return $this->respondValidationFailed( 'Translation already exist!' );
+		// TODO: Kinda lame hack. Server was configured by Forge. Broken on both Forge and Homestead. WTF. Caused by MySQL config issues.
+		foreach ( $duplicates as $duplicate ) {
+			if ( $duplicate->text == Request::get( 'text' ) ) {
+				return $this->respondValidationFailed( 'Translation already exist!' );
+			}
 		}
 
 		$string = TranslatedString::create( $input );
@@ -152,13 +155,13 @@ class TranslationsController extends BaseApiController {
 
 	public function translationHistory() {
 		$baseStrings = TranslatedString::withTrashed()
-			->where( 'project_id', '=', Request::get( 'project_id' ) )
-			->where( 'language_id', '=', Request::get( 'language_id' ) )
-			->where( 'base_string_id', '=', Request::get( 'base_string_id' ) )
-			->with('User')
-			->orderBy('created_at', 'desc')
-			->limit(5)
-			->get();
+		                               ->where( 'project_id', '=', Request::get( 'project_id' ) )
+		                               ->where( 'language_id', '=', Request::get( 'language_id' ) )
+		                               ->where( 'base_string_id', '=', Request::get( 'base_string_id' ) )
+		                               ->with( 'User' )
+		                               ->orderBy( 'created_at', 'desc' )
+		                               ->limit( 5 )
+		                               ->get();
 
 		return $this->respond( $baseStrings );
 	}
