@@ -23,7 +23,7 @@
                 </div>
                 {!! Form::close() !!}
 
-                <div ng-if="pagedData.length">
+                <div ng-show="baseStrings.length">
                     <hr>
 
                     <ul class="list-inline">
@@ -47,7 +47,7 @@
                         </button>
                         {{--<div class="input-group">--}}
                         <input id="searchInput" type="text" class="form-control pull-right clearfix"
-                               ng-model="searchInput" ng-model-options="{debounce: 500}"
+                               ng-model="searchInput" ng-model-options="{debounce: 250}"
                                placeholder="Search...">
 
                         {{--<div class="input-group-btn">--}}
