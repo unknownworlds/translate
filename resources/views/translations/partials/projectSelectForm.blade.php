@@ -45,6 +45,15 @@
                                 ng-class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
                             translations
                         </button>
+                        {{--<div class="input-group">--}}
+                        <input id="searchInput" type="text" class="form-control pull-right clearfix"
+                               ng-model="searchInput" ng-model-options="{debounce: 500}"
+                               placeholder="Search...">
+
+                        {{--<div class="input-group-btn">--}}
+                        {{--<button class="btn btn-default" type="button" ng-click="add(baseString.id)">Add</button>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
 

@@ -15,13 +15,6 @@
                             to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.
                         </div>
 
-                        <div class="alert alert-info">
-                            <strong>Message for all admins:</strong> translation forum was created recently, it should
-                            help with the communication issue. It's available <a
-                                    href="http://forums.unknownworlds.com/categories/subnautica-translations">here</a>.
-                            Keep an eye on it ;)
-                        </div>
-
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active">
                                 <a href="#translation-log" aria-controls="translation-log" role="tab" data-toggle="tab">

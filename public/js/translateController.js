@@ -77,7 +77,7 @@ angular.module('translate', [])
                 });
 
                 $scope.pagedData = $scope.filteredData = $scope.baseStrings;
-                $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
+                $scope.resetPagination();
 
                 $scope.loadTranslatedStrings();
                 $scope.loadInvolvedUsers();
@@ -190,8 +190,7 @@ angular.module('translate', [])
         $scope.hideAccepted = function () {
             if ($scope.acceptedStringsHidden) {
                 $scope.filteredData = $scope.baseStrings;
-                $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
-                $scope.setPage(0);
+                $scope.resetPagination();
                 $scope.acceptedStringsHidden = false;
             }
             else {
@@ -209,8 +208,7 @@ angular.module('translate', [])
                 });
 
                 $scope.filteredData = $filter('filter')($scope.baseStrings, {is_translated: false})
-                $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
-                $scope.setPage(0);
+                $scope.resetPagination();
                 $scope.acceptedStringsHidden = true;
             }
         }
@@ -241,5 +239,15 @@ angular.module('translate', [])
             var start = ($scope.currentPage * $scope.pageSize);
             var end = start + $scope.pageSize;
             $scope.pagedData = $scope.filteredData.slice(start, end)
+        };
+
+        $scope.$watch('searchInput', function (val) {
+            $scope.filteredData = $filter('filter')($scope.baseStrings, {key: val});
+            $scope.resetPagination();
+        })
+
+        $scope.resetPagination = function () {
+            $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
+            $scope.setPage(0);
         };
     });

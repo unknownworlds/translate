@@ -19,3 +19,9 @@
 .resize-vertically {
     resize: vertical;
 }
+
+#searchInput {
+    width: auto;
+    min-width: 350px;
+    display: inline-block;
+}
