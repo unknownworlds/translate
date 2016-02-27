@@ -242,7 +242,7 @@ angular.module('translate', [])
         };
 
         $scope.$watch('searchInput', function (val) {
-            $scope.filteredData = $filter('filter')($scope.baseStrings, {key: val});
+            $scope.filteredData = $filter('filter')($scope.baseStrings, {key: val} && {text: val});
             $scope.resetPagination();
         })
 
