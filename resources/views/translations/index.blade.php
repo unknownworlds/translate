@@ -54,8 +54,7 @@
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
                                 </div>
-                                <p style="white-space: pre-line">@{{string.text}}
-                                </p>
+                                <span style="white-space: pre-line">@{{string.text}}</span>
                             </li>
                         </ul>
 
