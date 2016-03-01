@@ -12,6 +12,7 @@ angular.module('translate', [])
         $scope.admins = [];
         $scope.loading = 0;
         $scope.acceptedStringsHidden = false;
+        $scope.showingPendingOnly = false;
 
         // Pagination
         $scope.currentPage = 0;
@@ -194,24 +195,53 @@ angular.module('translate', [])
                 $scope.acceptedStringsHidden = false;
             }
             else {
-                angular.forEach($scope.baseStrings, function (baseString, key) {
-                    $scope.baseStrings[key].is_translated = false;
-
-                    angular.forEach($scope.strings[baseString.id], function (string) {
-                        if ($scope.baseStrings[key].is_translated !== true)
-                            $scope.baseStrings[key].is_translated = false;
-
-                        if (string.is_accepted == true) {
-                            $scope.baseStrings[key].is_translated = true;
-                        }
-                    });
-                });
+                $scope.assignTagsToBaseStrings();
 
                 $scope.filteredData = $filter('filter')($scope.baseStrings, {is_translated: false})
                 $scope.resetPagination();
                 $scope.acceptedStringsHidden = true;
+                $scope.showingPendingOnly = false;
             }
         }
+
+        $scope.showPendingOnly = function () {
+            if ($scope.showingPendingOnly) {
+                $scope.filteredData = $scope.baseStrings;
+                $scope.resetPagination();
+                $scope.showingPendingOnly = false;
+            }
+            else {
+                $scope.assignTagsToBaseStrings();
+
+                $scope.filteredData = $filter('filter')($scope.baseStrings, {
+                    translation_pending: true,
+                    is_translated: false
+                })
+                $scope.resetPagination();
+                $scope.showingPendingOnly = true;
+                $scope.acceptedStringsHidden = false;
+            }
+        }
+
+        $scope.assignTagsToBaseStrings = function () {
+            angular.forEach($scope.baseStrings, function (baseString, key) {
+                $scope.baseStrings[key].is_translated = false;
+
+                angular.forEach($scope.strings[baseString.id], function (string) {
+                    if ($scope.baseStrings[key].is_translated !== true)
+                        $scope.baseStrings[key].is_translated = false;
+
+                    if (string.is_accepted == true) {
+                        $scope.baseStrings[key].is_translated = true;
+                    }
+                });
+
+                if ($scope.strings[baseString.id].length > 0)
+                    $scope.baseStrings[key].translation_pending = true;
+                else
+                    $scope.baseStrings[key].translation_pending = false;
+            });
+        };
 
         $scope.range = function (start, end) {
             var ret = [];
@@ -226,11 +256,13 @@ angular.module('translate', [])
         };
 
         $scope.previousPage = function () {
-            $scope.setPage($scope.currentPage - 1);
+            if ($scope.currentPage - 1 >= 0)
+                $scope.setPage($scope.currentPage - 1);
         };
 
         $scope.nextPage = function () {
-            $scope.setPage($scope.currentPage + 1);
+            if ($scope.currentPage + 1 < $scope.numberOfPages)
+                $scope.setPage($scope.currentPage + 1);
         };
 
         $scope.setPage = function (page) {
@@ -244,6 +276,8 @@ angular.module('translate', [])
         $scope.$watch('searchInput', function (val) {
             $scope.filteredData = $filter('filter')($scope.baseStrings, {key: val} && {text: val});
             $scope.resetPagination();
+            $scope.showingPendingOnly = false;
+            $scope.acceptedStringsHidden = false;
         })
 
         $scope.resetPagination = function () {

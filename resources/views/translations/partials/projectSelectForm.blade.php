@@ -45,15 +45,14 @@
                                 ng-class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
                             translations
                         </button>
-                        {{--<div class="input-group">--}}
+
+                        <button class="btn btn-default" ng-click="showPendingOnly()"
+                                ng-class="{'btn-success': showingPendingOnly}">Show pending translations only
+                        </button>
+
                         <input id="searchInput" type="text" class="form-control pull-right clearfix"
                                ng-model="searchInput" ng-model-options="{debounce: 250}"
                                placeholder="Search...">
-
-                        {{--<div class="input-group-btn">--}}
-                        {{--<button class="btn btn-default" type="button" ng-click="add(baseString.id)">Add</button>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
                     </div>
                 </div>
 
