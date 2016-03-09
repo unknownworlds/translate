@@ -5,7 +5,7 @@
 
 <div class="form-group">
     {!! Form::label('file_handler', 'File handler name:') !!}
-    {!! Form::text('file_handler', null, ['class' => 'form-control']) !!}
+    {!! Form::select('file_handler', ['SimpleJsonObject' => 'SimpleJsonObject', 'Manual' => 'Manual'], null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">

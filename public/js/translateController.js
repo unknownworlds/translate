@@ -2,7 +2,9 @@ angular.module('translate', [])
     .controller('TranslateController', function ($scope, $http, $filter) {
         $scope.currentProject = null;
         $scope.currentLanguage = null;
+        $scope.projectHandlers = projectHandlers;
         $scope.isAdmin = false;
+        $scope.isRoot = false;
         $scope.baseStrings = [];
         $scope.strings = [];
         $scope.filteredData = [];
@@ -57,7 +59,8 @@ angular.module('translate', [])
         $scope.checkPrivileges = function () {
             $scope.loading++;
             $http.get('/api/check-privileges?language_id=' + $scope.currentLanguage).success(function (data, status, headers, config) {
-                $scope.isAdmin = data;
+                $scope.isAdmin = data.is_admin;
+                $scope.isRoot = data.is_root;
             }).error(function (data, status, headers, config) {
                 alert('Error ' + status + ' occured. Please try again.')
             }).finally(function () {
@@ -133,6 +136,27 @@ angular.module('translate', [])
             });
         }
 
+        $scope.trashBaseString = function (base_string) {
+            $scope.loading++;
+
+            var postData = {
+                id: base_string.id
+            };
+
+            $http.post('/api/base-strings/trash', postData).success(function (data, status, headers, config) {
+                angular.forEach($scope.baseStrings, function (string, key) {
+                    if (string.id == base_string.id) {
+                        $scope.baseStrings.splice(key, 3);
+                    }
+                });
+            }).error(function (data, status, headers, config) {
+                alert('Error ' + status + ' occured. Please try again.')
+            }).finally(function () {
+                $scope.loading--;
+                $scope.resetPagination();
+            });
+        }
+
         $scope.accept = function (base_string_id, string_id) {
             $scope.loading++;
             var postData = {
@@ -185,6 +209,39 @@ angular.module('translate', [])
                 alert('Error ' + status + ' occured. Please try again.')
             }).finally(function () {
                 $scope.loading--;
+            });
+        }
+
+        $scope.showNewBaseStringForm = function () {
+            $scope.manualInputBaseString = {};
+            $('#baseStringEditModal').modal();
+        }
+
+        $scope.editBaseString = function (base_string) {
+            $scope.manualInputBaseString = base_string;
+            $('#baseStringEditModal').modal();
+        }
+
+        $scope.saveBaseString = function (base_string_id) {
+            $scope.loading++;
+
+            var postData = {
+                id: base_string_id,
+                project_id: $scope.currentProject,
+                key: $scope.manualInputBaseString.key,
+                text: $scope.manualInputBaseString.text
+            };
+
+            $http.post('/api/base-strings', postData).success(function (data, status, headers, config) {
+                if (typeof base_string_id == 'undefined') {
+                    $scope.baseStrings.push(data);
+                    $scope.resetPagination();
+                }
+            }).error(function (data, status, headers, config) {
+                alert('Error ' + status + ' occured. ' + data.error.message)
+            }).finally(function () {
+                $scope.loading--;
+                $('#baseStringEditModal').modal('hide');
             });
         }
 

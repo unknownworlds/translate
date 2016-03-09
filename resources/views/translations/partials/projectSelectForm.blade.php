@@ -10,7 +10,7 @@
                 {!! Form::open([ 'class' => 'form-inline' ]) !!}
                 <div class="form-group">
                     {!! Form::label('project', 'Project:') !!}
-                    {!! Form::select('project', $projects, null, ['class' => 'form-control']) !!}
+                    {!! Form::select('project', $projectList, null, ['class' => 'form-control']) !!}
                 </div>
 
                 <div class="form-group">
@@ -22,6 +22,14 @@
                     {!! Form::button('Load data', ['class' => 'btn btn-primary form-control', 'ng-click' => 'loadData()']) !!}
                 </div>
                 {!! Form::close() !!}
+
+                <div ng-show="projectHandlers[currentProject] == 'Manual' && isRoot">
+                    <hr>
+
+                    <button class="btn btn-default" ng-click="showNewBaseStringForm()">
+                        Add string
+                    </button>
+                </div>
 
                 <div ng-show="baseStrings.length">
                     <hr>

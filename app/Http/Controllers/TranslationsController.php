@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\BaseString;
+use App\Http\Requests\BaseStringRequest;
+use App\Http\Requests\BaseStringTrashRequest;
 use App\Http\Requests\StringAdminRequest;
 use App\Http\Requests\StringRequest;
 use App\Http\Requests\StringVoteRequest;
@@ -20,10 +22,13 @@ class TranslationsController extends BaseApiController {
 	}
 
 	public function index() {
-		$projects  = Project::orderBy( 'name' )->lists( 'name', 'id' );
+		$projects        = Project::orderBy( 'name' )->get();
+		$projectList     = $projects->lists( 'name', 'id' );
+		$projectHandlers = $projects->lists( 'file_handler', 'id' );
+
 		$languages = Language::orderBy( 'name' )->lists( 'name', 'id' );
 
-		return view( 'translations/index', compact( 'projects', 'languages' ) );
+		return view( 'translations/index', compact( 'projectList', 'projectHandlers', 'languages' ) );
 	}
 
 	public function baseStrings() {
@@ -45,7 +50,10 @@ class TranslationsController extends BaseApiController {
 	public function checkPrivileges() {
 		$language = Language::findOrFail( Request::get( 'language_id' ) );
 
-		$result = Auth::user()->hasRole( $language->name . ' admin' ) || Auth::user()->hasRole( 'Root' );
+		$result = [
+			'is_admin' => Auth::user()->hasRole( $language->name . ' admin' ) || Auth::user()->hasRole( 'Root' ),
+			'is_root'  => Auth::user()->hasRole( 'Root' )
+		];
 
 		return $this->respond( $result );
 	}
@@ -75,6 +83,29 @@ class TranslationsController extends BaseApiController {
 			'project_id' => Request::get( 'project_id' ),
 			'user_id'    => Auth::user()->id,
 			'text'       => Auth::user()->name . ' translated ' . $baseString . ' to ' . Request::get( 'text' )
+		] );
+
+		return $this->respond( $string );
+	}
+
+	public function storeBaseString( BaseStringRequest $request ) {
+		$input = Request::all();
+
+		if ( Request::has( 'id' ) ) {
+			$string = BaseString::findOrFail( $input['id'] );
+			$string->update( [
+				'text' => $input['text']
+			] );
+
+			TranslatedString::where( 'base_string_id', '=', $string->id )->delete();
+		} else {
+			$string = BaseString::create( $input );
+		}
+
+		Log::create( [
+			'project_id' => Request::get( 'project_id' ),
+			'user_id'    => Auth::user()->id,
+			'text'       => Auth::user()->name . ' added new base string ' . $string['text']
 		] );
 
 		return $this->respond( $string );
@@ -127,6 +158,19 @@ class TranslationsController extends BaseApiController {
 		$string->delete();
 
 		return $this->respond( 'String deleted.' );
+	}
+
+	/**
+	 * @param BaseStringTrashRequest $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function trashBaseString( BaseStringTrashRequest $request ) {
+		$string = BaseString::findOrFail( Request::get( 'id' ) );
+
+		$string->delete();
+
+		return $this->respond( 'Base string deleted.' );
 	}
 
 	public function users() {

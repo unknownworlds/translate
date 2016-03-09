@@ -5,9 +5,11 @@
 
         <div id="ajax-loader" ng-show="loading"><img src="img/ajax-loader.svg" alt="AJAX loader"/></div>
 
+        @include('translations/partials/javascriptData')
+
         @include('translations/partials/projectSelectForm')
 
-        @include('translations/partials/translationHistoryModal')
+        @include('translations/partials/modals')
 
         @include('translations/partials/pagination')
 
@@ -18,6 +20,14 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">@{{baseString.key}}
                             <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
+                                <button type="button" class="btn btn-default"
+                                        ng-click="trashBaseString(baseString)" ng-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Move to trash">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-default"
+                                        ng-click="editBaseString(baseString)" ng-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Edit">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
                                 <button type="button" class="btn btn-default"
                                         ng-click="showTranslationHistory(baseString.id)" title="Translations history">
                                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>

@@ -24,6 +24,8 @@ Route::controllers([
 Route::group(array('prefix' => 'api'), function () {
 	// Frontend
 	Route::get('/base-strings', 'TranslationsController@baseStrings');
+	Route::post('/base-strings', 'TranslationsController@storeBaseString');
+	Route::post('/base-strings/trash', 'TranslationsController@trashBaseString');
 	Route::get('/strings', 'TranslationsController@strings');
 	Route::get('/check-privileges', 'TranslationsController@checkPrivileges');
 	Route::post('/strings/store', 'TranslationsController@store');
