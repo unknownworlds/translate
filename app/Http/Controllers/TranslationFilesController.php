@@ -4,6 +4,7 @@ use App\BaseString;
 use App\Language;
 use App\LanguageFileHandling\DiffHandler;
 use App\LanguageFileHandling\InputHandlerFactory;
+use App\LanguageFileHandling\OutputHandlerFactory;
 use App\Project;
 use App\TranslatedString;
 use File;
@@ -21,8 +22,7 @@ class TranslationFilesController extends BaseApiController {
 		$project = Project::where( [ 'api_key' => Request::get( 'api_key' ) ] )->firstOrFail();
 
 		// init input handler
-		$inputHandler = new InputHandlerFactory( $project->file_handler );
-		$inputHandler = $inputHandler->getFileHandler();
+		$inputHandler = InputHandlerFactory::getFileHandler($project->file_handler);
 
 		// pass reader results to diff handler
 		$input = $inputHandler->getParsedInput();
@@ -42,11 +42,10 @@ class TranslationFilesController extends BaseApiController {
 		// get project by api key
 		$project = Project::where( [ 'api_key' => Request::get( 'api_key' ) ] )->firstOrFail();
 
-		$dir = public_path() . '/output/' . $project->id . '/' . time();
-		mkdir( $dir, 0777, true );
-
-		$baseStrings = BaseString::where( 'project_id', '=', $project->id )->lists( 'text', 'key' )->toArray();
-		$languages   = Language::all();
+		// get the data
+		$languages    = Language::all();
+		$baseStrings  = BaseString::where( 'project_id', '=', $project->id )->lists( 'text', 'key' )->toArray();
+		$translations = [ ];
 
 		foreach ( $languages as $language ) {
 			$translatedStrings = TranslatedString::join( 'base_strings', 'translated_strings.base_string_id', '=', 'base_strings.id' )
@@ -57,25 +56,17 @@ class TranslationFilesController extends BaseApiController {
 			                                     ->lists( 'text', 'key' )
 			                                     ->toArray();
 
-			$output = array_merge( $baseStrings, $translatedStrings );
-			$output = json_encode( $output, JSON_PRETTY_PRINT );
-			$output = str_replace( '\n', "\n", $output );
-
-			$file = fopen( $dir . '/' . $language->name . '.json', 'w+' );
-			fputs( $file, $output );
-			fclose( $file );
+			$translations[] = [
+				'name'    => $language->name,
+				'strings' => array_merge( $baseStrings, $translatedStrings )
+			];
 		}
 
-		$outputFile = public_path() . '/output/' . $project->id . '/output.zip';
-		if ( is_file( $outputFile ) ) {
-			unlink( $outputFile );
-		}
+		// init output handler
+		$outputHandler = OutputHandlerFactory::getFileHandler( $project->file_handler, $project, $translations );
+		$output        = $outputHandler->getOutputFile();
 
-		exec( 'cd ' . public_path() . '/output/' . $project->id . ' && zip -j output.zip ' . $dir . '/*' );
-
-		File::deleteDirectory( $dir );
-
-		return Response::download( $outputFile );
+		return Response::download( $output );
 	}
 
 }
