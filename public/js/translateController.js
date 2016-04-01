@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) Unknown Worlds Entertainment, 2016. 
+ * Created by Lukas Nowaczek <lukas@unknownworlds.com> <@lnowaczek>
+ * Visit http://unknownworlds.com/
+ * This file is a part of proprietary software. 
+ */
+
 angular.module('translate', [])
     .controller('TranslateController', function ($scope, $http, $filter) {
         $scope.currentProject = null;
