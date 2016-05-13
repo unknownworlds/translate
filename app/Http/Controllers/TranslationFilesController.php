@@ -15,7 +15,6 @@ use App\LanguageFileHandling\InputHandlerFactory;
 use App\LanguageFileHandling\OutputHandlerFactory;
 use App\Project;
 use App\TranslatedString;
-use File;
 use Request;
 use Response;
 
@@ -38,7 +37,8 @@ class TranslationFilesController extends BaseApiController {
 		if ( $input == null ) {
 			return $this->respond( 'Fail, probably the input file is corrupted' );
 		}
-		new DiffHandler( $inputHandler->getParsedInput(), $project->id );
+		
+		new DiffHandler( $input, $project->id );
 
 		return $this->respond( 'Success!' );
 	}
