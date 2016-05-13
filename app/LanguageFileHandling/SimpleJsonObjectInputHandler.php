@@ -27,7 +27,8 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface {
 		// Remove whitespace from string
 		$output = trim( $output );
 		// Remove whitespace from the start of the JSON object
-		$output = preg_replace( '/{(\s+(.*)+\s+")/im', '{ "', $output );
+		// No need to remove // (comments) - they're removed by python script
+		$output = preg_replace( '/{(\s+")/im', '{ "', $output );
 		// Remove whitespace from the end of the doc
 		$output = preg_replace( '/"(\s)+}/im', '" }', $output );
 		// Remove whitespace between entries
