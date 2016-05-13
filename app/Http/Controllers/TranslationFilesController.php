@@ -43,9 +43,6 @@ class TranslationFilesController extends BaseApiController {
 		return $this->respond( 'Success!' );
 	}
 
-	/*
-	 * TODO: Extract! Refactor!
-	 */
 	public function processOutputFiles() {
 		// get project by api key
 		$project = Project::where( [ 'api_key' => Request::get( 'api_key' ) ] )->firstOrFail();
