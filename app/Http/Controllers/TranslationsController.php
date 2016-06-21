@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) Unknown Worlds Entertainment, 2016. 
+ * Copyright (c) Unknown Worlds Entertainment, 2016.
  * Created by Lukas Nowaczek <lukas@unknownworlds.com> <@lnowaczek>
  * Visit http://unknownworlds.com/
- * This file is a part of proprietary software. 
+ * This file is a part of proprietary software.
  */
 
 namespace App\Http\Controllers;
@@ -89,6 +89,7 @@ class TranslationsController extends BaseApiController {
 		$baseString = BaseString::findOrFail( Request::get( 'base_string_id' ) )->key;
 		Log::create( [
 			'project_id' => Request::get( 'project_id' ),
+			'language_id' => Request::get( 'language_id' ),
 			'user_id'    => Auth::user()->id,
 			'text'       => Auth::user()->name . ' translated ' . $baseString . ' to ' . Request::get( 'text' )
 		] );
