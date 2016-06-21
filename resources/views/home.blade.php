@@ -37,8 +37,8 @@
                                     @foreach($log as $entry)
                                         <li>
                                             {{ $entry->created_at->diffForHumans() }},
-                                            {{ $entry->project->name }}: {{ $entry->text }}
                                             <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png" alt="{{@ $languages[$entry->language_id] }}" />
+                                            {{ $entry->project->name }}: {{ $entry->text }}
                                         </li>
                                     @endforeach
                                 </ul>
