@@ -94,6 +94,7 @@ angular.module('translate', [])
                 $scope.loadInvolvedUsers();
                 $scope.loadAdmins();
                 $scope.checkPrivileges();
+                $scope.loadWhiteboard();
             }).error(function (data, status, headers, config) {
                 alert('Error ' + status + ' occured. Please try again.')
             }).finally(function () {
@@ -347,5 +348,35 @@ angular.module('translate', [])
         $scope.resetPagination = function () {
             $scope.numberOfPages = Math.ceil($scope.filteredData.length / $scope.pageSize);
             $scope.setPage(0);
+        };
+
+        $scope.loadWhiteboard = function () {
+            $scope.loading++;
+            $http.get('/api/admin-whiteboard/' + $scope.currentProject + '/' + $scope.currentLanguage).success(function (data, status, headers, config) {
+                $scope.whiteboard = data;
+            }).error(function (data, status, headers, config) {
+                alert('Error ' + status + ' occured. Please try again.')
+            }).finally(function () {
+                $scope.loading--;
+            });
+        };
+
+        $scope.saveWhiteboard = function () {
+            $scope.loading++;
+
+            var postData = {
+                project_id: $scope.currentProject,
+                language_id: $scope.currentLanguage,
+                text: $scope.whiteboard.text
+            };
+
+            console.log($scope.whiteboard);
+            $http.post('/api/admin-whiteboard', postData).success(function (data, status, headers, config) {
+                $scope.loadWhiteboard();
+            }).error(function (data, status, headers, config) {
+                alert('Error ' + status + ' occured. ' + data.error.message)
+            }).finally(function () {
+                $scope.loading--;
+            });
         };
     });

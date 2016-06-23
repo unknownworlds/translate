@@ -42,6 +42,8 @@ Route::group(array('prefix' => 'api'), function () {
 	Route::get('/strings/history', 'TranslationsController@translationHistory');
 	Route::get('/strings/users', 'TranslationsController@users');
 	Route::get('/strings/admins', 'TranslationsController@admins');
+	Route::get('/admin-whiteboard/{project_id}/{language_id}', 'AdminWhiteboardsController@find');
+	Route::post('/admin-whiteboard', 'AdminWhiteboardsController@store');
 
 	// Backend
 	Route::post('/strings/translation-file', 'TranslationFilesController@storeInputFile');

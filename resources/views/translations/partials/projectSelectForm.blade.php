@@ -3,7 +3,7 @@
         <div class="panel panel-default">
 
             <div class="panel-heading clearfix">
-                <h3 class="panel-title">Select language</h3>
+                <h3 class="panel-title">Options & Tools</h3>
             </div>
 
             <div class="panel-body">
@@ -64,6 +64,36 @@
                     </div>
                 </div>
 
+                <div ng-if="isAdmin || whiteboard.text">
+                    <hr>
+                    <h4>Admin whiteboard</h4>
+                </div>
+
+                <div ng-if="isAdmin">
+                    <div class="form-group">
+                    <textarea id="adminWhiteboard" class="form-control resize-vertically"
+                              placeholder="Type a message visible to everyone..." rows="1"
+                              ng-model="whiteboard.text"></textarea>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-default" ng-click="saveWhiteboard()" ng-if="isAdmin">Save</button>
+                        <div class="pull-right" ng-if="whiteboard.text">
+                            <span>Revision ID#@{{whiteboard.id}}, @{{whiteboard.created_at}},
+                                last edit by @{{whiteboard.user.name}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="whiteboard.text && !isAdmin">
+                    <div class="well" ng-model="">@{{ whiteboard.text }}</div>
+                    <div>
+                        <div class="pull-right" ng-if="whiteboard.text">
+                            <span>Revision ID#@{{whiteboard.id}}, @{{whiteboard.created_at}},
+                                last edit by @{{whiteboard.user.name}}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
