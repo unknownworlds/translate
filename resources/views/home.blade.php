@@ -105,8 +105,7 @@
                                                     {{ $entry->language->name }}
                                                 </td>
                                                 <td>
-                                                    {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}
-                                                    %
+                                                    {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%
                                                 </td>
                                                 <td>
                                                     <div class="progress">
