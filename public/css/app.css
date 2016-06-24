@@ -2,6 +2,14 @@
     padding-top: 15px;
 }
 
+.width60pc {
+    width: 60%;
+}
+
+.width10pc {
+    width: 10%;
+}
+
 #ajax-loader {
     background: #fff;
     text-align: center;

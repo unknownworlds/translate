@@ -37,7 +37,7 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th>Time ago</th>
+                                            <th class="width10pc">Time ago</th>
                                             <th>Lang.</th>
                                             <th>Project</th>
                                             <th>Entry</th>
@@ -91,7 +91,7 @@
                                             <th>Project</th>
                                             <th>Language</th>
                                             <th>Progress</th>
-                                            <th></th>
+                                            <th class="width60pc"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -108,7 +108,7 @@
                                                     {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}
                                                     %
                                                 </td>
-                                                <td width="60%">
+                                                <td>
                                                     <div class="progress">
                                                         <div class="progress-bar" role="progressbar" aria-valuenow="60"
                                                              aria-valuemin="0"
