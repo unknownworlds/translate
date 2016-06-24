@@ -109,7 +109,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="progress">
-                                                        <div ng-class="{'progress-bar': true, 'progress-bar-warning': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 0.8 && {{$entry->count / $baseStringCounts[$entry->project_id]}} < 1, 'progress-bar-success': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 1}" role="progressbar" aria-valuenow="60"
+                                                        <div ng-class="{'progress-bar': true, 'progress-bar-info': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 0.8 && {{$entry->count / $baseStringCounts[$entry->project_id]}} < 1, 'progress-bar-success': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 1}" role="progressbar" aria-valuenow="60"
                                                              aria-valuemin="0"
                                                              aria-valuemax="100"
                                                              style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">
