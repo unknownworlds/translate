@@ -33,15 +33,30 @@
 
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="translation-log">
-                                <ul class="top15">
-                                    @foreach($log as $entry)
-                                        <li>
-                                            {{ $entry->created_at->diffForHumans() }},
-                                            <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png" alt="{{@ $languages[$entry->language_id] }}" />
-                                            {{ $entry->project->name }}: {{ $entry->text }}
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Language</th>
+                                            <th>Project</th>
+                                            <th>Entry</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($log as $entry)
+                                            <tr>
+                                                <td>{{ $entry->created_at->diffForHumans() }}</td>
+                                                <td>
+                                                    <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
+                                                         alt="{{@ $languages[$entry->language_id] }}"/></td>
+                                                <td>{{ $entry->project->name }}</td>
+                                                <td>{{ $entry->text }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="strings-updates">
