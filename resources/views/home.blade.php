@@ -61,42 +61,63 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="strings-updates">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Project</th>
-                                        <th>Entry</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($baseStringsLog as $entry)
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
                                         <tr>
-                                            <td>{{ $entry->created_at->diffForHumans() }}</td>
-                                            <td>{{ $entry->project->name }}</td>
-                                            <td>{{ $entry->text }}</td>
+                                            <th>Time</th>
+                                            <th>Project</th>
+                                            <th>Entry</th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($baseStringsLog as $entry)
+                                            <tr>
+                                                <td>{{ $entry->created_at->diffForHumans() }}</td>
+                                                <td>{{ $entry->project->name }}</td>
+                                                <td>{{ $entry->text }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="translation-progress">
-                                <ul class="list-unstyled top15">
-                                    @foreach($translationProgress as $entry)
-                                        <li>
-                                            {{ $entry->project->name }}, {{ $entry->language->name }}:
-                                            {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                                                     aria-valuemin="0"
-                                                     aria-valuemax="100"
-                                                     style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Project</th>
+                                            <th>Language</th>
+                                            <th>Progress</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($translationProgress as $entry)
+                                            <tr>
+                                                <td>{{ $entry->project->name }}</td>
+                                                <td>{{ $entry->language->name }}</td>
+                                                <td>
+                                                    {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}
+                                                    %
+                                                </td>
+                                                <td width="60%">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                                             aria-valuemin="0"
+                                                             aria-valuemax="100"
+                                                             style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>
