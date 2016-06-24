@@ -98,7 +98,12 @@
                                         @foreach($translationProgress as $entry)
                                             <tr>
                                                 <td>{{ $entry->project->name }}</td>
-                                                <td>{{ $entry->language->name }}</td>
+                                                <td>
+                                                    <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
+                                                         alt="{{@ $languages[$entry->language_id] }}"
+                                                         title="{{ $entry->language->name }}"/>
+                                                    {{ $entry->language->name }}
+                                                </td>
                                                 <td>
                                                     {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}
                                                     %
