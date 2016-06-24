@@ -37,7 +37,7 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th>Date</th>
+                                            <th>Time</th>
                                             <th>Language</th>
                                             <th>Project</th>
                                             <th>Entry</th>
@@ -61,14 +61,24 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="strings-updates">
-                                <ul class="top15">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Project</th>
+                                        <th>Entry</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                     @foreach($baseStringsLog as $entry)
-                                        <li>
-                                            {{ $entry->created_at->diffForHumans() }},
-                                            {{ $entry->project->name }}: {{ $entry->text }}
-                                        </li>
+                                        <tr>
+                                            <td>{{ $entry->created_at->diffForHumans() }}</td>
+                                            <td>{{ $entry->project->name }}</td>
+                                            <td>{{ $entry->text }}</td>
+                                        </tr>
                                     @endforeach
-                                </ul>
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="translation-progress">
