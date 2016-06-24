@@ -37,8 +37,8 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th>Time</th>
-                                            <th>Language</th>
+                                            <th>Time ago</th>
+                                            <th>Lang.</th>
                                             <th>Project</th>
                                             <th>Entry</th>
                                         </tr>
@@ -46,7 +46,7 @@
                                         <tbody>
                                         @foreach($log as $entry)
                                             <tr>
-                                                <td>{{ $entry->created_at->diffForHumans() }}</td>
+                                                <td>{{ $entry->created_at->diffForHumans(null, true) }}</td>
                                                 <td>
                                                     <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
                                                          alt="{{@ $languages[$entry->language_id] }}"
