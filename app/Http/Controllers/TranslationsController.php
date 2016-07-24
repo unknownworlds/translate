@@ -50,7 +50,9 @@ class TranslationsController extends BaseApiController {
 	}
 
 	public function strings() {
-		$baseStrings = TranslatedString::where( 'project_id', '=', Request::get( 'project_id' ) )->where( 'language_id', '=', Request::get( 'language_id' ) )->get();
+		$baseStrings = TranslatedString::where( 'project_id', '=', Request::get( 'project_id' ) )
+            ->where( 'language_id', '=', Request::get( 'language_id' ) )
+            ->get(['base_string_id', 'text', 'up_votes', 'down_votes', 'is_accepted']);
 
 		return $this->respond( $baseStrings );
 	}
