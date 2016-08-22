@@ -48,9 +48,11 @@
                                             <tr>
                                                 <td>{{ $entry->created_at->diffForHumans(null, true) }}</td>
                                                 <td>
-                                                    <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
-                                                         alt="{{@ $languages[$entry->language_id] }}"
-                                                         title="{{ $entry->language->name }}"/></td>
+                                                    @if ($entry->language != null)
+                                                        <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
+                                                             alt="{{@ $languages[$entry->language_id] }}"
+                                                             title="{{ $entry->language->name }}"/></td>
+                                                    @endif
                                                 <td>{{ $entry->project->name }}</td>
                                                 <td>{{ $entry->text }}</td>
                                             </tr>
@@ -105,11 +107,13 @@
                                                     {{ $entry->language->name }}
                                                 </td>
                                                 <td>
-                                                    {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%
+                                                    {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}
+                                                    %
                                                 </td>
                                                 <td>
                                                     <div class="progress">
-                                                        <div ng-class="{'progress-bar': true, 'progress-bar-info': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 0.8 && {{$entry->count / $baseStringCounts[$entry->project_id]}} < 1, 'progress-bar-success': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 1}" role="progressbar" aria-valuenow="60"
+                                                        <div ng-class="{'progress-bar': true, 'progress-bar-info': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 0.8 && {{$entry->count / $baseStringCounts[$entry->project_id]}} < 1, 'progress-bar-success': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 1}"
+                                                             role="progressbar" aria-valuenow="60"
                                                              aria-valuemin="0"
                                                              aria-valuemax="100"
                                                              style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">
