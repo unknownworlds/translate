@@ -201,7 +201,7 @@ class TranslationsController extends BaseApiController
             ->where('project_id', '=', Request::get('project_id'))
             ->where('language_id', '=', Request::get('language_id'))
             ->groupBy('translated_strings.user_id')
-            ->orderBy('count')
+            ->orderBy('count', 'desc')
             ->limit(25)
             ->get();
 
