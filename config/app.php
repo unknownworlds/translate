@@ -204,7 +204,7 @@ return [
 		'Socialite' => 'Laravel\Socialite\Facades\Socialite',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
-		'Gate' => Illuminate\Support\Facades\Gate::class,
+		'Gate'      => Illuminate\Support\Facades\Gate::class,
 
 	],
 
