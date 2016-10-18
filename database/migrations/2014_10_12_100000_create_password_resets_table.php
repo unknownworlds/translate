@@ -22,7 +22,7 @@ class CreatePasswordResetsTable extends Migration {
 		{
 			$table->string('email')->index();
 			$table->string('token')->index();
-			$table->timestamp('created_at');
+			$table->timestamp('created_at')->useCurrent();;
 		});
 	}
 
