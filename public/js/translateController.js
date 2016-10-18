@@ -188,6 +188,7 @@ angular.module('translate', [])
         }
 
         $scope.add = function (base_string_id) {
+            console.log(base_string_id);
             $scope.loading++;
             var textInput = $('#stringInput' + base_string_id);
 
@@ -243,6 +244,7 @@ angular.module('translate', [])
             $http.post('/api/base-strings', postData).success(function (data, status, headers, config) {
                 if (typeof base_string_id == 'undefined') {
                     $scope.baseStrings.push(data);
+                    $scope.strings[data.id] = [];
                     $scope.resetPagination();
                 }
             }).error(function (data, status, headers, config) {
@@ -353,6 +355,7 @@ angular.module('translate', [])
         $scope.loadWhiteboard = function () {
             $scope.loading++;
             $http.get('/api/admin-whiteboard/' + $scope.currentProject + '/' + $scope.currentLanguage).success(function (data, status, headers, config) {
+                // console.log(data);
                 $scope.whiteboard = data;
             }).error(function (data, status, headers, config) {
                 alert('Error ' + status + ' occured. Please try again.')
