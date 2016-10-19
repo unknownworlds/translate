@@ -2,4 +2,5 @@
 /node_modules
 .env
 .idea
-/public/output/1/
+/public/output/
+tests/_output/*
