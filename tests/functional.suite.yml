@@ -7,6 +7,5 @@
 class_name: FunctionalTester
 modules:
     enabled:
-        - Laravel5:
-            environment_file: .env.testing
+        # add framework module here
         - \Helper\Functional
