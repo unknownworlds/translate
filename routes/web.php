@@ -33,3 +33,21 @@ Route::resource('roles', 'RolesController');
 Route::resource('projects', 'ProjectsController');
 Route::get('tools/file-import', 'ToolsController@fileImport');
 Route::post('tools/file-import', 'ToolsController@processFileImport');
+
+// Private API
+Route::group(['prefix' => 'api'], function () {
+    Route::get('/base-strings', 'TranslationsController@baseStrings');
+    Route::post('/base-strings', 'TranslationsController@storeBaseString');
+    Route::post('/base-strings/trash', 'TranslationsController@trashBaseString');
+    Route::get('/strings', 'TranslationsController@strings');
+    Route::get('/check-privileges', 'TranslationsController@checkPrivileges');
+    Route::post('/strings/store', 'TranslationsController@store');
+    Route::post('/strings/trash', 'TranslationsController@trash');
+    Route::post('/strings/accept', 'TranslationsController@accept');
+    Route::post('/strings/vote', 'TranslationsController@vote');
+    Route::get('/strings/history', 'TranslationsController@translationHistory');
+    Route::get('/strings/users', 'TranslationsController@users');
+    Route::get('/strings/admins', 'TranslationsController@admins');
+    Route::get('/admin-whiteboard/{project_id}/{language_id}', 'AdminWhiteboardsController@find');
+    Route::post('/admin-whiteboard', 'AdminWhiteboardsController@store');
+});
