@@ -32,7 +32,7 @@
                             </div>
                         @endif
 
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <div class="form-group">
@@ -74,9 +74,9 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a class="btn btn-primary" href="{{ url('/auth/social-login/github') }}">Login with GitHub</a>
-                                    <a class="btn btn-primary" href="{{ url('/auth/social-login/facebook') }}">Login with Facebook</a>
-                                    <a class="btn btn-primary" href="{{ url('/auth/social-login/google') }}">Login with Google</a>
+                                    <a class="btn btn-primary" href="{{ url('/social-login/github') }}">Login with GitHub</a>
+                                    <a class="btn btn-primary" href="{{ url('/social-login/facebook') }}">Login with Facebook</a>
+                                    <a class="btn btn-primary" href="{{ url('/social-login/google') }}">Login with Google</a>
                                 </div>
                             </div>
                         </form>

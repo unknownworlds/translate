@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Translations :: Unknown Worlds</title>
 
-    <link href="{{ asset('/css/bootstrap_'.(isset(Auth::user()->name) ? Auth::user()->theme : 'light').'.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap_'.(isset(Auth::user()->name) ? Auth::user()->theme : 'light').'.css') }}"
+          rel="stylesheet">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
@@ -39,7 +40,8 @@
                 <li><a href="{{ url('/pages/instructions') }}">Instructions</a></li>
                 <li><a href="{{ url('/pages/guidelines') }}">Guidelines</a></li>
                 <li><a href="{{ url('/pages/faq') }}">FAQ</a></li>
-                <li><a href="http://forums.unknownworlds.com/categories/subnautica-translations">Translations forums</a></li>
+                <li><a href="http://forums.unknownworlds.com/categories/subnautica-translations">Translations forums</a>
+                </li>
                 @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
                     <li><a href="{{ url('/users') }}">Users</a></li>
                     <li><a href="{{ url('/roles') }}">Roles</a></li>
@@ -50,8 +52,8 @@
 
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
-                    <li><a href="{{ url('/auth/login') }}">Login</a></li>
-                    <li><a href="{{ url('/auth/register') }}">Register</a></li>
+                    <li><a href="{{ url('/login') }}">Login</a></li>
+                    <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -65,7 +67,13 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
+                            <li>
+                                <form class="form-horizontal" role="form" method="POST"
+                                      action="{{ url('/logout') }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 @endif
