@@ -49,7 +49,7 @@ class TranslationFilesController extends BaseApiController {
 
 		// get the data
 		$languages    = Language::all();
-		$baseStrings  = BaseString::where( 'project_id', '=', $project->id )->lists( 'text', 'key' )->toArray();
+		$baseStrings  = BaseString::where( 'project_id', '=', $project->id )->pluck( 'text', 'key' )->toArray();
 		$translations = [ ];
 
 		foreach ( $languages as $language ) {
@@ -58,7 +58,7 @@ class TranslationFilesController extends BaseApiController {
 			                                     ->where( 'language_id', '=', $language->id )
 			                                     ->where( 'is_accepted', '=', true )
 			                                     ->get( [ 'key', 'translated_strings.text' ] )
-			                                     ->lists( 'text', 'key' )
+			                                     ->pluck( 'text', 'key' )
 			                                     ->toArray();
 
 			$translations[] = [

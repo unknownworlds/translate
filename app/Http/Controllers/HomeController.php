@@ -49,7 +49,7 @@ class HomeController extends Controller
         $languages = Language::all()->pluck('locale', 'id');
         $baseStringsLog = Log::where('log_type', '=', 2)->latest()->limit(500)->get();
 
-        $baseStringCounts = BaseString::selectRaw('project_id, COUNT(*) AS count')->groupBy('project_id')->get()->lists('count', 'project_id');
+        $baseStringCounts = BaseString::selectRaw('project_id, COUNT(*) AS count')->groupBy('project_id')->get()->pluck('count', 'project_id');
         $translationProgress = TranslatedString::where('is_accepted', '=', true)->selectRaw('project_id, language_id, COUNT(*) AS count')
             ->with('project', 'language')
             ->groupBy(['project_id', 'language_id'])->get();

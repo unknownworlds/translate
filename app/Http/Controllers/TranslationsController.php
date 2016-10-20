@@ -34,10 +34,10 @@ class TranslationsController extends BaseApiController
     public function index()
     {
         $projects = Project::orderBy('name')->get();
-        $projectList = $projects->lists('name', 'id');
-        $projectHandlers = $projects->lists('file_handler', 'id');
+        $projectList = $projects->pluck('name', 'id');
+        $projectHandlers = $projects->pluck('file_handler', 'id');
 
-        $languages = Language::orderBy('name')->lists('name', 'id');
+        $languages = Language::orderBy('name')->pluck('name', 'id');
 
         return view('translations/index', compact('projectList', 'projectHandlers', 'languages'));
     }

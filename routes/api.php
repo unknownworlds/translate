@@ -23,8 +23,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-// API
-Route::group(array('prefix' => 'api'), function () {
+Route::group(['middleware' => []], function () {
     // Frontend
     Route::get('/base-strings', 'TranslationsController@baseStrings');
     Route::post('/base-strings', 'TranslationsController@storeBaseString');

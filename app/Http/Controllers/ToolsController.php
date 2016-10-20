@@ -33,9 +33,9 @@ class ToolsController extends Controller {
 	 * @return Response
 	 */
 	public function fileImport() {
-		$projects  = Project::orderBy( 'name' )->lists( 'name', 'id' );
-		$languages = Language::orderBy( 'name' )->lists( 'name', 'id' );
-		$users     = User::orderBy( 'name' )->lists( 'name', 'id' );
+		$projects  = Project::orderBy( 'name' )->pluck( 'name', 'id' );
+		$languages = Language::orderBy( 'name' )->pluck( 'name', 'id' );
+		$users     = User::orderBy( 'name' )->pluck( 'name', 'id' );
 
 		return view( 'tools/fileImport', compact( 'projects', 'languages', 'users' ) );
 	}
