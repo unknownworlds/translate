@@ -1,4 +1,4 @@
-<div class="row text-center" ng-if="pagedData.length">
+<div class="row text-center" v-show="pagedData.length">
     <div class="col-md-10 col-md-offset-1">
         <nav>
             <ul class="pagination">

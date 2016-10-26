@@ -35,11 +35,10 @@ class TranslationsController extends BaseApiController
     {
         $projects = Project::orderBy('name')->get();
         $projectList = $projects->pluck('name', 'id');
-        $projectHandlers = $projects->pluck('file_handler', 'id');
 
         $languages = Language::orderBy('name')->pluck('name', 'id');
 
-        return view('translations/index', compact('projectList', 'projectHandlers', 'languages'));
+        return view('translations/index', compact('projectList', 'languages'));
     }
 
     public function baseStrings()
@@ -232,6 +231,14 @@ class TranslationsController extends BaseApiController
             ->get();
 
         return $this->respond($baseStrings);
+    }
+
+    public function projectHandlers()
+    {
+        $projects = Project::orderBy('name')->get();
+        $projectHandlers = $projects->pluck('file_handler', 'id');
+
+        return $this->respond($projectHandlers);
     }
 
 }

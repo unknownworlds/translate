@@ -19,42 +19,42 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::button('Load data', ['class' => 'btn btn-primary form-control', 'ng-click' => 'loadData()']) !!}
+                    {!! Form::button('Load data', ['class' => 'btn btn-primary form-control', '@click' => 'loadData()']) !!}
                 </div>
                 {!! Form::close() !!}
 
-                <div ng-show="projectHandlers[currentProject] == 'Manual' && isRoot">
+                <div v-show="projectHandlers[currentProject] == 'Manual' && isRoot">
                     <hr>
 
-                    <button class="btn btn-default" ng-click="showNewBaseStringForm()">
+                    <button class="btn btn-default" @click="showNewBaseStringForm()">
                         Add string
                     </button>
                 </div>
 
-                <div ng-show="baseStrings.length">
+                <div v-show="baseStrings.length">
                     <hr>
 
                     <ul class="list-inline">
                         <li><b>Language administrators:</b></li>
-                        <li ng-repeat="user in admins">@{{user.name}}</li>
-                        <li ng-show="!admins.length">No admins for this language</li>
+                        <li v-for="user in admins">@{{user.name}}</li>
+                        <li v-show="!admins.length">No admins for this language</li>
                     </ul>
 
                     <ul class="list-inline">
                         <li><b>Top contributors:</b></li>
-                        <li ng-repeat="user in topUsers">@{{user.name}} (@{{user.count}})</li>
-                        <li ng-show="!topUsers.length">Noone contributed yet</li>
+                        <li v-for="user in topUsers">@{{user.name}} (@{{user.count}})</li>
+                        <li v-show="!topUsers.length">Noone contributed yet</li>
                     </ul>
 
                     <hr>
 
                     <div class="filters">
-                        <button class="btn btn-default" ng-click="hideAccepted()"
+                        <button class="btn btn-default" @click="hideAccepted()"
                                 ng-class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
                             translations
                         </button>
 
-                        <button class="btn btn-default" ng-click="showPendingOnly()"
+                        <button class="btn btn-default" @click="showPendingOnly()"
                                 ng-class="{'btn-success': showingPendingOnly}">Show pending translations only
                         </button>
 
@@ -64,19 +64,19 @@
                     </div>
                 </div>
 
-                <div ng-if="isAdmin || whiteboard.text">
+                <div v-show="isAdmin || whiteboard.text">
                     <hr>
                     <h4>Admin whiteboard</h4>
                 </div>
 
-                <div ng-if="isAdmin">
+                <div v-if="isAdmin">
                     <div class="form-group">
                     <textarea id="adminWhiteboard" class="form-control resize-vertically"
                               placeholder="Type a message visible to everyone..." rows="1"
-                              ng-model="whiteboard.text"></textarea>
+                              v-model="whiteboard.text"></textarea>
                     </div>
 
-                    <div>
+                    <div v-if="whiteboard.text">
                         <button class="btn btn-default" ng-click="saveWhiteboard()" ng-if="isAdmin">Save</button>
                         <div class="pull-right" ng-if="whiteboard.text">
                             <span>Revision ID#@{{whiteboard.id}}, @{{whiteboard.created_at}},
@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <div ng-if="whiteboard.text && !isAdmin">
+                <div v-if="whiteboard.text && !isAdmin">
                     <div class="well" ng-model="">@{{ whiteboard.text }}</div>
                     <div>
                         <div class="pull-right" ng-if="whiteboard.text">

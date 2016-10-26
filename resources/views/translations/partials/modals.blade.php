@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <ul class="list-group">
                     <li class="list-group-item clearfix" ng-class="{'list-group-item-success': string.is_accepted}"
-                        ng-repeat="string in translatedStringsHistory">
+                        v-for="string in translatedStringsHistory">
                         <p>
                             <strong>@{{string.user.name}}</strong> (added @ @{{string.created_at}}<span
                                     ng-if="string.deleted_at">, deleted @ @{{string.deleted_at}}</span>)

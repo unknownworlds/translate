@@ -36,6 +36,7 @@ Route::post('tools/file-import', 'ToolsController@processFileImport');
 
 // Private API
 Route::group(['prefix' => 'api'], function () {
+    Route::get('/project-handlers', 'TranslationsController@projectHandlers'); //TODO: perfect location, huh? wtf
     Route::get('/base-strings', 'TranslationsController@baseStrings');
     Route::post('/base-strings', 'TranslationsController@storeBaseString');
     Route::post('/base-strings/trash', 'TranslationsController@trashBaseString');

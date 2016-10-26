@@ -1,11 +1,9 @@
 @extends('app')
 
 @section('content')
-    <div class="container" ng-controller="TranslateController as Translate">
+    <div class="container" id="translate">
 
-        <div id="ajax-loader" ng-show="loading"><img src="img/ajax-loader.svg" alt="AJAX loader"/></div>
-
-        @include('translations/partials/javascriptData')
+        <div id="ajax-loader" v-show="loading"><img src="img/ajax-loader.svg" alt="AJAX loader"/></div>
 
         @include('translations/partials/projectSelectForm')
 
@@ -16,7 +14,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <div class="panel panel-default" ng-repeat="baseString in pagedData | limitTo:100">
+                <div class="panel panel-default" v-for="baseString in pagedData">
                     <div class="panel-heading">
                         <h3 class="panel-title">@{{baseString.key}}
                             <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
@@ -42,7 +40,7 @@
                         <ul class="list-group">
                             <li class="list-group-item clearfix"
                                 ng-class="{'list-group-item-success': string.is_accepted}"
-                                ng-repeat="string in strings[baseString.id]">
+                                v-for="string in strings[baseString.id]">
                                 <div class="btn-group pull-right" role="group" aria-label="actions">
                                     <button type="button" class="btn btn-default" disabled="disabled" title="Score">
                                         @{{string.up_votes-string.down_votes}}
@@ -70,7 +68,7 @@
 
                         <div class="row">
                             <div class="col-md-10">
-                                <textarea id="stringInput@{{baseString.id}}" class="form-control resize-vertically"
+                                <textarea :id="'stringInput'+baseString.id" class="form-control resize-vertically"
                                           placeholder="Type new translation..." rows="1"></textarea>
                             </div>
                             <div class="col-md-2">
