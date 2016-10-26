@@ -27,7 +27,7 @@
                     <hr>
 
                     <button class="btn btn-default" @click="showNewBaseStringForm()">
-                        Add string
+                    Add string
                     </button>
                 </div>
 
@@ -43,19 +43,19 @@
                     <ul class="list-inline">
                         <li><b>Top contributors:</b></li>
                         <li v-for="user in topUsers">@{{user.name}} (@{{user.count}})</li>
-                        <li v-show="!topUsers.length">Noone contributed yet</li>
+                        <li v-show="!topUsers.length">No one contributed yet</li>
                     </ul>
 
                     <hr>
 
                     <div class="filters">
                         <button class="btn btn-default" @click="hideAccepted()"
-                                ng-class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
-                            translations
+                        v-bind:class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
+                        translations
                         </button>
 
                         <button class="btn btn-default" @click="showPendingOnly()"
-                                ng-class="{'btn-success': showingPendingOnly}">Show pending translations only
+                        v-bind:class="{'btn-success': showingPendingOnly}">Show pending translations only
                         </button>
 
                         <input id="searchInput" type="text" class="form-control pull-right clearfix"
@@ -76,9 +76,9 @@
                               v-model="whiteboard.text"></textarea>
                     </div>
 
-                    <div v-if="whiteboard.text">
-                        <button class="btn btn-default" ng-click="saveWhiteboard()" ng-if="isAdmin">Save</button>
-                        <div class="pull-right" ng-if="whiteboard.text">
+                    <div>
+                        <button class="btn btn-default" @click="saveWhiteboard()">Save</button>
+                        <div class="pull-right" v-if="whiteboard.text">
                             <span>Revision ID#@{{whiteboard.id}}, @{{whiteboard.created_at}},
                                 last edit by @{{whiteboard.user.name}}</span>
                         </div>
@@ -86,9 +86,9 @@
                 </div>
 
                 <div v-if="whiteboard.text && !isAdmin">
-                    <div class="well" ng-model="">@{{ whiteboard.text }}</div>
+                    <div class="well">@{{ whiteboard.text }}</div>
                     <div>
-                        <div class="pull-right" ng-if="whiteboard.text">
+                        <div class="pull-right" v-if="whiteboard.text">
                             <span>Revision ID#@{{whiteboard.id}}, @{{whiteboard.created_at}},
                                 last edit by @{{whiteboard.user.name}}</span>
                         </div>

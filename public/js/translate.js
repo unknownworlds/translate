@@ -20,6 +20,12 @@ var data = {
     whiteboard: {}
 };
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 var app = new Vue({
     el: '#translate',
     data: function () {
@@ -29,9 +35,17 @@ var app = new Vue({
         getRequest: function (url, params, success) {
             data.loading++;
 
-            $.get(url, params, success).fail(function () {
-                //TODO: Fix
-                alert('Error ' + status + ' occurred. Please try again.')
+            $.get(url, params, success).fail(function (jqXHR, textStatus, errorThrown) {
+                alert('Error ' + jqXHR.status + ' occurred. Please try again.')
+            }).always(function () {
+                data.loading--;
+            });
+        },
+        postRequest: function (url, params, success) {
+            data.loading++;
+
+            $.post(url, params, success).fail(function (jqXHR, textStatus, errorThrown) {
+                alert('Error ' + jqXHR.status + ' occurred. Please try again.')
             }).always(function () {
                 data.loading--;
             });
@@ -105,20 +119,14 @@ var app = new Vue({
             });
         },
         saveWhiteboard: function () {
-            data.loading++;
-
             var postData = {
                 project_id: data.currentProject,
                 language_id: data.currentLanguage,
                 text: data.whiteboard.text
             };
 
-            $http.post('/api/admin-whiteboard', postData).success(function (data, status, headers, config) {
-                data.loadWhiteboard();
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. ' + data.error.message)
-            }).finally(function () {
-                data.loading--;
+            app.postRequest("api/admin-whiteboard", postData, function (response) {
+                app.loadWhiteboard();
             });
         },
         /*
@@ -271,56 +279,56 @@ var app = new Vue({
         },
         hideAccepted: function () {
             if (data.acceptedStringsHidden) {
-                data.filteredData = data.baseStrings;
-                data.resetPagination();
+                // data.filteredData = data.baseStrings;
+                // data.resetPagination();
                 data.acceptedStringsHidden = false;
             }
             else {
-                data.assignTagsToBaseStrings();
-
-                data.filteredData = $filter('filter')(data.baseStrings, {is_translated: false})
-                data.resetPagination();
+                // data.assignTagsToBaseStrings();
+                //
+                // data.filteredData = $filter('filter')(data.baseStrings, {is_translated: false})
+                // data.resetPagination();
                 data.acceptedStringsHidden = true;
                 data.showingPendingOnly = false;
             }
         },
         showPendingOnly: function () {
             if (data.showingPendingOnly) {
-                data.filteredData = data.baseStrings;
-                data.resetPagination();
+                // data.filteredData = data.baseStrings;
+                // data.resetPagination();
                 data.showingPendingOnly = false;
             }
             else {
-                data.assignTagsToBaseStrings();
+                // data.assignTagsToBaseStrings();
 
-                data.filteredData = $filter('filter')(data.baseStrings, {
-                    translation_pending: true,
-                    is_translated: false
-                })
-                data.resetPagination();
+                // data.filteredData = $filter('filter')(data.baseStrings, {
+                //     translation_pending: true,
+                //     is_translated: false
+                // })
+                // data.resetPagination();
                 data.showingPendingOnly = true;
                 data.acceptedStringsHidden = false;
             }
         },
-        assignTagsToBaseStrings: function () {
-            angular.forEach(data.baseStrings, function (baseString, key) {
-                data.baseStrings[key].is_translated = false;
-
-                angular.forEach(data.strings[baseString.id], function (string) {
-                    if (data.baseStrings[key].is_translated !== true)
-                        data.baseStrings[key].is_translated = false;
-
-                    if (string.is_accepted == true) {
-                        data.baseStrings[key].is_translated = true;
-                    }
-                });
-
-                if (data.strings[baseString.id].length > 0)
-                    data.baseStrings[key].translation_pending = true;
-                else
-                    data.baseStrings[key].translation_pending = false;
-            });
-        },
+        // assignTagsToBaseStrings: function () {
+        //     angular.forEach(data.baseStrings, function (baseString, key) {
+        //         data.baseStrings[key].is_translated = false;
+        //
+        //         angular.forEach(data.strings[baseString.id], function (string) {
+        //             if (data.baseStrings[key].is_translated !== true)
+        //                 data.baseStrings[key].is_translated = false;
+        //
+        //             if (string.is_accepted == true) {
+        //                 data.baseStrings[key].is_translated = true;
+        //             }
+        //         });
+        //
+        //         if (data.strings[baseString.id].length > 0)
+        //             data.baseStrings[key].translation_pending = true;
+        //         else
+        //             data.baseStrings[key].translation_pending = false;
+        //     });
+        // },
         range: function (start, end) {
             var ret = [];
             if (!end) {

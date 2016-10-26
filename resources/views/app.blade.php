@@ -10,6 +10,10 @@
           rel="stylesheet">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
+    @if (Auth::user())
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endif
+
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 </head>
