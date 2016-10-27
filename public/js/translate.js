@@ -235,12 +235,14 @@ var app = new Vue({
             };
 
             app.postRequest("api/strings/trash", postData, function (response) {
+                var index = -1;
                 Object.keys(data.strings[base_string_id]).forEach(function (key) {
-                    //TODO: fix, fucking javascript
                     if (data.strings[base_string_id][key].id == string_id) {
-                        data.strings[base_string_id].splice(key, 1);
+                        index = key;
                     }
                 });
+
+                data.strings[base_string_id].splice(index, 1);
             });
         },
         trashBaseString: function (base_string) {
@@ -249,21 +251,14 @@ var app = new Vue({
             };
 
             app.postRequest("api/base-strings/trash", postData, function (response) {
-                // angular.forEach(data.baseStrings, function (string, key) {
-                //     if (string.id == base_string.id) {
-                //         data.baseStrings.splice(key, 3);
-                //     }
-                // });
+                var index = -1;
+                Object.keys(data.baseStrings).forEach(function (key) {
+                    if (data.baseStrings[key].id == base_string.id) {
+                        index = key;
+                    }
+                });
 
-                // TODO: make it work
-                // Object.keys(data.baseStrings).forEach(function (key) {
-                //     console.log(key)
-                //     if (data.baseStrings[key].id == base_string.id) {
-                //         data.baseStrings.splice(key, 1);
-                //     }
-                // });
-
-
+                data.baseStrings.splice(index, 1);
                 app.resetPagination();
             });
         },
