@@ -219,23 +219,13 @@ var app = new Vue({
 
             app.postRequest("api/strings/vote", postData, function (response) {
                 Object.keys(data.strings[base_string_id]).forEach(function (key) {
-                    // if (string.id == string_id) {
-                    //     if (vote == 1)
-                    //         !isNaN(data.strings[base_string_id][key].up_votes) ? data.strings[base_string_id][key].up_votes++ : data.strings[base_string_id][key].up_votes = 1;
-                    //     else
-                    //         !isNaN(data.strings[base_string_id][key].down_votes) ? data.strings[base_string_id][key].down_votes++ : data.strings[base_string_id][key].down_votes = 1;
-                    // }
+                    if (data.strings[base_string_id][key].id == string_id) {
+                        if (vote == 1)
+                            !isNaN(data.strings[base_string_id][key].up_votes) ? data.strings[base_string_id][key].up_votes++ : data.strings[base_string_id][key].up_votes = 1;
+                        else
+                            !isNaN(data.strings[base_string_id][key].down_votes) ? data.strings[base_string_id][key].down_votes++ : data.strings[base_string_id][key].down_votes = 1;
+                    }
                 });
-
-
-                // angular.forEach(data.strings[base_string_id], function (string, key) {
-                //     if (string.id == string_id) {
-                //         if (vote == 1)
-                //             !isNaN(data.strings[base_string_id][key].up_votes) ? data.strings[base_string_id][key].up_votes++ : data.strings[base_string_id][key].up_votes = 1;
-                //         else
-                //             !isNaN(data.strings[base_string_id][key].down_votes) ? data.strings[base_string_id][key].down_votes++ : data.strings[base_string_id][key].down_votes = 1;
-                //     }
-                // });
             });
         },
         trash: function (base_string_id, string_id) {
@@ -245,10 +235,12 @@ var app = new Vue({
             };
 
             app.postRequest("api/strings/trash", postData, function (response) {
-                // angular.forEach(data.strings[base_string_id], function (string, key) {
-                //     if (string.id == string_id)
-                //         data.strings[base_string_id].splice(key, 1);
-                // });
+                Object.keys(data.strings[base_string_id]).forEach(function (key) {
+                    //TODO: fix, fucking javascript
+                    if (data.strings[base_string_id][key].id == string_id) {
+                        data.strings[base_string_id].splice(key, 1);
+                    }
+                });
             });
         },
         trashBaseString: function (base_string) {
@@ -264,12 +256,12 @@ var app = new Vue({
                 // });
 
                 // TODO: make it work
-                    // Object.keys(data.baseStrings).forEach(function (key) {
-                    //     console.log(key)
-                    //     if (data.baseStrings[key].id == base_string.id) {
-                    //         data.baseStrings.splice(key, 1);
-                    //     }
-                    // });
+                // Object.keys(data.baseStrings).forEach(function (key) {
+                //     console.log(key)
+                //     if (data.baseStrings[key].id == base_string.id) {
+                //         data.baseStrings.splice(key, 1);
+                //     }
+                // });
 
 
                 app.resetPagination();
@@ -283,12 +275,12 @@ var app = new Vue({
             };
 
             app.postRequest("api/strings/accept", postData, function (response) {
-                // angular.forEach(data.strings[base_string_id], function (string, key) {
-                //     if (string.id == string_id)
-                //         data.strings[base_string_id][key].is_accepted = true;
-                //     else
-                //         data.strings[base_string_id][key].is_accepted = false;
-                // });
+                Object.keys(data.strings[base_string_id]).forEach(function (key) {
+                    if (data.strings[base_string_id][key].id == string_id)
+                        data.strings[base_string_id][key].is_accepted = true;
+                    else
+                        data.strings[base_string_id][key].is_accepted = false;
+                });
             });
         },
         add: function (base_string_id) {
