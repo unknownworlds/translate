@@ -19,15 +19,15 @@
                         <h3 class="panel-title">@{{baseString.key}}
                             <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
                                 <button type="button" class="btn btn-default"
-                                        ng-click="trashBaseString(baseString)" ng-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Move to trash">
+                                        @click="trashBaseString(baseString)" v-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Move to trash">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
                                 <button type="button" class="btn btn-default"
-                                        ng-click="editBaseString(baseString)" ng-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Edit">
+                                        @click="editBaseString(baseString)" v-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Edit">
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
                                 <button type="button" class="btn btn-default"
-                                        ng-click="showTranslationHistory(baseString.id)" title="Translations history">
+                                        @click="showTranslationHistory(baseString.id)" title="Translations history">
                                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                 </button>
                             </div>
@@ -46,15 +46,15 @@
                                         @{{string.up_votes-string.down_votes}}
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="vote(baseString.id, string.id, 1)" title="Vote up, good translation">
+                                            @click="vote(baseString.id, string.id, 1)" title="Vote up, good translation">
                                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="vote(baseString.id, string.id, -1)" title="Vote down, bad translation">
+                                            @click="vote(baseString.id, string.id, -1)" title="Vote down, bad translation">
                                         <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="trash(baseString.id, string.id)" ng-if="isAdmin" title="Move to trash">
+                                            @click="trash(baseString.id, string.id)" v-if="isAdmin" title="Move to trash">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"

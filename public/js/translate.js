@@ -18,7 +18,8 @@ var data = {
     pageSize: 100,
     numberOfPages: 0,
     whiteboard: {},
-    searchInput: ''
+    searchInput: '',
+    manualInputBaseString: {}
 };
 
 $.ajaxSetup({
@@ -261,9 +262,18 @@ var app = new Vue({
                 //         data.baseStrings.splice(key, 3);
                 //     }
                 // });
+
+                // TODO: make it work
+                    // Object.keys(data.baseStrings).forEach(function (key) {
+                    //     console.log(key)
+                    //     if (data.baseStrings[key].id == base_string.id) {
+                    //         data.baseStrings.splice(key, 1);
+                    //     }
+                    // });
+
+
+                app.resetPagination();
             });
-            // }).finally(function () {
-            // data.resetPagination();
         },
         accept: function (base_string_id, string_id) {
             var postData = {
@@ -317,6 +327,7 @@ var app = new Vue({
             $('#baseStringEditModal').modal();
         },
         saveBaseString: function (base_string_id) {
+            // TODO make it work properly
             var postData = {
                 id: base_string_id,
                 project_id: data.currentProject,
@@ -328,11 +339,11 @@ var app = new Vue({
                 if (typeof base_string_id == 'undefined') {
                     data.baseStrings.push(response);
                     data.strings[response.id] = [];
-                    data.resetPagination();
+                    app.resetPagination();
                 }
+
+                $('#baseStringEditModal').modal('hide');
             });
-            // }).finally(function () {
-            //     $('#baseStringEditModal').modal('hide');
         }
     },
     watch: {

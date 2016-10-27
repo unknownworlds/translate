@@ -9,11 +9,11 @@
             </div>
             <div class="modal-body">
                 <ul class="list-group">
-                    <li class="list-group-item clearfix" ng-class="{'list-group-item-success': string.is_accepted}"
+                    <li class="list-group-item clearfix" :class="{'list-group-item-success': string.is_accepted}"
                         v-for="string in translatedStringsHistory">
                         <p>
                             <strong>@{{string.user.name}}</strong> (added @ @{{string.created_at}}<span
-                                    ng-if="string.deleted_at">, deleted @ @{{string.deleted_at}}</span>)
+                                    v-if="string.deleted_at">, deleted @ @{{string.deleted_at}}</span>)
                         </p>
                         <span style="white-space: pre-line">@{{string.text}}</span>
                     </li>
@@ -39,17 +39,17 @@
                 <form>
                     <div class="form-group">
                         <label for="newStringKey">Key</label>
-                        <input type="text" class="form-control" id="newStringKey" ng-model="manualInputBaseString.key">
+                        <input type="text" class="form-control" id="newStringKey" v-model="manualInputBaseString.key">
                     </div>
                     <div class="form-group">
                         <label for="newStringValue">Value</label>
-                        <textarea class="form-control" rows="10" id="newStringValue" ng-model="manualInputBaseString.text"></textarea>
+                        <textarea class="form-control" rows="10" id="newStringValue" v-model="manualInputBaseString.text"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" ng-click="saveBaseString(manualInputBaseString.id)">Save changes</button>
+                <button type="button" class="btn btn-primary" @click="saveBaseString(manualInputBaseString.id)">Save changes</button>
             </div>
         </div>
     </div>
