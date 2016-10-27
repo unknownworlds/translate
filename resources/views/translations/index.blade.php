@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <div class="panel panel-default" v-for="baseString in pagedData">
+                <div class="panel panel-default" v-for="baseString in filteredData">
                     <div class="panel-heading">
                         <h3 class="panel-title">@{{baseString.key}}
                             <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
@@ -39,7 +39,7 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <li class="list-group-item clearfix"
-                                ng-class="{'list-group-item-success': string.is_accepted}"
+                                :class="{'list-group-item-success': string.is_accepted}"
                                 v-for="string in strings[baseString.id]">
                                 <div class="btn-group pull-right" role="group" aria-label="actions">
                                     <button type="button" class="btn btn-default" disabled="disabled" title="Score">
@@ -58,7 +58,7 @@
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"
-                                            ng-click="accept(baseString.id, string.id)" ng-if="isAdmin" title="Accept">
+                                            @click="accept(baseString.id, string.id)" v-if="isAdmin" title="Accept">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
                                 </div>

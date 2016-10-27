@@ -17,7 +17,8 @@ var data = {
     currentPage: 0,
     pageSize: 100,
     numberOfPages: 0,
-    whiteboard: {}
+    whiteboard: {},
+    searchInput: ''
 };
 
 $.ajaxSetup({
@@ -128,6 +129,54 @@ var app = new Vue({
             app.postRequest("api/admin-whiteboard", postData, function (response) {
                 app.loadWhiteboard();
             });
+        },
+        hideAccepted: function () {
+            if (data.acceptedStringsHidden) {
+                data.filteredData = data.baseStrings;
+                data.acceptedStringsHidden = false;
+            }
+            else {
+                data.filteredData = data.baseStrings.filter(function (item) {
+                    var result = true;
+
+                    Object.keys(data.strings[item.id]).forEach(function (key) {
+                        if (data.strings[item.id][key].is_accepted == true) {
+                            result = false;
+                        }
+                    })
+
+                    return result;
+                });
+
+                data.acceptedStringsHidden = true;
+                data.showingPendingOnly = false;
+            }
+        },
+        showPendingOnly: function () {
+            if (data.showingPendingOnly) {
+                data.filteredData = data.baseStrings;
+                // data.resetPagination();
+                data.showingPendingOnly = false;
+            }
+            else {
+                data.filteredData = data.baseStrings.filter(function (item) {
+                    var hasTranslations = false
+                    var is_accepted = false;
+
+                    Object.keys(data.strings[item.id]).forEach(function (key) {
+                        if (data.strings[item.id][key].is_accepted == true) {
+                            is_accepted = true;
+                        }
+
+                        hasTranslations = true;
+                    })
+
+                    return !is_accepted && hasTranslations;
+                });
+
+                data.showingPendingOnly = true;
+                data.acceptedStringsHidden = false;
+            }
         },
         /*
          *
@@ -258,58 +307,6 @@ var app = new Vue({
             // }).finally(function () {
             //     $('#baseStringEditModal').modal('hide');
         },
-        hideAccepted: function () {
-            if (data.acceptedStringsHidden) {
-                // data.filteredData = data.baseStrings;
-                // data.resetPagination();
-                data.acceptedStringsHidden = false;
-            }
-            else {
-                // data.assignTagsToBaseStrings();
-                //
-                // data.filteredData = $filter('filter')(data.baseStrings, {is_translated: false})
-                // data.resetPagination();
-                data.acceptedStringsHidden = true;
-                data.showingPendingOnly = false;
-            }
-        },
-        showPendingOnly: function () {
-            if (data.showingPendingOnly) {
-                // data.filteredData = data.baseStrings;
-                // data.resetPagination();
-                data.showingPendingOnly = false;
-            }
-            else {
-                // data.assignTagsToBaseStrings();
-
-                // data.filteredData = $filter('filter')(data.baseStrings, {
-                //     translation_pending: true,
-                //     is_translated: false
-                // })
-                // data.resetPagination();
-                data.showingPendingOnly = true;
-                data.acceptedStringsHidden = false;
-            }
-        },
-        // assignTagsToBaseStrings: function () {
-        //     angular.forEach(data.baseStrings, function (baseString, key) {
-        //         data.baseStrings[key].is_translated = false;
-        //
-        //         angular.forEach(data.strings[baseString.id], function (string) {
-        //             if (data.baseStrings[key].is_translated !== true)
-        //                 data.baseStrings[key].is_translated = false;
-        //
-        //             if (string.is_accepted == true) {
-        //                 data.baseStrings[key].is_translated = true;
-        //             }
-        //         });
-        //
-        //         if (data.strings[baseString.id].length > 0)
-        //             data.baseStrings[key].translation_pending = true;
-        //         else
-        //             data.baseStrings[key].translation_pending = false;
-        //     });
-        // },
         range: function (start, end) {
             var ret = [];
             if (!end) {
@@ -336,11 +333,23 @@ var app = new Vue({
             var end = start + data.pageSize;
             data.pagedData = data.filteredData.slice(start, end)
         }
-        // data.$watch('searchInput', function (val) {
-        //     data.filteredData = $filter('filter')(data.baseStrings, {key: val} && {text: val});
-        //     data.resetPagination();
-        //     data.showingPendingOnly = false;
-        //     data.acceptedStringsHidden = false;
-        // })
+    },
+    watch: {
+        searchInput: function (val) {
+
+            data.filteredData = data.baseStrings.filter(function (item) {
+                // Object.keys(data.strings[item.id]).forEach(function (key) {
+                //     if (data.strings[item.id][key].is_accepted == true) {
+                //         result = false;
+                //     }
+                // })
+
+                return item.key.toLowerCase().indexOf(val.toLowerCase()) !== -1 || item.text.toLowerCase().indexOf(val.toLowerCase()) !== -1;
+            });
+
+            //     data.resetPagination();
+            data.showingPendingOnly = false;
+            data.acceptedStringsHidden = false;
+        },
     }
 })

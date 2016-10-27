@@ -50,17 +50,16 @@
 
                     <div class="filters">
                         <button class="btn btn-default" @click="hideAccepted()"
-                        v-bind:class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
+                        :class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
                         translations
                         </button>
 
                         <button class="btn btn-default" @click="showPendingOnly()"
-                        v-bind:class="{'btn-success': showingPendingOnly}">Show pending translations only
+                        :class="{'btn-success': showingPendingOnly}">Show pending translations only
                         </button>
 
                         <input id="searchInput" type="text" class="form-control pull-right clearfix"
-                               ng-model="searchInput" ng-model-options="{debounce: 250}"
-                               placeholder="Search...">
+                               v-model="searchInput" placeholder="Search...">
                     </div>
                 </div>
 
