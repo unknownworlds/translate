@@ -72,7 +72,7 @@
                                           placeholder="Type new translation..." rows="1"></textarea>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-default btn-block" type="button" ng-click="add(baseString.id)">
+                                <button class="btn btn-default btn-block" type="button" @click="add(baseString.id)">
                                     Add
                                 </button>
                             </div>

@@ -135,88 +135,77 @@ var app = new Vue({
          *
          */
         vote: function (base_string_id, string_id, vote) {
-            data.loading++;
             var postData = {
                 'string_id': string_id,
                 'vote': vote
             };
 
-            $http.post('/api/strings/vote', postData).success(function (data, status, headers, config) {
-                angular.forEach(data.strings[base_string_id], function (string, key) {
-                    if (string.id == string_id) {
-                        if (vote == 1)
-                            !isNaN(data.strings[base_string_id][key].up_votes) ? data.strings[base_string_id][key].up_votes++ : data.strings[base_string_id][key].up_votes = 1;
-                        else
-                            !isNaN(data.strings[base_string_id][key].down_votes) ? data.strings[base_string_id][key].down_votes++ : data.strings[base_string_id][key].down_votes = 1;
-                    }
+            app.postRequest("api/strings/vote", postData, function (response) {
+                Object.keys(data.strings[base_string_id]).forEach(function (key) {
+                    // if (string.id == string_id) {
+                    //     if (vote == 1)
+                    //         !isNaN(data.strings[base_string_id][key].up_votes) ? data.strings[base_string_id][key].up_votes++ : data.strings[base_string_id][key].up_votes = 1;
+                    //     else
+                    //         !isNaN(data.strings[base_string_id][key].down_votes) ? data.strings[base_string_id][key].down_votes++ : data.strings[base_string_id][key].down_votes = 1;
+                    // }
                 });
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. ' + data.error.message)
-            }).finally(function () {
-                data.loading--;
+
+
+                // angular.forEach(data.strings[base_string_id], function (string, key) {
+                //     if (string.id == string_id) {
+                //         if (vote == 1)
+                //             !isNaN(data.strings[base_string_id][key].up_votes) ? data.strings[base_string_id][key].up_votes++ : data.strings[base_string_id][key].up_votes = 1;
+                //         else
+                //             !isNaN(data.strings[base_string_id][key].down_votes) ? data.strings[base_string_id][key].down_votes++ : data.strings[base_string_id][key].down_votes = 1;
+                //     }
+                // });
             });
         },
         trash: function (base_string_id, string_id) {
-            data.loading++;
             var postData = {
                 'string_id': string_id,
                 'language_id': data.currentLanguage
             };
 
-            $http.post('/api/strings/trash', postData).success(function (data, status, headers, config) {
-                angular.forEach(data.strings[base_string_id], function (string, key) {
-                    if (string.id == string_id)
-                        data.strings[base_string_id].splice(key, 1);
-                });
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. Please try again.')
-            }).finally(function () {
-                data.loading--;
+            app.postRequest("api/strings/trash", postData, function (response) {
+                // angular.forEach(data.strings[base_string_id], function (string, key) {
+                //     if (string.id == string_id)
+                //         data.strings[base_string_id].splice(key, 1);
+                // });
             });
         },
         trashBaseString: function (base_string) {
-            data.loading++;
-
             var postData = {
                 id: base_string.id
             };
 
-            $http.post('/api/base-strings/trash', postData).success(function (data, status, headers, config) {
-                angular.forEach(data.baseStrings, function (string, key) {
-                    if (string.id == base_string.id) {
-                        data.baseStrings.splice(key, 3);
-                    }
-                });
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. Please try again.')
-            }).finally(function () {
-                data.loading--;
-                data.resetPagination();
+            app.postRequest("api/base-strings/trash", postData, function (response) {
+                // angular.forEach(data.baseStrings, function (string, key) {
+                //     if (string.id == base_string.id) {
+                //         data.baseStrings.splice(key, 3);
+                //     }
+                // });
             });
+            // }).finally(function () {
+            // data.resetPagination();
         },
         accept: function (base_string_id, string_id) {
-            data.loading++;
             var postData = {
                 'string_id': string_id,
                 'base_string_id': base_string_id,
                 'language_id': data.currentLanguage
             };
 
-            $http.post('/api/strings/accept', postData).success(function (data, status, headers, config) {
-                angular.forEach(data.strings[base_string_id], function (string, key) {
-                    if (string.id == string_id)
-                        data.strings[base_string_id][key].is_accepted = true;
-                    else
-                        data.strings[base_string_id][key].is_accepted = false;
-                });
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. Please try again.')
-            }).finally(function () {
-                data.loading--;
+            app.postRequest("api/strings/accept", postData, function (response) {
+                // angular.forEach(data.strings[base_string_id], function (string, key) {
+                //     if (string.id == string_id)
+                //         data.strings[base_string_id][key].is_accepted = true;
+                //     else
+                //         data.strings[base_string_id][key].is_accepted = false;
+                // });
             });
         },
         add: function (base_string_id) {
-            data.loading++;
             var textInput = $('#stringInput' + base_string_id);
 
             var postData = {
@@ -226,24 +215,21 @@ var app = new Vue({
                 'text': textInput.val()
             };
 
-            $http.post('/api/strings/store', postData).success(function (data, status, headers, config) {
-                data.strings[base_string_id].push(data);
+            app.postRequest("api/strings/store", postData, function (response) {
+                data.strings[base_string_id].push(response);
                 textInput.val('');
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. Please try again. (' + data.error.message + ')')
-            }).finally(function () {
-                data.loading--;
             });
         },
         showTranslationHistory: function (base_string_id) {
-            data.loading++;
-            $http.get('/api/strings/history?project_id=' + data.currentProject + '&language_id=' + data.currentLanguage + '&base_string_id=' + base_string_id).success(function (data, status, headers, config) {
-                data.translatedStringsHistory = data;
+            var getData = {
+                project_id: data.currentProject,
+                language_id: data.currentLanguage,
+                base_string_id: base_string_id
+            };
+
+            app.getRequest("api/strings/history", getData, function (response) {
+                data.translatedStringsHistory = response;
                 $('#translatedStringsHistory').modal();
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. Please try again.')
-            }).finally(function () {
-                data.loading--;
             });
         },
         showNewBaseStringForm: function () {
@@ -255,8 +241,6 @@ var app = new Vue({
             $('#baseStringEditModal').modal();
         },
         saveBaseString: function (base_string_id) {
-            data.loading++;
-
             var postData = {
                 id: base_string_id,
                 project_id: data.currentProject,
@@ -264,18 +248,15 @@ var app = new Vue({
                 text: data.manualInputBaseString.text
             };
 
-            $http.post('/api/base-strings', postData).success(function (data, status, headers, config) {
+            app.postRequest("api/base-strings", postData, function (response) {
                 if (typeof base_string_id == 'undefined') {
-                    data.baseStrings.push(data);
-                    data.strings[data.id] = [];
+                    data.baseStrings.push(response);
+                    data.strings[response.id] = [];
                     data.resetPagination();
                 }
-            }).error(function (data, status, headers, config) {
-                alert('Error ' + status + ' occured. ' + data.error.message)
-            }).finally(function () {
-                data.loading--;
-                $('#baseStringEditModal').modal('hide');
             });
+            // }).finally(function () {
+            //     $('#baseStringEditModal').modal('hide');
         },
         hideAccepted: function () {
             if (data.acceptedStringsHidden) {
