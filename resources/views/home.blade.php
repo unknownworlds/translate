@@ -11,8 +11,12 @@
                     <div class="panel-body">
 
                         <div class="alert alert-info">
-                            Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
-                            to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.
+                            <h2>Update!</h2>
+                            <p>The translation app was just got internals upgrade!</p>
+                            <p>This will allow me to work on new features, but also brings a significant performance
+                                boost. Have fun!</p>
+                            <p>Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
+                                to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.</p>
                         </div>
 
                         <ul class="nav nav-tabs" role="tablist">
@@ -52,7 +56,7 @@
                                                         <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
                                                              alt="{{@ $languages[$entry->language_id] }}"
                                                              title="{{ $entry->language->name }}"/></td>
-                                                    @endif
+                                                @endif
                                                 <td>{{ $entry->project->name }}</td>
                                                 <td>{{ $entry->text }}</td>
                                             </tr>

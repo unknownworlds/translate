@@ -149,7 +149,7 @@ var app = new Vue({
         hideAccepted: function () {
             if (data.acceptedStringsHidden) {
                 data.filteredData = data.baseStrings;
-                data.resetPagination();
+                this.resetPagination();
                 data.acceptedStringsHidden = false;
             }
             else {
@@ -165,6 +165,7 @@ var app = new Vue({
                     return result;
                 });
 
+                this.resetPagination();
                 data.acceptedStringsHidden = true;
                 data.showingPendingOnly = false;
             }
@@ -172,7 +173,7 @@ var app = new Vue({
         showPendingOnly: function () {
             if (data.showingPendingOnly) {
                 data.filteredData = data.baseStrings;
-                data.resetPagination();
+                this.resetPagination();
                 data.showingPendingOnly = false;
             }
             else {
@@ -191,6 +192,7 @@ var app = new Vue({
                     return !is_accepted && hasTranslations;
                 });
 
+                this.resetPagination();
                 data.showingPendingOnly = true;
                 data.acceptedStringsHidden = false;
             }
@@ -346,7 +348,7 @@ var app = new Vue({
                 return item.key.toLowerCase().indexOf(val.toLowerCase()) !== -1 || item.text.toLowerCase().indexOf(val.toLowerCase()) !== -1;
             });
 
-            //     data.resetPagination();
+            this.resetPagination();
             data.showingPendingOnly = false;
             data.acceptedStringsHidden = false;
         },
