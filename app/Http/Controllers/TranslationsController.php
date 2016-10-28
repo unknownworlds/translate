@@ -89,6 +89,9 @@ class TranslationsController extends BaseApiController
             }
         }
 
+        $input['up_votes'] = 0;
+        $input['down_votes'] = 0;
+
         $string = TranslatedString::create($input);
 
         $baseString = BaseString::findOrFail(Request::get('base_string_id'))->key;
