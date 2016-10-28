@@ -18,6 +18,8 @@
 */
 
 Auth::routes();
+Route::get('social-login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/social-callback/{provider}', 'Auth\LoginController@handleProviderCallback');
 
 // Frontend - public
 Route::get('/', 'HomeController@index');

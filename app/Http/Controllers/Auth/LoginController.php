@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\SocialiteWrapper;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -43,11 +44,11 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function getSocialLogin( $provider, SocialiteWrapper $socialiteWrapper ) {
+    public function redirectToProvider( $provider, SocialiteWrapper $socialiteWrapper ) {
         return $socialiteWrapper->redirectToProvider( $provider );
     }
 
-    public function getSocialCallback( $provider, SocialiteWrapper $socialiteWrapper ) {
+    public function handleProviderCallback( $provider, SocialiteWrapper $socialiteWrapper ) {
         try {
             return $socialiteWrapper->handleProviderCallback( $provider );
         } catch ( QueryException $e ) {
