@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="translate">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +10,8 @@
           rel="stylesheet">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
-    @if (Auth::user())
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @endif
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -72,10 +71,14 @@
                            aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <form class="form-horizontal" role="form" method="POST"
-                                      action="{{ url('/logout') }}">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <button type="submit">Logout</button>
+                                <a href="{{ url('/logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
                                 </form>
                             </li>
                         </ul>
