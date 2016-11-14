@@ -12,7 +12,7 @@
 
                         <div class="alert alert-info">
                             <h2>Update!</h2>
-                            <p>The translation app was just got internals upgrade!</p>
+                            <p>The translation app just got an internals upgrade!</p>
                             <p>This will allow me to work on new features, but also brings a significant performance
                                 boost. Have fun!</p>
                             <p>Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
