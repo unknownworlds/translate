@@ -65,8 +65,9 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">Login</button>
 
-                                    <a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your
-                                        Password?</a>
+                                    <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                                        Forgot Your Password?
+                                    </a>
                                 </div>
                             </div>
 
@@ -74,9 +75,15 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a class="btn btn-primary" href="{{ url('/social-login/github') }}">Login with GitHub</a>
-                                    <a class="btn btn-primary" href="{{ url('/social-login/facebook') }}">Login with Facebook</a>
-                                    <a class="btn btn-primary" href="{{ url('/social-login/google') }}">Login with Google</a>
+                                    <a class="btn btn-primary" href="{{ url('/social-login/github') }}">
+                                        Login with GitHub
+                                    </a>
+                                    <a class="btn btn-primary" href="{{ url('/social-login/facebook') }}">
+                                        Login with Facebook
+                                    </a>
+                                    <a class="btn btn-primary" href="{{ url('/social-login/google') }}">
+                                        Login with Google
+                                    </a>
                                 </div>
                             </div>
                         </form>
