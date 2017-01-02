@@ -163,6 +163,7 @@ return [
 		 */
 		'Laravel\Socialite\SocialiteServiceProvider',
 		Collective\Html\HtmlServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
 
 	],
 
@@ -217,6 +218,7 @@ return [
 		'Html'      => Collective\Html\HtmlFacade::class,
 		'Gate'      => Illuminate\Support\Facades\Gate::class,
 		'Input'     => Illuminate\Support\Facades\Input::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
 
 	],
 
