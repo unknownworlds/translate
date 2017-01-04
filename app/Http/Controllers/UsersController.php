@@ -24,23 +24,25 @@ class UsersController extends Controller {
 		// TODO: hasRole('Root')
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index() {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param UserRequest $request
+     * @return Response
+     */
+	public function index(UserRequest $request) {
 		$users = User::with( 'roles' )->orderBy( 'name' )->get();
 
 		return view( 'users/index', compact( 'users' ) );
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create() {
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param UserRequest $request
+     * @return Response
+     */
+	public function create(UserRequest $request) {
 		//
 	}
 
@@ -57,27 +59,27 @@ class UsersController extends Controller {
 		return redirect( 'users' );
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return Response
-	 */
-	public function show( $id ) {
+    /**
+     * Display the specified resource.
+     *
+     * @param UserRequest $request
+     * @param  int $id
+     * @return Response
+     */
+	public function show( UserRequest $request, $id ) {
 		$user = User::findOrFail( $id );
 
 		return $user;
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return Response
-	 */
-	public function edit( $id ) {
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param UserRequest $request
+     * @param  int $id
+     * @return Response
+     */
+	public function edit( UserRequet $request, $id ) {
 		$user  = User::findOrFail( $id );
 		$roles = Role::all();
 

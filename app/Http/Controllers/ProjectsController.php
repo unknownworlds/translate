@@ -23,23 +23,25 @@ class ProjectsController extends Controller {
 		// TODO: hasRole('Root')
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index() {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param ProjectRequest $request
+     * @return Response
+     */
+	public function index(ProjectRequest $request) {
 		$projects = Project::orderBy('name')->get();
 
 		return view( 'projects/index', compact( 'projects' ) );
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create() {
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param ProjectRequest $request
+     * @return Response
+     */
+	public function create(ProjectRequest $request) {
 		return view( 'projects.create' );
 	}
 
@@ -56,27 +58,27 @@ class ProjectsController extends Controller {
 		return redirect( 'projects' );
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return Response
-	 */
-	public function show( $id ) {
+    /**
+     * Display the specified resource.
+     *
+     * @param ProjectRequest $request
+     * @param  int $id
+     * @return Response
+     */
+	public function show( ProjectRequest $request, $id ) {
 		$project = Project::findOrFail( $id );
 
 		return $project;
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return Response
-	 */
-	public function edit( $id ) {
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param ProjectRequest $request
+     * @param  int $id
+     * @return Response
+     */
+	public function edit( ProjectRequest $request, $id ) {
 		$project = Project::findOrFail( $id );
 
 		return view( 'projects.edit', compact( 'project' ) );
