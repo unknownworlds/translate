@@ -15,7 +15,7 @@ class BaseStringTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 15000) as $index) {
+        foreach (range(1, 1500) as $index) {
             BaseString::create([
                 'project_id' => 1,
                 'key' => $faker->sentence(rand(1, 4)),

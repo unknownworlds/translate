@@ -15,6 +15,11 @@ class LanguageTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
+        Language::firstOrCreate([
+            'name' => 'Test language',
+            'locale' => 'te_ST',
+        ]);
+
         foreach (range(1, 10) as $index) {
             $locale = $faker->locale;
 
