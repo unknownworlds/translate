@@ -38,7 +38,10 @@ var app = new Vue({
             data.loading++;
 
             $.get(url, params, success).fail(function (jqXHR, textStatus, errorThrown) {
-                alert('Error ' + jqXHR.status + ' occurred. Please try again.')
+                if(typeof jqXHR.responseJSON == 'undefined')
+                    alert('Error ' + jqXHR.status + ' occurred. Please try again.');
+                else
+                    alert(jqXHR.responseJSON.error.message);
             }).always(function () {
                 data.loading--;
             });
@@ -47,7 +50,10 @@ var app = new Vue({
             data.loading++;
 
             $.post(url, params, success).fail(function (jqXHR, textStatus, errorThrown) {
-                alert('Error ' + jqXHR.status + ' occurred. Please try again.')
+                if(typeof jqXHR.responseJSON == 'undefined')
+                    alert('Error ' + jqXHR.status + ' occurred. Please try again.');
+                else
+                    alert(jqXHR.responseJSON.error.message);
             }).always(function () {
                 data.loading--;
             });
