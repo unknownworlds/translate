@@ -351,7 +351,8 @@ var app = new Vue({
                 //     }
                 // })
 
-                return item.key.toLowerCase().indexOf(val.toLowerCase()) !== -1 || item.text.toLowerCase().indexOf(val.toLowerCase()) !== -1;
+                return item.key.toLowerCase().indexOf(val.toLowerCase()) !== -1
+                    || item.text.toLowerCase().indexOf(val.toLowerCase()) !== -1;
             });
 
             this.resetPagination();

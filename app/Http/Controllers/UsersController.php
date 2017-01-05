@@ -79,7 +79,7 @@ class UsersController extends Controller {
      * @param  int $id
      * @return Response
      */
-	public function edit( UserRequet $request, $id ) {
+	public function edit( UserRequest $request, $id ) {
 		$user  = User::findOrFail( $id );
 		$roles = Role::all();
 
