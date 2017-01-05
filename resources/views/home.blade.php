@@ -114,8 +114,8 @@
                                                     {{ $entry->completion }} %
                                                 </td>
                                                 <td>
-                                                    <div class="progress {{ $entry->progress_bar_class }}">
-                                                        <div class="progress-bar"
+                                                    <div class="progress">
+                                                        <div class="progress-bar {{ $entry->progress_bar_class }}"
                                                              role="progressbar" aria-valuenow="{{ $entry->completion }}"
                                                              aria-valuemin="0"
                                                              aria-valuemax="100"

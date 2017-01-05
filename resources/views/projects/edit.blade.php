@@ -1,7 +1,6 @@
 @extends('app')
 
 @section('content')
-    @include('errors/list')
 
     <div class="container">
         <div class="row">
