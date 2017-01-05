@@ -54,6 +54,16 @@ class HomeController extends Controller
             ->with('project', 'language')
             ->groupBy(['project_id', 'language_id'])->get();
 
+        foreach ($translationProgress as &$entry) {
+            $entry->completion = round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3);
+            $entry->progress_bar_class = '';
+
+            if($entry->completion >= 80)
+                $entry->progress_bar_class = 'progress-bar-info';
+            if($entry->completion >= 100)
+                $entry->progress_bar_class = 'progress-bar-success';
+        }
+
         return view('home', compact('log', 'baseStringsLog', 'translationProgress', 'baseStringCounts', 'languages'));
     }
 
