@@ -5,9 +5,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="jumbotron">
-                    <h1>Error 503</h1>
+                    <h1>Error 500</h1>
                     <p>
-                        Server is currently unavailable. Please try later.
+                        Whoops, looks like something went wrong! We were reported about the issue. We'll do our best to
+                        fix it as soon as possible.
                     </p>
                 </div>
             </div>

@@ -19,7 +19,10 @@ class CheckRole
     {
 
         if (Auth::guest() || ($requiredRole != null && !Auth::user()->hasRole($requiredRole))) {
-            return response('Unauthorized.', 401);
+            if (Auth::guest())
+                abort(401, 'Unauthorized action.');
+
+            abort(403, 'Forbidden.');
         }
 
         return $next($request);
