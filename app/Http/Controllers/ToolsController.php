@@ -22,9 +22,7 @@ use Request;
 class ToolsController extends Controller {
 
 	public function __construct() {
-		$this->middleware( 'auth' );
-
-		// TODO: hasRole('Root')
+        $this->middleware(['auth', 'hasRole:Root']);
 	}
 
 	/**

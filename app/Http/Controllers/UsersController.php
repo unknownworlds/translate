@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright (c) Unknown Worlds Entertainment, 2016. 
+ * Copyright (c) Unknown Worlds Entertainment, 2016.
  * Created by Lukas Nowaczek <lukas@unknownworlds.com> <@lnowaczek>
  * Visit http://unknownworlds.com/
- * This file is a part of proprietary software. 
+ * This file is a part of proprietary software.
  */
 
 namespace App\Http\Controllers;
@@ -16,13 +16,13 @@ use App\Role;
 use App\User;
 use Request;
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
-	public function __construct() {
-		$this->middleware( 'auth' );
-
-		// TODO: hasRole('Root')
-	}
+    public function __construct()
+    {
+        $this->middleware(['auth', 'hasRole:Root']);
+    }
 
     /**
      * Display a listing of the resource.
@@ -30,11 +30,12 @@ class UsersController extends Controller {
      * @param UserRequest $request
      * @return Response
      */
-	public function index(UserRequest $request) {
-		$users = User::with( 'roles' )->orderBy( 'name' )->get();
+    public function index(UserRequest $request)
+    {
+        $users = User::with('roles')->orderBy('name')->get();
 
-		return view( 'users/index', compact( 'users' ) );
-	}
+        return view('users/index', compact('users'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -42,22 +43,24 @@ class UsersController extends Controller {
      * @param UserRequest $request
      * @return Response
      */
-	public function create(UserRequest $request) {
-		//
-	}
+    public function create(UserRequest $request)
+    {
+        //
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param UserRequest $request
-	 *
-	 * @return Response
-	 */
-	public function store( UserRequest $request ) {
-		User::create( Request::all() );
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param UserRequest $request
+     *
+     * @return Response
+     */
+    public function store(UserRequest $request)
+    {
+        User::create(Request::all());
 
-		return redirect( 'users' );
-	}
+        return redirect('users');
+    }
 
     /**
      * Display the specified resource.
@@ -66,11 +69,12 @@ class UsersController extends Controller {
      * @param  int $id
      * @return Response
      */
-	public function show( UserRequest $request, $id ) {
-		$user = User::findOrFail( $id );
+    public function show(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
 
-		return $user;
-	}
+        return $user;
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -79,44 +83,47 @@ class UsersController extends Controller {
      * @param  int $id
      * @return Response
      */
-	public function edit( UserRequest $request, $id ) {
-		$user  = User::findOrFail( $id );
-		$roles = Role::all();
+    public function edit(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
 
-		return view( 'users.edit', compact( 'user', 'roles' ) );
-	}
+        return view('users.edit', compact('user', 'roles'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param UserRequest $request
-	 *
-	 * @param $id
-	 *
-	 * @return Response
-	 * @internal param int $id
-	 */
-	public function update( $id, UserRequest $request ) {
-		$user = User::findOrFail( $id );
-		$user->update( $request->all() );
-		$user->roles()->sync( $request->input( 'userRoles' ) );
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UserRequest $request
+     *
+     * @param $id
+     *
+     * @return Response
+     * @internal param int $id
+     */
+    public function update($id, UserRequest $request)
+    {
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        $user->roles()->sync($request->input('userRoles'));
 
-		return redirect( 'users' );
-	}
+        return redirect('users');
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param $id
-	 * @param UserRequest $request
-	 *
-	 * @return Response
-	 * @internal param int $id
-	 */
-	public function destroy( $id, UserRequest $request ) {
-		User::findOrFail( $id )->delete();
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @param UserRequest $request
+     *
+     * @return Response
+     * @internal param int $id
+     */
+    public function destroy($id, UserRequest $request)
+    {
+        User::findOrFail($id)->delete();
 
-		return redirect( 'users' );
-	}
+        return redirect('users');
+    }
 
 }

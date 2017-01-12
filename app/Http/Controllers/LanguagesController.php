@@ -18,9 +18,7 @@ use Request;
 class LanguagesController extends Controller {
 
 	public function __construct() {
-		$this->middleware( 'auth' );
-
-		// TODO: hasRole('Root')
+        $this->middleware(['auth', 'hasRole:Root']);
 	}
 
 	/**
