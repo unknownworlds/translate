@@ -26,7 +26,7 @@ class SimpleJsonObjectOutputHandler implements OutputHandlerInterface {
 
 			$output = $language['strings'];
 			$output = json_encode( $output, JSON_PRETTY_PRINT );
-			$output = str_replace( '\n', "\n", $output );
+			//$output = str_replace( '\n', "\n", $output );
 
 			$file = fopen( $dir . '/' . $language['name'] . '.json', 'w+' );
 			fputs( $file, $output );
