@@ -51,7 +51,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://translate.unknownworlds.com',
+    'url' => env('APP_URL', 'http://localhost'),
 
 	/*
 	|--------------------------------------------------------------------------
