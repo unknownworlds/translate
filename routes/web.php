@@ -35,8 +35,10 @@ Route::resource('users', 'UsersController');
 Route::resource('languages', 'LanguagesController');
 Route::resource('roles', 'RolesController');
 Route::resource('projects', 'ProjectsController');
-Route::get('tools/file-import', 'ToolsController@fileImport');
-Route::post('tools/file-import', 'ToolsController@processFileImport');
+Route::get('admin-tool/language-status', 'AdminToolController@languageStatus');
+
+//Route::get('tools/file-import', 'ToolsController@fileImport');
+//Route::post('tools/file-import', 'ToolsController@processFileImport');
 
 // Private API
 Route::group(['prefix' => 'api'], function () {
