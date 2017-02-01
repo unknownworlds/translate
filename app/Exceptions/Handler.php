@@ -44,7 +44,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (!$this->isHttpException($exception) && !env('APP_DEBUG')) {
+//        dd($exception);
+        if (!$this->isHttpException($exception)
+            && !($exception instanceof AuthenticationException)) {
+
             return response()->view('errors.500', [], 500);
         }
 
