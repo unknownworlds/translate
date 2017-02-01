@@ -27,27 +27,26 @@ class AdminToolController extends Controller
         $users = User::has('roles')->with('roles')->get();
         foreach ($users as $user) {
             foreach ($user->roles as $role) {
-                $roleData = explode(' ', $role->name);
 
-                if (array_key_exists(1, $roleData) && $roleData[1] == 'admin') {
-                    $languageAdmins[$roleData[0]]++;
-                }
+                if (!strstr($role->name, ' admin'))
+                    continue;
+
+                $languageName = substr($role->name, 0, strpos($role->name, ' admin'));
+                $languageAdmins[$languageName]++;
             }
         }
 
-        $acceptedStrings = DB::table('translated_strings')
-            ->select(DB::raw('count(*) as count, language_id'))
+        $acceptedStrings = TranslatedString::selectRaw('language_id, count(*) as count')
             ->where('is_accepted', '=', true)
             ->groupBy('language_id')
             ->get()->pluck('count', 'language_id');
 
-        $unacceptedStrings = DB::table('translated_strings')
-            ->select(DB::raw('count(*) as count, language_id'))
+        $unacceptedStrings = TranslatedString::selectRaw('count(*) as count, language_id')
             ->where('is_accepted', '=', false)
             ->groupBy('language_id')
             ->get()->pluck('count', 'language_id');
 
-        $baseStrings  = BaseString::count();
+        $baseStrings = BaseString::count();
 
         return view('adminTool/languageStatus', compact('languages', 'languageAdmins', 'unacceptedStrings', 'acceptedStrings', 'baseStrings'));
     }
