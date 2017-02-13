@@ -7,8 +7,7 @@ use App\Language;
 use App\Role;
 use App\TranslatedString;
 use App\User;
-use DB;
-use Illuminate\Http\Request;
+use Request;
 
 use App\Http\Requests;
 
@@ -49,5 +48,41 @@ class AdminToolController extends Controller
         $baseStrings = BaseString::count();
 
         return view('adminTool/languageStatus', compact('languages', 'languageAdmins', 'unacceptedStrings', 'acceptedStrings', 'baseStrings'));
+    }
+
+    public function potentialAdmins()
+    {
+        // TODO: make pretty. Cause it's ugly. It really is.
+
+        $language = Request::get('language_id', 1);
+        $languages = Language::orderBy('name')->pluck('name', 'id');
+
+        $users = TranslatedString::join('users', 'users.id', '=', 'translated_strings.user_id')
+            ->selectRaw('count(*) AS count, user_id, name')
+            ->where('language_id', '=', $language)
+            ->groupBy('translated_strings.user_id')
+            ->orderBy('count', 'desc')
+            ->limit(25)
+            ->get();
+
+        $counts = [];
+        $acceptedCountsRaw = TranslatedString::selectRaw('user_id, is_accepted, count(*) as count')
+            ->groupBy('user_id', 'is_accepted')
+            ->get()->toArray();
+
+        foreach ($acceptedCountsRaw as $item) {
+            $counts[$item['user_id']][($item['is_accepted'] ? 'accepted_count' : 'unaccepted_count')] = $item['count'];
+        }
+
+        $voteCounts = TranslatedString::selectRaw('user_id, SUM(up_votes) AS up_votes_sum, SUM(down_votes) AS down_votes_sum')
+            ->groupBy('user_id')
+            ->get()->toArray();
+
+        foreach ($voteCounts as $item) {
+            $counts[$item['user_id']]['up_votes_sum'] = $item['up_votes_sum'];
+            $counts[$item['user_id']]['down_votes_sum'] = $item['down_votes_sum'];
+        }
+
+        return view('adminTool/potentialAdmins', compact('users', 'counts', 'languages', 'language'));
     }
 }

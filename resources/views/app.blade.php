@@ -55,6 +55,7 @@
                            aria-expanded="false">Admin tool <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ url('/admin-tool/language-status') }}">Language status</a></li>
+                            <li><a href="{{ url('/admin-tool/potential-admins') }}">Potential admins</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ url('/projects') }}">Projects</a></li>
