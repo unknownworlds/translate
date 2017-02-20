@@ -48,7 +48,7 @@
 
                     <hr>
 
-                    <div class="filters">
+                    <div class="filters clearfix">
                         <button class="btn btn-default" @click="hideAccepted()"
                         :class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
                         translations
@@ -58,7 +58,7 @@
                         :class="{'btn-success': showingPendingOnly}">Show pending translations only
                         </button>
 
-                        <input id="searchInput" type="text" class="form-control pull-right clearfix"
+                        <input id="searchInput" type="text" class="form-control pull-right"
                                v-model="searchInput" placeholder="Search...">
                     </div>
                 </div>
