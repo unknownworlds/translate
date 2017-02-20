@@ -29,6 +29,7 @@ Route::get('pages/{name}', 'PagesController@index');
 Route::get('theme/{name}', 'ThemesController@index');
 Route::get('rss', 'RssController@index');
 Route::get('rss/base-strings/{id}', 'RssController@baseStrings');
+Route::get('rss/translations/{project}/{language}', 'RssController@translations');
 
 // Backend
 Route::resource('users', 'UsersController');

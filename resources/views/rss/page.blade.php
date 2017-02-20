@@ -23,6 +23,15 @@
                                     <a href="/rss/base-strings/{{ $project->id }}">Base string updates</a>
                                 </li>
                             </ul>
+                            <ul>
+                                @foreach($languages as $language)
+                                    <li>
+                                        <a href="/rss/translations/{{ $project->id }}/{{ $language->id }}">
+                                            {{ $language->name }} translations feed
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         @endforeach
 
                     </div>
