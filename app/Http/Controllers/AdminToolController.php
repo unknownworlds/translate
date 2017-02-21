@@ -15,6 +15,8 @@ class AdminToolController extends Controller
 {
     public function __construct()
     {
+        // TODO: make pretty. Cause it's ugly. It really is.
+
         $this->middleware(['auth', 'hasRole:Root']);
     }
 
@@ -52,8 +54,6 @@ class AdminToolController extends Controller
 
     public function potentialAdmins()
     {
-        // TODO: make pretty. Cause it's ugly. It really is.
-
         $language = Request::get('language_id', 1);
         $languages = Language::orderBy('name')->pluck('name', 'id');
 
@@ -84,5 +84,64 @@ class AdminToolController extends Controller
         }
 
         return view('adminTool/potentialAdmins', compact('users', 'counts', 'languages', 'language'));
+    }
+
+    public function audit()
+    {
+        $language = Request::get('language_id', 1);
+        $languages = Language::orderBy('name')->pluck('name', 'id');
+
+        $admins = [];
+        $adminIds = [];
+        $users = User::has('roles')->with('roles')->get();
+        foreach ($users as $user) {
+            foreach ($user->roles as $role) {
+
+                if ($role->name != $languages[$language] . ' admin')
+                    continue;
+
+                $admins[] = $user;
+                $adminIds[] = $user->id;
+            }
+        }
+
+        $counts = [];
+        $acceptedCountsRaw = TranslatedString::selectRaw('user_id, is_accepted, count(*) as count')
+            ->groupBy('user_id', 'is_accepted')
+            ->get()->toArray();
+
+        foreach ($acceptedCountsRaw as $item) {
+            $counts[$item['user_id']][($item['is_accepted'] ? 'accepted_count' : 'unaccepted_count')] = $item['count'];
+        }
+
+        $voteCounts = TranslatedString::selectRaw('user_id, SUM(up_votes) AS up_votes_sum, SUM(down_votes) AS down_votes_sum')
+            ->groupBy('user_id')
+            ->get()->toArray();
+
+        foreach ($voteCounts as $item) {
+            $counts[$item['user_id']]['up_votes_sum'] = $item['up_votes_sum'];
+            $counts[$item['user_id']]['down_votes_sum'] = $item['down_votes_sum'];
+        }
+
+        $acceptedStrings = TranslatedString::selectRaw('accepted_by AS user_id, MAX(updated_at) AS last_date, COUNT(*) AS count')
+            ->whereIn('accepted_by', $adminIds)
+            ->get()->toArray();
+
+        foreach ($acceptedStrings as $data) {
+            $counts[$data['user_id']]['last_accepted'] = $data['last_date'];
+            $counts[$data['user_id']]['accepted_by_count'] = $data['count'];
+        }
+
+        $deletedStrings = TranslatedString::selectRaw('deleted_by AS user_id, MAX(deleted_at) AS last_date, COUNT(*) AS count')
+            ->whereIn('deleted_by', $adminIds)
+            ->withTrashed()
+            ->get()->toArray();
+
+        foreach ($deletedStrings as $data) {
+            $counts[$data['user_id']]['last_deleted'] = $data['last_date'];
+            $counts[$data['user_id']]['deleted_by_count'] = $data['count'];
+        }
+
+        return view('adminTool/audit', compact('admins', 'counts', 'languages', 'language'));
     }
 }

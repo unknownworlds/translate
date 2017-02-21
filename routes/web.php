@@ -38,6 +38,7 @@ Route::resource('roles', 'RolesController');
 Route::resource('projects', 'ProjectsController');
 Route::get('admin-tool/language-status', 'AdminToolController@languageStatus');
 Route::get('admin-tool/potential-admins', 'AdminToolController@potentialAdmins');
+Route::get('admin-tool/audit', 'AdminToolController@audit');
 
 //Route::get('tools/file-import', 'ToolsController@fileImport');
 //Route::post('tools/file-import', 'ToolsController@processFileImport');

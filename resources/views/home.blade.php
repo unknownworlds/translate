@@ -51,8 +51,9 @@
                                                     @if ($entry->language != null)
                                                         <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
                                                              alt="{{@ $languages[$entry->language_id] }}"
-                                                             title="{{ $entry->language->name }}"/></td>
-                                                @endif
+                                                             title="{{ $entry->language->name }}"/>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $entry->project->name }}</td>
                                                 <td>{{ $entry->text }}</td>
                                             </tr>

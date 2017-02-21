@@ -164,7 +164,10 @@ class TranslationsController extends BaseApiController
             'is_accepted' => false
         ]);
 
-        $string->update(['is_accepted' => true]);
+        $string->update([
+            'is_accepted' => true,
+            'accepted_by' => Auth::id()
+        ]);
 
         return $this->respond('String accepted.');
     }
@@ -175,6 +178,10 @@ class TranslationsController extends BaseApiController
             'id' => Request::get('string_id'),
             'language_id' => Request::get('language_id')
         ])->firstOrFail();
+
+        $string->update([
+            'deleted_by' => Auth::id()
+        ]);
 
         $string->delete();
 
