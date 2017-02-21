@@ -44,8 +44,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        $ignoreException = false;
+        foreach ($this->dontReport as $value) {
+            if ($exception instanceof $value) {
+                $ignoreException = true;
+            }
+        }
+
         if (!$this->isHttpException($exception)
-            && !($exception instanceof AuthenticationException)
+            && !$ignoreException
             && !env('APP_DEBUG')
         ) {
             return response()->view('errors.500', [], 500);
