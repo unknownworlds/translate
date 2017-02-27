@@ -172,6 +172,19 @@ class TranslationsController extends BaseApiController
         return $this->respond('String accepted.');
     }
 
+    public function update(StringAdminRequest $request)
+    {
+        $string = TranslatedString::where([
+            'id' =>$request->get('string_id'),
+        ])->firstOrFail();
+
+        $string->update([
+            'text' => $request->get('text')
+        ]);
+
+        return $this->respond('String updated.');
+    }
+
     public function trash(StringAdminRequest $request)
     {
         $string = TranslatedString::where([

@@ -19,7 +19,8 @@ var data = {
     numberOfPages: 0,
     whiteboard: {},
     searchInput: '',
-    manualInputBaseString: {}
+    manualInputBaseString: {},
+    editStringModalData: {}
 };
 
 $.ajaxSetup({
@@ -311,6 +312,20 @@ var app = new Vue({
             app.getRequest("api/strings/history", getData, function (response) {
                 data.translatedStringsHistory = response;
                 $('#translatedStringsHistory').modal();
+            });
+        },
+        edit: function (string) {
+            data.editStringModalData = string;
+            $('#stringEditModal').modal();
+        },
+        saveString: function (string) {
+            var postData = {
+                string_id: string.id,
+                text: string.text
+            };
+
+            app.postRequest("api/strings/update", postData, function (response) {
+                $('#stringEditModal').modal('hide');
             });
         },
         showNewBaseStringForm: function () {

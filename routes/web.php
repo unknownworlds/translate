@@ -52,6 +52,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/strings', 'TranslationsController@strings');
     Route::get('/check-privileges', 'TranslationsController@checkPrivileges');
     Route::post('/strings/store', 'TranslationsController@store');
+    Route::post('/strings/update', 'TranslationsController@update');
     Route::post('/strings/trash', 'TranslationsController@trash');
     Route::post('/strings/accept', 'TranslationsController@accept');
     Route::post('/strings/vote', 'TranslationsController@vote');

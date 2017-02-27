@@ -54,6 +54,10 @@
                                         <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-default"
+                                    @click="edit(string)" v-if="isAdmin" title="Edit">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default"
                                             @click="trash(baseString.id, string.id)" v-if="isAdmin" title="Move to trash">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
