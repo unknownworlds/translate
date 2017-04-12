@@ -32,9 +32,7 @@
                                 </button>
                             </div>
                         </h3>
-                        <i style="white-space: pre-line">
-                            @{{baseString.text}}
-                        </i>
+                        <i style="white-space: pre-wrap">@{{baseString.text}}</i>
                     </div>
                     <div class="panel-body">
                         <ul class="list-group">
@@ -66,7 +64,7 @@
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
                                 </div>
-                                <span style="white-space: pre-line">@{{string.text}}</span>
+                                <span style="white-space: pre-wrap">@{{string.text}}</span>
                             </li>
                         </ul>
 

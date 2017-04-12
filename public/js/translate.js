@@ -357,26 +357,26 @@ var app = new Vue({
         }
     },
     watch: {
-        searchInput: function (val) {
-            data.filteredData = data.baseStrings.filter(function (item) {
-                // Search in translated strings
-                var translatedTextContainsQuery = false;
-                Object.keys(data.strings[item.id]).forEach(function (key) {
-                    console.log(data.strings[item.id][key].text);
-                    if (data.strings[item.id][key].text.toLowerCase().indexOf(val.toLowerCase()) !== -1) {
-                        translatedTextContainsQuery = true;
-                    }
-                })
+        searchInput: _.debounce(
+            function (val) {
+                data.filteredData = data.baseStrings.filter(function (item) {
+                    // Search in translated strings
+                    var translatedTextContainsQuery = false;
+                    Object.keys(data.strings[item.id]).forEach(function (key) {
+                        if (data.strings[item.id][key].text.toLowerCase().indexOf(val.toLowerCase()) !== -1) {
+                            translatedTextContainsQuery = true;
+                        }
+                    })
 
-                // Search in keys and values, also return true if translated string contains query
-                return item.key.toLowerCase().indexOf(val.toLowerCase()) !== -1
-                    || item.text.toLowerCase().indexOf(val.toLowerCase()) !== -1
-                    || translatedTextContainsQuery;
-            });
+                    // Search in keys and values, also return true if translated string contains query
+                    return item.key.toLowerCase().indexOf(val.toLowerCase()) !== -1
+                        || item.text.toLowerCase().indexOf(val.toLowerCase()) !== -1
+                        || translatedTextContainsQuery;
+                });
 
-            this.resetPagination();
-            data.showingPendingOnly = false;
-            data.acceptedStringsHidden = false;
-        },
+                this.resetPagination();
+                data.showingPendingOnly = false;
+                data.acceptedStringsHidden = false;
+            }, 500),
     }
 })
