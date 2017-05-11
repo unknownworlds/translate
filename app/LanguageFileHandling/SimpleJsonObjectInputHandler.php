@@ -32,7 +32,7 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface {
 		// Remove whitespace from the end of the doc
 		$output = preg_replace( '/"(\s)+}/im', '" }', $output );
 		// Remove whitespace between entries
-		$output = preg_replace( '/",([\s]+)"/im', '", "', $output );
+        $output = preg_replace( '/"\s*,\s*"/im', '", "', $output );
 		// Replace remaining newlines with <br>
 		$output = str_replace( array( "\r\n", "\r", "\n" ), "<br>", $output );
 		// Remove tab character
