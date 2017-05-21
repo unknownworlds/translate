@@ -105,7 +105,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
-        $user->roles()->sync($request->input('userRoles') ?? 0);
+        $user->roles()->sync($request->input('userRoles') ?? []);
 
         return redirect('users');
     }
