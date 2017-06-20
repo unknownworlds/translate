@@ -16,12 +16,7 @@
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 </head>
-<!--
- * Copyright (c) Unknown Worlds Entertainment, 2016.
- * Created by Lukas Nowaczek <@lnowaczek>
- * Visit http://unknownworlds.com/
- * This file is a part of proprietary software.
--->
+
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
