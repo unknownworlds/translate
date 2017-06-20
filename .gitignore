@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 .env
+.env.testing
 .idea
 /public/output/
 tests/_output/*
