@@ -30,8 +30,8 @@ class UserRequest extends Request
             return [];
         } elseif ($requestMethod == 'POST') {
             return [
-                'name' => 'required|unique:languages',
-                'email' => 'required|email|unique:languages',
+                'name' => 'required|unique:users',
+                'email' => 'required|email|unique:users',
             ];
         } elseif ($requestMethod == 'PATCH') {
             return [
