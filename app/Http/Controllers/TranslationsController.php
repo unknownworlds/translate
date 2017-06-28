@@ -136,6 +136,10 @@ class TranslationsController extends BaseApiController
             return $this->respondValidationFailed('Already voted!');
         }
 
+	    if ( $string->user_id == Auth::user()->id ) {
+		    return $this->respondValidationFailed( 'Cannot vote on own entries.' );
+	    }
+
         $vote->save();
 
         $voteType = (Request::get('vote') == 1) ? 'up_votes' : 'down_votes';
