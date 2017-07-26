@@ -8,9 +8,4 @@ modules:
         - Laravel5:
             environment_file: .env.testing
         - Asserts
-    config:
-        - Db:
-            dsn: 'mysql:host=localhost;dbname=uwetranslate'
-            user: 'homestead'
-            password: 'secret'
-            dump: tests/_data/dump.sql
+        - Db
