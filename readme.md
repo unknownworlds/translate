@@ -2,6 +2,10 @@
 Super-duper community-powered translations. Used for [Unknown Worlds Community Translations](http://translate.unknownworlds.com/).
 Based on Laravel.
 
+## Usage examples
+- [Red Hook Studios - Darkest Dungeon](http://www.translate.darkestdungeon.com/)
+- [New World Interactive - Insurgency, Day of Infamy](https://translate.newworldinteractive.com/)
+
 ## Base workflow example
 - Store your source text in English.json file
 - When the game is built, upload the source file to the app - it gets processed: strings get added, updated or deleted
