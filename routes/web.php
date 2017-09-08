@@ -33,6 +33,8 @@ Route::resource('projects', 'ProjectsController');
 Route::get('admin-tool/language-status', 'AdminToolController@languageStatus');
 Route::get('admin-tool/potential-admins', 'AdminToolController@potentialAdmins');
 Route::get('admin-tool/audit', 'AdminToolController@audit');
+Route::get('stats/translations-per-day', 'StatsController@translationsPerDay');
+Route::get('stats/users-per-day', 'StatsController@usersPerDay');
 
 //Route::get('tools/file-import', 'ToolsController@fileImport');
 //Route::post('tools/file-import', 'ToolsController@processFileImport');

@@ -90,3 +90,7 @@
         @include('translations/partials/pagination')
     </div>
 @endsection
+
+@section('scripts')
+    <script src="{{ asset('/js/translate.js') }}"></script>
+@endsection

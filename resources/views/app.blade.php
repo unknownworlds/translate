@@ -42,9 +42,16 @@
                 <li><a href="http://forums.unknownworlds.com/categories/subnautica-translations">Translations forums</a>
                 </li>
                 @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
-                    <li><a href="{{ url('/users') }}">Users</a></li>
-                    <li><a href="{{ url('/roles') }}">Roles</a></li>
-                    <li><a href="{{ url('/languages') }}">Languages</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Manage <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/users') }}">Users</a></li>
+                            <li><a href="{{ url('/roles') }}">Roles</a></li>
+                            <li><a href="{{ url('/languages') }}">Languages</a></li>
+                            <li><a href="{{ url('/projects') }}">Projects</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">Admin tool <span class="caret"></span></a>
@@ -54,7 +61,14 @@
                             <li><a href="{{ url('/admin-tool/audit') }}">Audit</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('/projects') }}">Projects</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Stats <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/stats/translations-per-day') }}">Translations per day</a></li>
+                            <li><a href="{{ url('/stats/users-per-day') }}">Users per day</a></li>
+                        </ul>
+                    </li>
                 @endif
             </ul>
 
@@ -101,7 +115,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdn.jsdelivr.net/lodash/4.13.1/lodash.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.2/Chart.js"></script>
 {{--<script src="//vuejs.org/js/vue.js"></script>--}}
-<script src="{{ asset('/js/translate.js') }}"></script>
+@yield('scripts')
+
 </body>
 </html>
