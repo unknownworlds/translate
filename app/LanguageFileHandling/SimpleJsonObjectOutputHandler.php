@@ -17,10 +17,16 @@ class SimpleJsonObjectOutputHandler implements OutputHandlerInterface {
 		mkdir( $dir, 0777, true );
 
 		foreach ( $this->translations as $language ) {
-
 			$output = $language['strings'];
+
+			// Total hack :(
+			if ( $language['is_rtl'] ) {
+				foreach ( $output as $key => $value ) {
+					$output[ $key ] = $this->utf8_strrev( $value );
+				}
+			}
+
 			$output = json_encode( $output, JSON_PRETTY_PRINT );
-			//$output = str_replace( '\n', "\n", $output );
 
 			$file = fopen( $dir . '/' . $language['name'] . '.json', 'w+' );
 			fputs( $file, $output );
@@ -37,5 +43,10 @@ class SimpleJsonObjectOutputHandler implements OutputHandlerInterface {
 		File::deleteDirectory( $dir );
 
 		return $outputFile;
+	}
+
+	private function utf8_strrev( $str ) {
+		preg_match_all( '/./us', $str, $ar );
+		return join( '', array_reverse( $ar[0] ) );
 	}
 }

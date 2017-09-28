@@ -85,7 +85,7 @@ class LanguagesController extends Controller {
 	 * @internal param int $id
 	 */
 	public function update( $id, LanguageRequest $request ) {
-		Language::findOrFail( $id )->update( $request->all() );
+		Language::findOrFail( $id )->update( $request->only(['name', 'locale', 'is_rtl']) );
 
 		return redirect( 'languages' );
 	}

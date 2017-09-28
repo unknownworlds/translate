@@ -23,7 +23,7 @@ class TranslationFilesController extends BaseApiController {
 		$project = Project::where( [ 'api_key' => Request::get( 'api_key' ) ] )->firstOrFail();
 
 		// init input handler
-		$inputHandler = InputHandlerFactory::getFileHandler($project->file_handler);
+		$inputHandler = InputHandlerFactory::getFileHandler( $project->file_handler );
 
 		// pass reader results to diff handler
 		$input = $inputHandler->getParsedInput();
@@ -31,7 +31,7 @@ class TranslationFilesController extends BaseApiController {
 		if ( $input == null ) {
 			return $this->respond( 'Fail, probably the input file is corrupted' );
 		}
-		
+
 		new DiffHandler( $input, $project->id );
 
 		return $this->respond( 'Success!' );
@@ -44,7 +44,7 @@ class TranslationFilesController extends BaseApiController {
 		// get the data
 		$languages    = Language::all();
 		$baseStrings  = BaseString::where( 'project_id', '=', $project->id )->pluck( 'text', 'key' )->toArray();
-		$translations = [ ];
+		$translations = [];
 
 		foreach ( $languages as $language ) {
 			$translatedStrings = TranslatedString::join( 'base_strings', 'translated_strings.base_string_id', '=', 'base_strings.id' )
@@ -57,6 +57,7 @@ class TranslationFilesController extends BaseApiController {
 
 			$translations[] = [
 				'name'    => $language->name,
+				'is_rtl'  => $language->is_rtl,
 				'strings' => array_merge( $baseStrings, $translatedStrings )
 			];
 		}
