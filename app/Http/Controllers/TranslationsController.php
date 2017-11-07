@@ -66,19 +66,22 @@ class TranslationsController extends BaseApiController
 
     public function store(StringRequest $request)
     {
-        $input = Request::all();
+        $input = $request->all();
         $input['user_id'] = Auth::user()->id;
 
+        // Trim newlines
+	    $input['text'] = trim($input['text'], "\n");
+
         $duplicates = TranslatedString::where([
-            'project_id' => Request::get('project_id'),
-            'language_id' => Request::get('language_id'),
-            'base_string_id' => Request::get('base_string_id'),
-            'text' => Request::get('text'),
+            'project_id' => $input['project_id'],
+            'language_id' => $input['language_id'],
+            'base_string_id' => $input['base_string_id'],
+            'text' => $input['text'],
         ])->get();
 
         // TODO: Kinda lame hack. Server was configured by Forge. Broken on both Forge and Homestead. WTF. Caused by MySQL config issues.
         foreach ($duplicates as $duplicate) {
-            if ($duplicate->text == Request::get('text')) {
+            if ($duplicate->text == $input['text']) {
                 return $this->respondValidationFailed('Translation already exist!');
             }
         }
@@ -88,12 +91,12 @@ class TranslationsController extends BaseApiController
 
         $string = TranslatedString::create($input);
 
-        $baseString = BaseString::findOrFail(Request::get('base_string_id'))->key;
+        $baseString = BaseString::findOrFail($input['base_string_id'])->key;
         Log::create([
-            'project_id' => Request::get('project_id'),
-            'language_id' => Request::get('language_id'),
+	        'project_id' => $input['project_id'],
+	        'language_id' => $input['language_id'],
             'user_id' => Auth::user()->id,
-            'text' => Auth::user()->name . ' translated ' . $baseString . ' to ' . Request::get('text')
+            'text' => Auth::user()->name . ' translated ' . $baseString . ' to ' . $input['text']
         ]);
 
         return $this->respond($string);
