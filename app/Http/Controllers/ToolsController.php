@@ -77,4 +77,10 @@ class ToolsController extends Controller {
 		return redirect( 'tools/file-import' )->with( 'message', 'Import complete' );
 	}
 
+	public function translationQualityIndex() {
+		$projects = Project::orderBy('name')->get();
+
+		return view( 'tools/translationQualityIndex', compact( 'projects' ) );
+	}
+
 }
