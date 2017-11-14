@@ -56,7 +56,7 @@ class DiffHandler {
 
 		// Update current strings
 		$baseStrings = BaseString::where( 'project_id', '=', $this->projectId )->pluck( 'text', 'key' )->toArray();
-		$updatedKeys = array_diff( $this->input, $baseStrings );
+		$updatedKeys = array_diff_assoc( $this->input, $baseStrings );
 		foreach ( $updatedKeys as $key => $text ) {
 			$baseString = BaseString::where( [
 				'key'        => $key,
