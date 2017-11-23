@@ -36,9 +36,9 @@ Route::get('admin-tool/audit', 'AdminToolController@audit');
 Route::get('stats/translations-per-day', 'StatsController@translationsPerDay');
 Route::get('stats/users-per-day', 'StatsController@usersPerDay');
 
-Route::get('tools/translation-quality-pdfs', 'ToolsController@translationQualityIndex');
-Route::get('tools/translation-quality-pdfs/strings', 'ToolsController@translationQualityStrings');
-Route::get('tools/translation-quality-pdfs/download', 'ToolsController@translationQualityDownload');
+Route::get('tools/translation-quality', 'ToolsController@translationQualityIndex');
+Route::get('tools/translation-quality/strings', 'ToolsController@translationQualityStrings');
+Route::get('tools/translation-quality/download', 'ToolsController@translationQualityDownload');
 //Route::get('tools/file-import', 'ToolsController@fileImport');
 //Route::post('tools/file-import', 'ToolsController@processFileImport');
 
@@ -59,5 +59,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/strings/users', 'TranslationsController@users');
     Route::get('/strings/admins', 'TranslationsController@admins');
     Route::get('/admin-whiteboard/{project_id}/{language_id}', 'AdminWhiteboardsController@find');
-    Route::post('/admin-whiteboard', 'AdminWhiteboardsController@store');
+	Route::post('/admin-whiteboard', 'AdminWhiteboardsController@store');
+	Route::post('/tools/mark-quality-controlled-string', 'toolsApiController@markQualityControlledString');
 });

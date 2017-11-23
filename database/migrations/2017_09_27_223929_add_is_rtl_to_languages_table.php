@@ -13,7 +13,7 @@ class AddIsRtlToLanguagesTable extends Migration
     public function up()
     {
         Schema::table('languages', function (Blueprint $table) {
-            $table->boolean('is_rtl')->default(0);
+            $table->boolean('is_rtl')->unsigned()->default(0);
         });
     }
 

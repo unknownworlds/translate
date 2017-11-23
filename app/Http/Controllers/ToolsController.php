@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\BaseString;
 use App\Http\Requests;
-
 use App\Http\Requests\ToolsFileImportRequest;
 use App\Language;
 use App\Project;
 use App\User;
+use PDF;
 use File;
 use App\TranslatedString;
-use Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class ToolsController extends Controller {
 
 	public function __construct() {
-        $this->middleware(['auth', 'hasRole:Root']);
+		$this->middleware( [ 'auth', 'hasRole:Root' ] );
 	}
 
 	/**
@@ -78,9 +78,59 @@ class ToolsController extends Controller {
 	}
 
 	public function translationQualityIndex() {
-		$projects = Project::orderBy('name')->get();
+		$projects = Project::orderBy( 'name' )->get();
 
 		return view( 'tools/translationQualityIndex', compact( 'projects' ) );
+	}
+
+	public function translationQualityStrings( Request $request ) {
+		$project = Project::findOrFail( $request->get( 'project_id' ) );
+		$strings = BaseString::where( 'project_id', '=', $project->id )
+		                     ->orderBy( 'key' )->get();
+
+		return view( 'tools/translationQualityStrings', compact( 'strings', 'project' ) );
+	}
+
+	public function translationQualityDownload( Request $request ) {
+		$project       = Project::findOrFail( $request->get( 'project_id' ) );
+		$baseStrings   = BaseString::where( 'project_id', '=', $project->id )
+		                           ->where( 'quality_controlled', '=', true )
+		                           ->orderBy( 'key' )->get();
+		$languages     = Language::all();
+		$baseStringIds = $baseStrings->pluck( 'id' );
+
+		$baseDir = public_path() . '/output/' . $project->id;
+		$tempDir = $baseDir . '/qapdfs_' . time();
+		mkdir( $tempDir, 0777, true );
+
+		foreach ( $languages as $language ) {
+			$translatedStrings    = [];
+			$translatedStringsRaw = TranslatedString::where( 'language_id', '=', $language->id )
+			                                        ->where( 'is_accepted', '=', 1 )
+			                                        ->whereIn( 'base_string_id', $baseStringIds )
+			                                        ->with( 'User' )
+			                                        ->get();
+			foreach ( $translatedStringsRaw as $string ) {
+				$translatedStrings[ $string->base_string_id ] = $string;
+			}
+
+			$pdf = PDF::loadView( 'pdfs.qualityControl', compact( 'project', 'baseStrings', 'translatedStrings', 'language' ) );
+
+			$pdf->save( $tempDir . '/' . $language->name . '.pdf' );
+//			return $pdf->save( $tempDir . '/' . $language->name . '.pdf' )->stream();
+		}
+
+		// zip & clean
+		$outputFile = $baseDir . '/QA_PDFs.zip';
+		if ( is_file( $outputFile ) ) {
+			unlink( $outputFile );
+		}
+
+		exec( 'cd ' . $baseDir . '/ && zip -j QA_PDFs.zip ' . $tempDir . '/*' );
+		File::deleteDirectory( $tempDir );
+
+		// return file
+		return \Response::download( $outputFile );
 	}
 
 }

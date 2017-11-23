@@ -8,7 +8,7 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading clearfix">
-                        Projects
+                        Quality control strings for {{ $project->name }}
                     </div>
 
                     <div class="panel-body">
@@ -19,22 +19,21 @@
 
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>String</th>
                                 <th>Options</th>
                             </tr>
                             </thead>
 
-                            <tbody>
-                            @foreach($projects as $project)
+                            <tbody id="vueMe">
+                            @foreach($strings as $string)
                                 <tr>
-                                    <td>{{ $project->name }}</td>
                                     <td>
-                                        <a href="/tools/translation-quality/strings?project_id={{ $project->id }}" class="btn btn-default">
-                                            Select strings
-                                        </a>
-                                        <a href="/tools/translation-quality/download?project_id={{ $project->id }}" class="btn btn-default">
-                                            Download PDFs
-                                        </a>
+                                        <b>{{ $string->key }}</b><br>
+                                        {{ $string->text }}
+                                    </td>
+                                    <td>
+                                        <a @click="toggleSelection({{ $string->id }}, $event)"
+                                           class="btn btn-default">{{ $string->quality_controlled ? 'Deselect' : 'Select' }}</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -47,4 +46,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('/js/translation-quality.js') }}"></script>
 @endsection
