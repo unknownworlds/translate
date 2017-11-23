@@ -19,6 +19,7 @@ Based on Laravel.
 - Mbstring PHP Extension
 - Tokenizer PHP Extension
 - XML PHP Extension
+- libxext6 and libxrender1 libraries
 
 ## Installation instructions
 - Point web server's root directory to /public
