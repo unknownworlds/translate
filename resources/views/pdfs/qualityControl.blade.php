@@ -51,12 +51,12 @@
 
                 <p class="originalString">{{ $baseString->text }}</p>
                 <p class="translatedString">{{ $translatedStrings[$baseString->id]->text }}</p>
-            @else
-                <div class="section-header">
-                    <h3>{{ $index+1 }}. {{ $baseString->key }}</h3>
-                </div>
+            {{--@else--}}
+                {{--<div class="section-header">--}}
+                    {{--<h3>{{ $index+1 }}. {{ $baseString->key }}</h3>--}}
+                {{--</div>--}}
                 {{--<p class="originalString">{{ $baseString->text }}</p>--}}
-                <p class="translatedString">Not translated!</p>
+                {{--<p class="translatedString">Not translated!</p>--}}
             @endif
         </div>
     @endforeach
