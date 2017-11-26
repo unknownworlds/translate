@@ -77,7 +77,7 @@ h1 small {
 }
 
 .section {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -87,7 +87,7 @@ h3 {
 
 .section-header {
     border-bottom: 1px dashed #000;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .section-header h3 {
@@ -99,7 +99,17 @@ h3 {
     font-weight: normal;
 }
 
-p.originalString {
+.clear {
+    clear: both;
+}
+
+.originalString {
     font-style: italic;
-    margin-bottom: 10px;
+    float: left;
+    width: 49%;
+}
+
+.translatedString {
+    float: right;
+    width: 50%;
 }

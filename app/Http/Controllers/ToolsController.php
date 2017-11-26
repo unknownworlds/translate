@@ -117,6 +117,7 @@ class ToolsController extends Controller {
 			$pdf = PDF::loadView( 'pdfs.qualityControl', compact( 'project', 'baseStrings', 'translatedStrings', 'language' ) );
 
 			$pdf->save( $tempDir . '/' . $language->name . '.pdf' );
+//			return view( 'pdfs.qualityControl', compact( 'project', 'baseStrings', 'translatedStrings', 'language' ) );
 //			return $pdf->save( $tempDir . '/' . $language->name . '.pdf' )->stream();
 		}
 

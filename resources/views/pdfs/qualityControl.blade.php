@@ -21,7 +21,8 @@
         Hello!<br>
         Subnautica is translated with a huge effort from it's community. Each language is translated by many people, and
         it's not always easy to keep everything in order. This document is going to help us find out if
-        {{ $language->name }} translation is in a good state. Please go through it and keep an eye out on grammar errors,
+        {{ $language->name }} translation is in a good state. Please go through it and keep an eye out on grammar
+        errors,
         inconsistencies, spelling mistakes and any other errors.
         Thank you for your time!<br>
     </p>
@@ -35,8 +36,8 @@
 
 <div class="translations">
     @foreach($baseStrings as $index => $baseString)
-        <div class="section">
-            @if(array_key_exists($baseString->id, $translatedStrings))
+        @if(array_key_exists($baseString->id, $translatedStrings))
+            <div class="section">
                 <div class="section-header">
                     <h3>{{ $index+1 }}. {{ $baseString->key }}</h3>
                     <small>
@@ -49,16 +50,19 @@
                     </small>
                 </div>
 
-                <p class="originalString">{{ $baseString->text }}</p>
-                <p class="translatedString">{{ $translatedStrings[$baseString->id]->text }}</p>
-            {{--@else--}}
+                <div class="string-text">
+                    <div class="originalString">{{ $baseString->text }}</div>
+                    <div class="translatedString">{{ $translatedStrings[$baseString->id]->text }}</div>
+                    <div class="clear"></div>
+                </div>
+                {{--@else--}}
                 {{--<div class="section-header">--}}
-                    {{--<h3>{{ $index+1 }}. {{ $baseString->key }}</h3>--}}
+                {{--<h3>{{ $index+1 }}. {{ $baseString->key }}</h3>--}}
                 {{--</div>--}}
                 {{--<p class="originalString">{{ $baseString->text }}</p>--}}
                 {{--<p class="translatedString">Not translated!</p>--}}
-            @endif
-        </div>
+            </div>
+        @endif
     @endforeach
 </div>
 
