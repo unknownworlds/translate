@@ -19,6 +19,10 @@ class SimpleJsonObjectOutputHandler implements OutputHandlerInterface {
 		foreach ( $this->translations as $language ) {
 			$output = $language['strings'];
 
+			if ( $language['skip_in_output'] ) {
+				continue;
+			}
+
 			// Total hack :(
 			if ( $language['is_rtl'] ) {
 				foreach ( $output as $key => $value ) {

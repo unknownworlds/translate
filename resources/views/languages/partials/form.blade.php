@@ -15,6 +15,13 @@
     </label>
 </div>
 
+<div class="checkbox">
+    <label>
+        {!! Form::checkbox('skip_in_output') !!}
+        Skip when generating output files
+    </label>
+</div>
+
 <div class="form-group">
     {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control']) !!}
 </div>

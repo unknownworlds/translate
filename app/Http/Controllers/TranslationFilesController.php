@@ -56,9 +56,10 @@ class TranslationFilesController extends BaseApiController {
 			                                     ->toArray();
 
 			$translations[] = [
-				'name'    => $language->name,
-				'is_rtl'  => $language->is_rtl,
-				'strings' => array_merge( $baseStrings, $translatedStrings )
+				'name'           => $language->name,
+				'is_rtl'         => $language->is_rtl,
+				'skip_in_output' => $language->skip_in_output,
+				'strings'        => array_merge( $baseStrings, $translatedStrings )
 			];
 		}
 
