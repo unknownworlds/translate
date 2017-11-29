@@ -25,6 +25,9 @@
                                 different formatting. Is's useful when the same string is used in multiple places.
                             </li>
                             <li>
+                                Empty and alternative base strings do not count towards translation progress.
+                            </li>
+                            <li>
                                 Language named "English (community)" allow you to propose your own, alternative version
                                 of an original, English text. You can use it when you find a typo or if you'd like to
                                 improve something else.
