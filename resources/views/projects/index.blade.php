@@ -23,6 +23,8 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>String count</th>
+                                <th>Alterenative or empty strings</th>
                                 <th>API key</th>
                                 <th>Options</th>
                             </tr>
@@ -32,6 +34,8 @@
                             @foreach($projects as $project)
                                 <tr>
                                     <td>{{ $project->name }}</td>
+                                    <td>{{ $baseStringCounts[$project->id] ?? 0 }}</td>
+                                    <td>{{ $baseStringAlternativeCounts[$project->id] ?? 0 }}</td>
                                     <td>{{ $project->api_key }}</td>
                                     <td>
                                         <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-default">

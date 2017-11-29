@@ -46,9 +46,10 @@ class DiffHandler {
 		$newKeys = array_diff_key( $this->input, $baseStrings );
 		foreach ( $newKeys as $key => $text ) {
 			BaseString::create( [
-				'key'        => $key,
-				'text'       => $text,
-				'project_id' => $this->projectId
+				'key'                  => $key,
+				'text'                 => $text,
+				'project_id'           => $this->projectId,
+				'alternative_or_empty' => empty( $text ) || strstr( $key, '.' ),
 			] );
 
 			$this->log( 'String ' . $key . ' added' );
@@ -64,13 +65,15 @@ class DiffHandler {
 			] )->firstOrFail();
 
 			$baseString->update( [
-				'text' => $text
+				'text'                 => $text,
+				'alternative_or_empty' => empty( $text ) || strstr( $key, '.' ),
 			] );
 
 			// Remove related translations
-			TranslatedString::where( [
-				'base_string_id' => $baseString->id
-			] )->delete();
+			$alternativeBaseStrings = BaseString::where('key', 'like', $key.'.%')->get()->pluck('id');
+
+			TranslatedString::whereIn( 'base_string_id', array_merge($alternativeBaseStrings, [$baseString->id]) )
+			                ->delete();
 
 			$this->log( 'String ' . $key . ' changed' );
 		}

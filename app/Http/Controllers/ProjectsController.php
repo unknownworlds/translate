@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BaseString;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +25,19 @@ class ProjectsController extends Controller {
 	public function index(ProjectRequest $request) {
 		$projects = Project::orderBy('name')->get();
 
-		return view( 'projects/index', compact( 'projects' ) );
+		$baseStringCounts = BaseString::where( 'alternative_or_empty', '=', false )
+		                                   ->selectRaw( 'project_id, COUNT(*) AS count' )
+		                                   ->groupBy( 'project_id' )
+		                                   ->get()
+		                                   ->pluck( 'count', 'project_id' );
+
+		$baseStringAlternativeCounts = BaseString::where( 'alternative_or_empty', '=', true )
+		                                   ->selectRaw( 'project_id, COUNT(*) AS count' )
+		                                   ->groupBy( 'project_id' )
+		                                   ->get()
+		                                   ->pluck( 'count', 'project_id' );
+
+		return view( 'projects/index', compact( 'projects', 'baseStringCounts', 'baseStringAlternativeCounts' ) );
 	}
 
     /**

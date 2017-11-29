@@ -17,252 +17,244 @@ use App\Vote;
 use Auth;
 use Request;
 
-class TranslationsController extends BaseApiController
-{
+class TranslationsController extends BaseApiController {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+	public function __construct() {
+		$this->middleware( 'auth' );
+	}
 
-    public function index()
-    {
-        $projects = Project::orderBy('name')->get();
-        $projectList = $projects->pluck('name', 'id');
+	public function index() {
+		$projects    = Project::orderBy( 'name' )->get();
+		$projectList = $projects->pluck( 'name', 'id' );
 
-        $languages = Language::orderBy('name')->pluck('name', 'id');
+		$languages = Language::orderBy( 'name' )->pluck( 'name', 'id' );
 
-        return view('translations/index', compact('projectList', 'languages'));
-    }
+		return view( 'translations/index', compact( 'projectList', 'languages' ) );
+	}
 
-    public function baseStrings()
-    {
-        $baseStrings = BaseString::where('project_id', '=', Request::get('project_id'))
-            ->get(['id', 'key', 'text']);
+	public function baseStrings() {
+		$baseStrings = BaseString::where( 'project_id', '=', Request::get( 'project_id' ) )
+		                         ->get( [ 'id', 'key', 'text' ] );
 
-        return $this->respond($baseStrings);
-    }
+		return $this->respond( $baseStrings );
+	}
 
-    public function strings()
-    {
-        $baseStrings = TranslatedString::where('project_id', '=', Request::get('project_id'))
-            ->where('language_id', '=', Request::get('language_id'))
-            ->get(['id', 'base_string_id', 'text', 'up_votes', 'down_votes', 'is_accepted']);
+	public function strings() {
+		$baseStrings = TranslatedString::where( 'project_id', '=', Request::get( 'project_id' ) )
+		                               ->where( 'language_id', '=', Request::get( 'language_id' ) )
+		                               ->get( [
+			                               'id',
+			                               'base_string_id',
+			                               'text',
+			                               'up_votes',
+			                               'down_votes',
+			                               'is_accepted'
+		                               ] );
 
-        return $this->respond($baseStrings);
-    }
+		return $this->respond( $baseStrings );
+	}
 
-    public function checkPrivileges()
-    {
-        $language = Language::findOrFail(Request::get('language_id'));
+	public function checkPrivileges() {
+		$language = Language::findOrFail( Request::get( 'language_id' ) );
 
-        $result = [
-            'is_admin' => Auth::user()->hasRole($language->name . ' admin') || Auth::user()->hasRole('Root'),
-            'is_root' => Auth::user()->hasRole('Root')
-        ];
+		$result = [
+			'is_admin' => Auth::user()->hasRole( $language->name . ' admin' ) || Auth::user()->hasRole( 'Root' ),
+			'is_root'  => Auth::user()->hasRole( 'Root' )
+		];
 
-        return $this->respond($result);
-    }
+		return $this->respond( $result );
+	}
 
-    public function store(StringRequest $request)
-    {
-        $input = $request->all();
-        $input['user_id'] = Auth::user()->id;
+	public function store( StringRequest $request ) {
+		$input            = $request->all();
+		$input['user_id'] = Auth::user()->id;
 
-        // Trim newlines
-	    $input['text'] = trim($input['text'], "\n");
+		$baseString = BaseString::findOrFail( $input['base_string_id'] );
 
-        $duplicates = TranslatedString::where([
-            'project_id' => $input['project_id'],
-            'language_id' => $input['language_id'],
-            'base_string_id' => $input['base_string_id'],
-            'text' => $input['text'],
-        ])->get();
+		// Trim newlines
+		$input['text'] = trim( $input['text'], "\n" );
 
-        // TODO: Kinda lame hack. Server was configured by Forge. Broken on both Forge and Homestead. WTF. Caused by MySQL config issues.
-        foreach ($duplicates as $duplicate) {
-            if ($duplicate->text == $input['text']) {
-                return $this->respondValidationFailed('Translation already exist!');
-            }
-        }
+		$duplicates = TranslatedString::where( [
+			'project_id'     => $input['project_id'],
+			'language_id'    => $input['language_id'],
+			'base_string_id' => $input['base_string_id'],
+			'text'           => $input['text'],
+		] )->get();
 
-        $input['up_votes'] = 0;
-        $input['down_votes'] = 0;
+		// TODO: Kinda lame hack. Server was configured by Forge. Broken on both Forge and Homestead. WTF. Caused by MySQL config issues.
+		foreach ( $duplicates as $duplicate ) {
+			if ( $duplicate->text == $input['text'] ) {
+				return $this->respondValidationFailed( 'Translation already exist!' );
+			}
+		}
 
-        $string = TranslatedString::create($input);
+		$input['up_votes']             = 0;
+		$input['down_votes']           = 0;
+		$input['alternative_or_empty'] = $baseString->alternative_or_empty;
 
-        $baseString = BaseString::findOrFail($input['base_string_id'])->key;
-        Log::create([
-	        'project_id' => $input['project_id'],
-	        'language_id' => $input['language_id'],
-            'user_id' => Auth::user()->id,
-            'text' => Auth::user()->name . ' translated ' . $baseString . ' to ' . $input['text']
-        ]);
+		$string = TranslatedString::create( $input );
 
-        return $this->respond($string);
-    }
+		Log::create( [
+			'project_id'  => $input['project_id'],
+			'language_id' => $input['language_id'],
+			'user_id'     => Auth::user()->id,
+			'text'        => Auth::user()->name . ' translated ' . $baseString->key . ' to ' . $input['text']
+		] );
 
-    public function storeBaseString(BaseStringRequest $request)
-    {
-        $input = Request::all();
+		return $this->respond( $string );
+	}
 
-        if (Request::has('id')) {
-            $string = BaseString::findOrFail($input['id']);
-            $string->update([
-                'text' => $input['text']
-            ]);
+	public function storeBaseString( BaseStringRequest $request ) {
+		$input = Request::all();
 
-            TranslatedString::where('base_string_id', '=', $string->id)->delete();
-        } else {
-            $string = BaseString::create($input);
-        }
+		if ( Request::has( 'id' ) ) {
+			$string = BaseString::findOrFail( $input['id'] );
+			$string->update( [
+				'text' => $input['text']
+			] );
 
-        Log::create([
-            'project_id' => Request::get('project_id'),
-            'user_id' => Auth::user()->id,
-            'text' => Auth::user()->name . ' added new base string ' . $string['text']
-        ]);
+			TranslatedString::where( 'base_string_id', '=', $string->id )->delete();
+		} else {
+			$string = BaseString::create( $input );
+		}
 
-        return $this->respond($string);
-    }
+		Log::create( [
+			'project_id' => Request::get( 'project_id' ),
+			'user_id'    => Auth::user()->id,
+			'text'       => Auth::user()->name . ' added new base string ' . $string['text']
+		] );
 
-    public function vote(StringVoteRequest $request)
-    {
-        $string = TranslatedString::findOrFail(Request::get('string_id'));
+		return $this->respond( $string );
+	}
 
-        $vote = Vote::firstOrNew([
-            'string_id' => Request::get('string_id'),
-            'user_id' => Auth::user()->id
-        ]);
+	public function vote( StringVoteRequest $request ) {
+		$string = TranslatedString::findOrFail( Request::get( 'string_id' ) );
 
-        if ($vote->id) {
-            return $this->respondValidationFailed('Already voted!');
-        }
+		$vote = Vote::firstOrNew( [
+			'string_id' => Request::get( 'string_id' ),
+			'user_id'   => Auth::user()->id
+		] );
 
-	    if ( $string->user_id == Auth::user()->id ) {
-		    return $this->respondValidationFailed( 'Cannot vote on own entries.' );
-	    }
+		if ( $vote->id ) {
+			return $this->respondValidationFailed( 'Already voted!' );
+		}
 
-        $vote->save();
+		if ( $string->user_id == Auth::user()->id ) {
+			return $this->respondValidationFailed( 'Cannot vote on own entries.' );
+		}
 
-        $voteType = (Request::get('vote') == 1) ? 'up_votes' : 'down_votes';
-        $string->update([$voteType => $string[$voteType] + 1]);
+		$vote->save();
 
-        return $this->respond('Vote saved.');
-    }
+		$voteType = ( Request::get( 'vote' ) == 1 ) ? 'up_votes' : 'down_votes';
+		$string->update( [ $voteType => $string[ $voteType ] + 1 ] );
 
-    public function accept(StringAdminRequest $request)
-    {
-        $string = TranslatedString::where([
-            'id' => Request::get('string_id'),
-            'language_id' => Request::get('language_id')
-        ])->firstOrFail();
+		return $this->respond( 'Vote saved.' );
+	}
 
-        TranslatedString::where([
-            'base_string_id' => Request::get('base_string_id'),
-            'language_id' => Request::get('language_id')
-        ])->update([
-            'is_accepted' => false
-        ]);
+	public function accept( StringAdminRequest $request ) {
+		$string = TranslatedString::where( [
+			'id'          => Request::get( 'string_id' ),
+			'language_id' => Request::get( 'language_id' )
+		] )->firstOrFail();
 
-        $string->update([
-            'is_accepted' => true,
-            'accepted_by' => Auth::id()
-        ]);
+		TranslatedString::where( [
+			'base_string_id' => Request::get( 'base_string_id' ),
+			'language_id'    => Request::get( 'language_id' )
+		] )->update( [
+			'is_accepted' => false
+		] );
 
-        return $this->respond('String accepted.');
-    }
+		$string->update( [
+			'is_accepted' => true,
+			'accepted_by' => Auth::id()
+		] );
 
-    public function update(StringAdminRequest $request)
-    {
-        $string = TranslatedString::where([
-            'id' =>$request->get('string_id'),
-        ])->firstOrFail();
+		return $this->respond( 'String accepted.' );
+	}
 
-        $string->update([
-            'text' => $request->get('text')
-        ]);
+	public function update( StringAdminRequest $request ) {
+		$string = TranslatedString::where( [
+			'id' => $request->get( 'string_id' ),
+		] )->firstOrFail();
 
-        return $this->respond('String updated.');
-    }
+		$string->update( [
+			'text' => $request->get( 'text' )
+		] );
 
-    public function trash(StringAdminRequest $request)
-    {
-        $string = TranslatedString::where([
-            'id' => Request::get('string_id'),
-            'language_id' => Request::get('language_id')
-        ])->firstOrFail();
+		return $this->respond( 'String updated.' );
+	}
 
-        $string->update([
-            'deleted_by' => Auth::id()
-        ]);
+	public function trash( StringAdminRequest $request ) {
+		$string = TranslatedString::where( [
+			'id'          => Request::get( 'string_id' ),
+			'language_id' => Request::get( 'language_id' )
+		] )->firstOrFail();
 
-        $string->delete();
+		$string->update( [
+			'deleted_by' => Auth::id()
+		] );
 
-        return $this->respond('String deleted.');
-    }
+		$string->delete();
 
-    /**
-     * @param BaseStringTrashRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function trashBaseString(BaseStringTrashRequest $request)
-    {
-        $string = BaseString::findOrFail(Request::get('id'));
+		return $this->respond( 'String deleted.' );
+	}
 
-        $string->delete();
+	/**
+	 * @param BaseStringTrashRequest $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function trashBaseString( BaseStringTrashRequest $request ) {
+		$string = BaseString::findOrFail( Request::get( 'id' ) );
 
-        return $this->respond('Base string deleted.');
-    }
+		$string->delete();
 
-    public function users()
-    {
+		return $this->respond( 'Base string deleted.' );
+	}
 
-        $users = TranslatedString::join('users', 'users.id', '=', 'translated_strings.user_id')
-            ->selectRaw('count(*) AS count, user_id, name')
-            ->where('project_id', '=', Request::get('project_id'))
-            ->where('language_id', '=', Request::get('language_id'))
-            ->groupBy('translated_strings.user_id')
-            ->orderBy('count', 'desc')
-            ->limit(25)
-            ->get();
+	public function users() {
 
-        return $this->respond($users);
-    }
+		$users = TranslatedString::join( 'users', 'users.id', '=', 'translated_strings.user_id' )
+		                         ->selectRaw( 'count(*) AS count, user_id, name' )
+		                         ->where( 'project_id', '=', Request::get( 'project_id' ) )
+		                         ->where( 'language_id', '=', Request::get( 'language_id' ) )
+		                         ->groupBy( 'translated_strings.user_id' )
+		                         ->orderBy( 'count', 'desc' )
+		                         ->limit( 25 )
+		                         ->get();
 
-    public function admins()
-    {
+		return $this->respond( $users );
+	}
 
-        $language = Language::where('id', '=', Request::get('language_id'))->first();
+	public function admins() {
 
-        $admins = User::whereHas('roles', function ($q) use ($language) {
-            $q->where('name', '=', $language->name . ' admin');
-        })->get(['id', 'name']);
+		$language = Language::where( 'id', '=', Request::get( 'language_id' ) )->first();
 
-        return $this->respond($admins);
-    }
+		$admins = User::whereHas( 'roles', function ( $q ) use ( $language ) {
+			$q->where( 'name', '=', $language->name . ' admin' );
+		} )->get( [ 'id', 'name' ] );
 
-    public function translationHistory()
-    {
-        $baseStrings = TranslatedString::withTrashed()
-            ->where('project_id', '=', Request::get('project_id'))
-            ->where('language_id', '=', Request::get('language_id'))
-            ->where('base_string_id', '=', Request::get('base_string_id'))
-            ->with('User')
-            ->orderBy('created_at', 'desc')
-            ->limit(5)
-            ->get();
+		return $this->respond( $admins );
+	}
 
-        return $this->respond($baseStrings);
-    }
+	public function translationHistory() {
+		$baseStrings = TranslatedString::withTrashed()
+		                               ->where( 'project_id', '=', Request::get( 'project_id' ) )
+		                               ->where( 'language_id', '=', Request::get( 'language_id' ) )
+		                               ->where( 'base_string_id', '=', Request::get( 'base_string_id' ) )
+		                               ->with( 'User' )
+		                               ->orderBy( 'created_at', 'desc' )
+		                               ->limit( 5 )
+		                               ->get();
 
-    public function projectHandlers()
-    {
-        $projects = Project::orderBy('name')->get();
-        $projectHandlers = $projects->pluck('file_handler', 'id');
+		return $this->respond( $baseStrings );
+	}
 
-        return $this->respond($projectHandlers);
-    }
+	public function projectHandlers() {
+		$projects        = Project::orderBy( 'name' )->get();
+		$projectHandlers = $projects->pluck( 'file_handler', 'id' );
+
+		return $this->respond( $projectHandlers );
+	}
 
 }

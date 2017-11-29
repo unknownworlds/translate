@@ -11,7 +11,7 @@ class TranslatedString extends Model {
 
 	protected $fillable = [
 		'project_id', 'language_id', 'base_string_id', 'user_id', 'text', 'up_votes', 'down_votes', 'is_accepted',
-        'deleted_at', 'accepted_by', 'deleted_by'
+        'deleted_at', 'accepted_by', 'deleted_by', 'alternative_or_empty'
     ];
 
 	/**
