@@ -33,3 +33,7 @@
     min-width: 350px;
     display: inline-block;
 }
+
+li {
+    margin-bottom: 10px;
+}
