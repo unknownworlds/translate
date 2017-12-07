@@ -70,7 +70,7 @@ class DiffHandler {
 			] );
 
 			// Remove related translations
-			$alternativeBaseStrings = BaseString::where( 'key', 'like', $key . '.%' )->get()->pluck( 'id' ) ?? [];
+			$alternativeBaseStrings = BaseString::where( 'key', 'like', $key . '.%' )->get()->pluck( 'id' )->toArray();
 
 			TranslatedString::whereIn( 'base_string_id', array_merge( $alternativeBaseStrings, [ $baseString->id ] ) )
 			                ->delete();
