@@ -11,6 +11,10 @@
                     <div class="panel-body">
 
                         <div class="alert alert-info">
+                            <p>
+                                <b>Text lock</b> for Subnautica is planned to start on January 4th. That means no
+                                original script changes should occur since that date.
+                            </p>
                             <p>Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
                                 to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.</p>
                         </div>
