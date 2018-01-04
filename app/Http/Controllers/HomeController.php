@@ -37,7 +37,7 @@ class HomeController extends Controller {
 	 */
 	public function index() {
 		$log            = Log::where( 'log_type', '=', 1 )->with( 'project', 'language' )->latest()->limit( 250 )->get();
-		$languages      = Language::orderBy( 'name' )->get()->pluck( 'locale', 'id' );
+		$languages      = Language::all()->pluck( 'locale', 'id' );
 		$baseStringsLog = Log::where( 'log_type', '=', 2 )->latest()->limit( 500 )->get();
 
 		$baseStringCounts = BaseString::where( 'alternative_or_empty', '=', false )
