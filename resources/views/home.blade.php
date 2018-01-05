@@ -17,13 +17,16 @@
                                 long texts should change.
                             </p>
                             <p>
-                                Do you want to appear in the credits? Please email me at lukas@unknownworlds.com with
-                                your name and language you're working on. Only the most active translators can be
-                                added to the list.
-                            </p>
-                            <p>
                                 Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
                                 to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.
+                            </p>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <p>
+                                <b>Do you want to appear in the credits?</b> Please email me at lukas@unknownworlds.com with
+                                your name and language you're working on. Only the most active translators can be
+                                added to the list.
                             </p>
                         </div>
 
