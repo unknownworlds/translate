@@ -74,12 +74,19 @@ class ToolsController extends Controller {
 			                          ->where( 'text', '=', $text )
 			                          ->first();
 
-			if ( $string && $string->text == $text ) {
+			if ( $string ) {
 				$string->update( [
 					'is_accepted' => true
 				] );
 
 				continue;
+			} else {
+				TranslatedString::where( 'project_id', '=', $request->get( 'project_id' ) )
+				                ->where( 'language_id', '=', $request->get( 'language_id' ) )
+				                ->where( 'base_string_id', '=', $baseString->id )
+				                ->update( [
+					                'is_accepted' => false
+				                ] );
 			}
 
 			TranslatedString::create( [
