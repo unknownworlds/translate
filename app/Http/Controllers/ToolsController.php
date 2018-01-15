@@ -40,7 +40,7 @@ class ToolsController extends Controller {
 	 * @return Response
 	 */
 	public function processFileImport( ToolsFileImportRequest $request ) {
-		$rawData    = explode( "\r\n", Request::get( 'input' ) );
+		$rawData    = explode( "\r\n", $request->get( 'input' ) );
 		$properJson = '';
 
 		foreach ( $rawData as $line ) {
@@ -56,7 +56,7 @@ class ToolsController extends Controller {
 		}
 
 		foreach ( $translatedStrings as $key => $text ) {
-			$baseString = BaseString::where( 'project_id', '=', Request::get( 'project_id' ) )
+			$baseString = BaseString::where( 'project_id', '=', $request->get( 'project_id' ) )
 			                        ->where( 'key', '=', $key )
 			                        ->first();
 
@@ -65,11 +65,12 @@ class ToolsController extends Controller {
 			}
 
 			TranslatedString::firstOrCreate( [
-				'project_id'     => Request::get( 'project_id' ),
-				'language_id'    => Request::get( 'language_id' ),
+				'project_id'     => $request->get( 'project_id' ),
+				'language_id'    => $request->get( 'language_id' ),
 				'base_string_id' => $baseString->id,
-				'user_id'        => Request::get( 'user_id' ),
-				'text'           => $text
+				'user_id'        => $request->get( 'user_id' ),
+				'text'           => $text,
+				'is_accepted'    => true
 			] );
 
 		}

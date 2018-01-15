@@ -39,8 +39,8 @@ Route::get('stats/users-per-day', 'StatsController@usersPerDay');
 Route::get('tools/translation-quality', 'ToolsController@translationQualityIndex');
 Route::get('tools/translation-quality/strings', 'ToolsController@translationQualityStrings');
 Route::get('tools/translation-quality/download', 'ToolsController@translationQualityDownload');
-//Route::get('tools/file-import', 'ToolsController@fileImport');
-//Route::post('tools/file-import', 'ToolsController@processFileImport');
+Route::get('tools/file-import', 'ToolsController@fileImport');
+Route::post('tools/file-import', 'ToolsController@processFileImport');
 
 // Private API
 Route::group(['prefix' => 'api'], function () {
