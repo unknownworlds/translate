@@ -64,13 +64,32 @@ class ToolsController extends Controller {
 				continue;
 			}
 
-			TranslatedString::firstOrCreate( [
-				'project_id'     => $request->get( 'project_id' ),
-				'language_id'    => $request->get( 'language_id' ),
-				'base_string_id' => $baseString->id,
-				'user_id'        => $request->get( 'user_id' ),
-				'text'           => $text,
-				'is_accepted'    => true
+			if ( $text == '' ) {
+				continue;
+			}
+
+			$string = TranslatedString::where( 'project_id', '=', $request->get( 'project_id' ) )
+			                          ->where( 'language_id', '=', $request->get( 'language_id' ) )
+			                          ->where( 'base_string_id', '=', $baseString->id )
+			                          ->where( 'text', '=', $text )
+			                          ->first();
+
+			if ( $string && $string->text == $text ) {
+				$string->update( [
+					'is_accepted' => true
+				] );
+
+				continue;
+			}
+
+			TranslatedString::create( [
+				'project_id'           => $request->get( 'project_id' ),
+				'language_id'          => $request->get( 'language_id' ),
+				'base_string_id'       => $baseString->id,
+				'user_id'              => $request->get( 'user_id' ),
+				'text'                 => $text,
+				'is_accepted'          => true,
+				'alternative_or_empty' => $baseString->alternative_or_empty
 			] );
 
 		}
