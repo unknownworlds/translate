@@ -30,6 +30,11 @@ Route::resource('users', 'UsersController');
 Route::resource('languages', 'LanguagesController');
 Route::resource('roles', 'RolesController');
 Route::resource('projects', 'ProjectsController');
+
+Route::get('projects/{id}/import', 'ProjectsController@importData');
+Route::post('projects/{id}/import', 'ProjectsController@processDataImport');
+Route::get('projects/{id}/export', 'ProjectsController@exportData');
+
 Route::get('admin-tool/language-status', 'AdminToolController@languageStatus');
 Route::get('admin-tool/potential-admins', 'AdminToolController@potentialAdmins');
 Route::get('admin-tool/audit', 'AdminToolController@audit');

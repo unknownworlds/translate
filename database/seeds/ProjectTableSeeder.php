@@ -28,5 +28,11 @@ class ProjectTableSeeder extends Seeder {
 			'file_handler' => 'SimpleJsonObject',
 			'api_key'      => 'another_test_project'
 		] );
+
+		Project::firstOrCreate( [
+			'name'         => 'Achievements test project',
+			'file_handler' => 'SteamAchievements',
+			'api_key'      => 'very_creative_key'
+		] );
 	}
 }

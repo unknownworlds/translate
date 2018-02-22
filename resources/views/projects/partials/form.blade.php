@@ -4,8 +4,8 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('file_handler', 'File handler name:') !!}
-    {!! Form::select('file_handler', ['SimpleJsonObject' => 'SimpleJsonObject', 'Manual' => 'Manual'], null, ['class' => 'form-control']) !!}
+    {!! Form::label('file_handler', 'File handler:') !!}
+    {!! Form::select('file_handler', ['SimpleJsonObject' => 'Simple JSON object', 'SteamAchievements' => 'Steam achievements', 'Manual' => 'Manual'], null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">

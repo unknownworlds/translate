@@ -10,8 +10,10 @@ class OutputHandlerFactory {
 		switch ( $handlerType ) {
             case 'SimpleJsonObject':
                 return new SimpleJsonObjectOutputHandler( $project, $translations );
-            case 'Manual':
-                return new ManualOutputHandler( $project, $translations );
+			case 'Manual':
+				return new ManualOutputHandler( $project, $translations );
+			case 'SteamAchievements':
+				return new SteamAchievementsOutputHandler( $project, $translations );
 			default:
 				throw new Exception( 'Undefined output handler.' );
 		}

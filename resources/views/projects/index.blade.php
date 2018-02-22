@@ -42,6 +42,16 @@
                                             Edit
                                         </a>
 
+                                        @if($project->file_handler == 'SteamAchievements')
+                                        <a href="{{ url("projects/{$project->id}/import") }}" class="btn btn-default">
+                                            Import
+                                        </a>
+
+                                        <a href="{{ url("projects/{$project->id}/export") }}" class="btn btn-default">
+                                            Export
+                                        </a>
+                                        @endif
+
                                         {!! Form::open(['route' => ['projects.destroy', $project->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}
                                         {!! Form::submit('Delete', ['class' => 'btn btn-default']) !!}
                                         {!! Form::close() !!}

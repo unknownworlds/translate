@@ -10,6 +10,8 @@ class InputHandlerFactory {
 		switch ( $handlerType ) {
 			case 'SimpleJsonObject':
 				return new SimpleJsonObjectInputHandler();
+			case 'SteamAchievements':
+				return new SteamAchievementsInputHandler();
 			default:
 				throw new Exception( 'Undefined input handler.' );
 		}

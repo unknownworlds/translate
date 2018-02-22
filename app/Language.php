@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model {
 
-	protected $fillable = [ 'name', 'locale', 'is_rtl', 'skip_in_output' ];
+	protected $fillable = [ 'name', 'locale', 'is_rtl', 'skip_in_output', 'steam_api_name' ];
 
 	/**
 	 * The attributes that should be casted to native types.

@@ -85,7 +85,13 @@ class LanguagesController extends Controller {
 	 * @internal param int $id
 	 */
 	public function update( $id, LanguageRequest $request ) {
-		Language::findOrFail( $id )->update( $request->only(['name', 'locale', 'is_rtl', 'skip_in_output']) );
+		Language::findOrFail( $id )->update( $request->only([
+			'name',
+			'locale',
+			'is_rtl',
+			'skip_in_output',
+			'steam_api_name'
+		]) );
 
 		return redirect( 'languages' );
 	}
@@ -98,6 +104,7 @@ class LanguagesController extends Controller {
 	 *
 	 * @return Response
 	 * @internal param int $id
+	 * @throws \Exception
 	 */
 	public function destroy( $id, LanguageRequest $request ) {
 		Language::findOrFail( $id )->delete();

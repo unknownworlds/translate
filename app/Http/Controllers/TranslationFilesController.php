@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\BaseString;
-use App\Language;
+use App\LanguageFileHandling\DataExportHandler;
 use App\LanguageFileHandling\DiffHandler;
 use App\LanguageFileHandling\InputHandlerFactory;
 use App\LanguageFileHandling\OutputHandlerFactory;
 use App\Project;
-use App\TranslatedString;
 use Request;
 use Response;
 
@@ -42,26 +40,7 @@ class TranslationFilesController extends BaseApiController {
 		$project = Project::where( [ 'api_key' => Request::get( 'api_key' ) ] )->firstOrFail();
 
 		// get the data
-		$languages    = Language::all();
-		$baseStrings  = BaseString::where( 'project_id', '=', $project->id )->pluck( 'text', 'key' )->toArray();
-		$translations = [];
-
-		foreach ( $languages as $language ) {
-			$translatedStrings = TranslatedString::join( 'base_strings', 'translated_strings.base_string_id', '=', 'base_strings.id' )
-			                                     ->where( 'translated_strings.project_id', '=', $project->id )
-			                                     ->where( 'language_id', '=', $language->id )
-			                                     ->where( 'is_accepted', '=', true )
-			                                     ->get( [ 'key', 'translated_strings.text' ] )
-			                                     ->pluck( 'text', 'key' )
-			                                     ->toArray();
-
-			$translations[] = [
-				'name'           => $language->name,
-				'is_rtl'         => $language->is_rtl,
-				'skip_in_output' => $language->skip_in_output,
-				'strings'        => array_merge( $baseStrings, $translatedStrings )
-			];
-		}
+		$translations = DataExportHandler::prepareData( $project->id );
 
 		// init output handler
 		$outputHandler = OutputHandlerFactory::getFileHandler( $project->file_handler, $project, $translations );

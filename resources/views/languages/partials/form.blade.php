@@ -4,6 +4,11 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('steam_api_name', 'Steam API name (used for achievement translations):') !!}
+    {!! Form::text('steam_api_name', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::label('locale', 'Locale:') !!}
     {!! Form::text('locale', null, ['class' => 'form-control']) !!}
 </div>
