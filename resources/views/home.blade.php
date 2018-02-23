@@ -11,24 +11,24 @@
                     <div class="panel-body">
 
                         <div class="alert alert-info">
-                            <p>
-                                <b>Text lock</b> for Subnautica is in effect. That means no
-                                original script changes should occur since that date. Tiny bugfixes might happen, but no
-                                long texts should change.
-                            </p>
+                            {{--<p>--}}
+                                {{--<b>Text lock</b> for Subnautica is in effect. That means no--}}
+                                {{--original script changes should occur since that date. Tiny bugfixes might happen, but no--}}
+                                {{--long texts should change.--}}
+                            {{--</p>--}}
                             <p>
                                 Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
                                 to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.
                             </p>
                         </div>
 
-                        <div class="alert alert-info">
-                            <p>
-                                <b>Do you want to appear in the credits?</b> Please email me at lukas@unknownworlds.com with
-                                your name and language you're working on. Only the most active translators can be
-                                added to the list.
-                            </p>
-                        </div>
+                        {{--<div class="alert alert-info">--}}
+                            {{--<p>--}}
+                                {{--<b>Do you want to appear in the credits?</b> Please email me at lukas@unknownworlds.com with--}}
+                                {{--your name and language you're working on. Only the most active translators can be--}}
+                                {{--added to the list.--}}
+                            {{--</p>--}}
+                        {{--</div>--}}
 
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active">
