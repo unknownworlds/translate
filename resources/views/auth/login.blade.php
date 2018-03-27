@@ -84,6 +84,9 @@
                                     <a class="btn btn-primary" href="{{ url('/social-login/google') }}">
                                         Login with Google
                                     </a>
+                                    {{--<a class="btn btn-primary" href="{{ url('/social-login/bus') }}">--}}
+                                        {{--Login with BUS--}}
+                                    {{--</a>--}}
                                 </div>
                             </div>
                         </form>

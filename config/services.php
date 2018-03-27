@@ -52,4 +52,10 @@ return [
 		'redirect'      => env( 'GOOGLE_REDIRECT' )
 	],
 
+	'bus'   => [
+		'client_id'     => env( 'BUS_CLIENT_ID' ),
+		'client_secret' => env( 'BUS_CLIENT_SECRET' ),
+		'redirect'      => env( 'BUS_REDIRECT' )
+	],
+
 ];
