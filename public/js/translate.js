@@ -34,6 +34,9 @@ var app = new Vue({
     data: function () {
         return data;
     },
+    created: function () {
+        setInterval(this.refreshCSRFToken, 30000)
+    },
     methods: {
         getRequest: function (url, params, success) {
             data.loading++;
@@ -353,6 +356,11 @@ var app = new Vue({
                 }
 
                 $('#baseStringEditModal').modal('hide');
+            });
+        },
+        refreshCSRFToken: function () {
+            app.getRequest("/", {}, function (response) {
+                console.log('Pinging the site...');
             });
         }
     },
