@@ -20,7 +20,8 @@ var data = {
     whiteboard: {},
     searchInput: '',
     manualInputBaseString: {},
-    editStringModalData: {}
+    editStringModalData: {},
+    pageLoadedAt: 0
 };
 
 $.ajaxSetup({
@@ -35,7 +36,9 @@ var app = new Vue({
         return data;
     },
     created: function () {
-        setInterval(this.refreshCSRFToken, 30000)
+        // Reload the page after 2hrs, after CSRF expires
+        data.pageLoadedAt = this.getCurrentTimestamp();
+        setInterval(this.checkCSRFExpiry, 30000)
     },
     methods: {
         getRequest: function (url, params, success) {
@@ -358,10 +361,16 @@ var app = new Vue({
                 $('#baseStringEditModal').modal('hide');
             });
         },
-        refreshCSRFToken: function () {
-            app.getRequest("/", {}, function (response) {
-                console.log('Pinging the site...');
-            });
+        // Refresh the page after 2 hours. Needed for CSRF token expiry, useful for phones.
+        checkCSRFExpiry: function () {
+            var currentTimestamp = this.getCurrentTimestamp();
+
+            if ((data.pageLoadedAt + 3600 * 2) < currentTimestamp) {
+                location.reload();
+            }
+        },
+        getCurrentTimestamp: function () {
+            return Math.floor(Date.now() / 1000);
         }
     },
     watch: {
