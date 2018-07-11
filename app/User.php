@@ -5,9 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
-    use Notifiable;
+class User extends Authenticatable {
+	use Notifiable;
 
 	/**
 	 * The database table used by the model.
@@ -81,7 +80,13 @@ class User extends Authenticatable
 	}
 
 	public function getSocialiteUser( $provider, $userData ) {
-		$user = $this->where( 'oauth_provider', $provider )->where( 'oauth_id', $userData->id )->first();
+		// Automatically upgrade user to BUS if it's enabled
+		// We can do that cause BUS emails are verified
+		if ( env( 'BUS_LOGIN_ENABLED') && $provider == 'bus' ) {
+			$user = $this->where( 'email', $userData->email )->first();
+		} else {
+			$user = $this->where( 'oauth_provider', $provider )->where( 'oauth_id', $userData->id )->first();
+		}
 
 		if ( $user === null ) {
 			$user = new User();

@@ -68,4 +68,13 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    protected function showRegistrationForm() {
+    	if(env('BUS_LOGIN_ENABLED') == false) {
+		    return view( 'auth.register' );
+	    }
+    	else {
+		    return back();
+	    }
+    }
 }

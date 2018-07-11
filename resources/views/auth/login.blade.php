@@ -75,18 +75,26 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a class="btn btn-primary" href="{{ url('/social-login/github') }}">
-                                        Login with GitHub
-                                    </a>
-                                    <a class="btn btn-primary" href="{{ url('/social-login/facebook') }}">
-                                        Login with Facebook
-                                    </a>
-                                    <a class="btn btn-primary" href="{{ url('/social-login/google') }}">
-                                        Login with Google
-                                    </a>
-                                    {{--<a class="btn btn-primary" href="{{ url('/social-login/bus') }}">--}}
-                                        {{--Login with BUS--}}
-                                    {{--</a>--}}
+                                    @if(env('GITHUB_LOGIN_ENABLED'))
+                                        <a class="btn btn-primary" href="{{ url('/social-login/github') }}">
+                                            Login with GitHub
+                                        </a>
+                                    @endif
+                                    @if(env('FACEBOOK_LOGIN_ENABLED'))
+                                        <a class="btn btn-primary" href="{{ url('/social-login/facebook') }}">
+                                            Login with Facebook
+                                        </a>
+                                    @endif
+                                    @if(env('GOOGLE_LOGIN_ENABLED'))
+                                        <a class="btn btn-primary" href="{{ url('/social-login/google') }}">
+                                            Login with Google
+                                        </a>
+                                    @endif
+                                    @if(env('BUS_LOGIN_ENABLED'))
+                                        <a class="btn btn-primary" href="{{ url('/social-login/bus') }}">
+                                            Login with Unknown Worlds Account
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </form>
