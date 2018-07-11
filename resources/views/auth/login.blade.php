@@ -35,6 +35,22 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+                            @if(env('BUS_LOGIN_ENABLED'))
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <a class="btn btn-primary" href="{{ url('/social-login/bus') }}">
+                                            Login with Unknown Worlds Account
+                                        </a>
+                                        <p>
+                                            This is the preferred way of using the site. Other options will be
+                                            deprecated soon. You can upgrade to Unknown Worlds Account at any time.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <hr>
+                            @endif
+
                             <div class="form-group">
                                 <label class="col-md-4 control-label">E-Mail Address</label>
 
@@ -72,20 +88,6 @@
                             </div>
 
                             <hr>
-
-                            @if(env('BUS_LOGIN_ENABLED'))
-                                <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-4">
-                                        <a class="btn btn-primary" href="{{ url('/social-login/bus') }}">
-                                            Login with Unknown Worlds Account
-                                        </a>
-                                        <p>
-                                            This is the preferred way of using the site. Other options will be
-                                            deprecated soon. You can upgrade to Unknown Worlds Account at any time.
-                                        </p>
-                                    </div>
-                                </div>
-                            @endif
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
