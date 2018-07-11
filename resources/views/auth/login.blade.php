@@ -80,9 +80,8 @@
                                             Login with Unknown Worlds Account
                                         </a>
                                         <p>
-                                            This is the preferred way of using the site. Other options will be deprecated
-                                            soon. You can upgrade to Unknown Worlds Account from any other provider, at any
-                                            time.
+                                            This is the preferred way of using the site. Other options will be
+                                            deprecated soon. You can upgrade to Unknown Worlds Account at any time.
                                         </p>
                                     </div>
                                 </div>
