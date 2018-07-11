@@ -73,6 +73,16 @@
 
                             <hr>
 
+                            @if(env('BUS_LOGIN_ENABLED'))
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <a class="btn btn-primary" href="{{ url('/social-login/bus') }}">
+                                            Login with Unknown Worlds Account
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     @if(env('GITHUB_LOGIN_ENABLED'))
@@ -88,11 +98,6 @@
                                     @if(env('GOOGLE_LOGIN_ENABLED'))
                                         <a class="btn btn-primary" href="{{ url('/social-login/google') }}">
                                             Login with Google
-                                        </a>
-                                    @endif
-                                    @if(env('BUS_LOGIN_ENABLED'))
-                                        <a class="btn btn-primary" href="{{ url('/social-login/bus') }}">
-                                            Login with Unknown Worlds Account
                                         </a>
                                     @endif
                                 </div>
