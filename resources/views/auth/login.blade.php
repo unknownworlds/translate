@@ -79,6 +79,9 @@
                                         <a class="btn btn-primary" href="{{ url('/social-login/bus') }}">
                                             Login with Unknown Worlds Account
                                         </a>
+                                        This is the preferred way of using the site. Other options will be deprecated
+                                        soon. You can upgrade to Unknown Worlds Account from any other provider, at any
+                                        time.
                                     </div>
                                 </div>
                             @endif
