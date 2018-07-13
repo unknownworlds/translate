@@ -114,6 +114,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($translationProgress as $entry)
+                                            @if($entry->project)
                                             <tr>
                                                 <td>{{ $entry->project->name }}</td>
                                                 <td>
@@ -142,6 +143,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @endif
                                         @endforeach
                                         </tbody>
                                     </table>
