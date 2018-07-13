@@ -60,6 +60,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($log as $entry)
+                                            @if($entry->project)
                                             <tr>
                                                 <td>{{ $entry->created_at->diffForHumans(null, true) }}</td>
                                                 <td>
@@ -72,6 +73,7 @@
                                                 <td>{{ $entry->project->name }}</td>
                                                 <td>{{ $entry->text }}</td>
                                             </tr>
+                                            @endif
                                         @endforeach
                                         </tbody>
                                     </table>
