@@ -8,6 +8,6 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser:
-            url: 'http://uwetranslate.dev/'
+            url: 'http://uwetranslate.test/'
             browser: firefox
         - \Helper\Acceptance

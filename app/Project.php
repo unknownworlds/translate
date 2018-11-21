@@ -9,8 +9,8 @@ class Project extends Model {
 
 	use SoftDeletes;
 
-	protected $fillable = [ 'name', 'file_handler', 'api_key' ];
+	protected $fillable = [ 'name', 'data_input_handler', 'data_output_handler', 'api_key' ];
 
-	protected $dates = ['deleted_at'];
+	protected $dates = [ 'deleted_at' ];
 
 }

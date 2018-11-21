@@ -252,7 +252,7 @@ class TranslationsController extends BaseApiController {
 
 	public function projectHandlers() {
 		$projects        = Project::orderBy( 'name' )->get();
-		$projectHandlers = $projects->pluck( 'file_handler', 'id' );
+		$projectHandlers = $projects->pluck( 'data_input_handler', 'id' );
 
 		return $this->respond( $projectHandlers );
 	}

@@ -162,7 +162,7 @@ class ProjectsController extends Controller {
 		$file = $request->file( 'file' );
 		$data = file_get_contents( $file->getRealPath() );
 
-		$inputHandler = InputHandlerFactory::getFileHandler( $project->file_handler );
+		$inputHandler = InputHandlerFactory::getFileHandler( $project->data_input_handler );
 		$inputHandler->setRawInput( $data );
 		$input = $inputHandler->getParsedInput();
 
@@ -189,7 +189,7 @@ class ProjectsController extends Controller {
 		$translations = DataExportHandler::prepareData( $project->id );
 
 		// init output handler
-		$outputHandler = OutputHandlerFactory::getFileHandler( $project->file_handler, $project, $translations );
+		$outputHandler = OutputHandlerFactory::getFileHandler( $project->data_output_handler, $project, $translations );
 		$output        = $outputHandler->getOutputFile();
 
 		return Response::download( $output );

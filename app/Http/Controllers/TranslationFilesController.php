@@ -21,7 +21,7 @@ class TranslationFilesController extends BaseApiController {
 		$project = Project::where( [ 'api_key' => Request::get( 'api_key' ) ] )->firstOrFail();
 
 		// init input handler
-		$inputHandler = InputHandlerFactory::getFileHandler( $project->file_handler );
+		$inputHandler = InputHandlerFactory::getFileHandler( $project->data_input_handler );
 
 		// pass reader results to diff handler
 		$input = $inputHandler->getParsedInput();
@@ -43,7 +43,7 @@ class TranslationFilesController extends BaseApiController {
 		$translations = DataExportHandler::prepareData( $project->id );
 
 		// init output handler
-		$outputHandler = OutputHandlerFactory::getFileHandler( $project->file_handler, $project, $translations );
+		$outputHandler = OutputHandlerFactory::getFileHandler( $project->data_output_handler, $project, $translations );
 		$output        = $outputHandler->getOutputFile();
 
 		return Response::download( $output );

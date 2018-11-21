@@ -42,7 +42,7 @@
                                             Edit
                                         </a>
 
-                                        @if($project->file_handler == 'SteamAchievements')
+                                        @if($project->data_input_handler == 'SteamAchievements')
                                         <a href="{{ url("projects/{$project->id}/import") }}" class="btn btn-default">
                                             Import
                                         </a>
