@@ -22,8 +22,13 @@ class PredefinedTemplateOutputHandler implements OutputHandlerInterface {
 				continue;
 			}
 
-			$strings = $language['strings'];
-			$output  = str_replace( array_keys( $strings ), array_values( $strings ), $this->project->output_template );
+			// Update the keys to be contained within brackets
+			$strings = [];
+			foreach ( $language['strings'] as $key => $value ) {
+				$strings[ '{' . $key . '}' ] = $value;
+			}
+
+			$output = str_replace( array_keys( $strings ), array_values( $strings ), $this->project->output_template );
 
 			$file = fopen( $dir . '/' . $language['name'] . '.txt', 'w+' );
 			fputs( $file, $output );
