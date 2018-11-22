@@ -5,12 +5,12 @@
 
 <div class="form-group">
     {!! Form::label('data_input_handler', 'Data input handler:') !!}
-    {!! Form::select('data_input_handler', ['SimpleJsonObject' => 'Simple JSON object', 'SteamAchievements' => 'Steam achievements', 'Manual' => 'Manual'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('data_input_handler', $inputHandlers, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
     {!! Form::label('data_output_handler', 'Data output handler:') !!}
-    {!! Form::select('data_output_handler', ['SimpleJsonObject' => 'Simple JSON object', 'SteamAchievements' => 'Steam achievements', 'PredefinedTemplate' => 'Predefined template'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('data_output_handler', $outputHandlers, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">

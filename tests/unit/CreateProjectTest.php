@@ -19,8 +19,8 @@ class CreateProjectTest extends \Codeception\Test\Unit {
 	public function testCreatingProject() {
 		$project = Project::create( [
 			'name'                => 'Test project',
-			'data_input_handler'  => 'SimpleJsonObject',
-			'data_output_handler' => 'SimpleJsonObject',
+			'data_input_handler'  => \App\LanguageFileHandling\InputHandlers\InputHandlerFactory::SIMPLE_JSON,
+			'data_output_handler' => \App\LanguageFileHandling\OutputHandlers\OutputHandlerFactory::SIMPLE_JSON,
 			'api_key'             => 'test_api_key',
 		] );
 

@@ -42,14 +42,18 @@
                                             Edit
                                         </a>
 
-                                        @if($project->data_input_handler == 'SteamAchievements')
-                                        <a href="{{ url("projects/{$project->id}/import") }}" class="btn btn-default">
-                                            Import
-                                        </a>
+                                        @if($project->data_input_handler == 3)
+                                            <a href="{{ url("projects/{$project->id}/import") }}"
+                                               class="btn btn-default">
+                                                Import
+                                            </a>
+                                        @endif
 
-                                        <a href="{{ url("projects/{$project->id}/export") }}" class="btn btn-default">
-                                            Export
-                                        </a>
+                                        @if($project->data_output_handler == 2)
+                                            <a href="{{ url("projects/{$project->id}/export") }}"
+                                               class="btn btn-default">
+                                                Export
+                                            </a>
                                         @endif
 
                                         {!! Form::open(['route' => ['projects.destroy', $project->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}

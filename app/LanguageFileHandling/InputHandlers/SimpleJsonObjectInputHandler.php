@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LanguageFileHandling;
+namespace App\LanguageFileHandling\InputHandlers;
 
 use Request;
 

@@ -8,8 +8,8 @@ use App\Http\Requests\ProjectRequest;
 use App\Language;
 use App\LanguageFileHandling\DataExportHandler;
 use App\LanguageFileHandling\DiffHandler;
-use App\LanguageFileHandling\InputHandlerFactory;
-use App\LanguageFileHandling\OutputHandlerFactory;
+use App\LanguageFileHandling\InputHandlers\InputHandlerFactory;
+use App\LanguageFileHandling\OutputHandlers\OutputHandlerFactory;
 use App\Project;
 use App\TranslatedString;
 use Request;
@@ -54,7 +54,10 @@ class ProjectsController extends Controller {
 	 * @return Response
 	 */
 	public function create( ProjectRequest $request ) {
-		return view( 'projects.create' );
+		$inputHandlers  = InputHandlerFactory::$availableHandlers;
+		$outputHandlers = OutputHandlerFactory::$availableHandlers;
+
+		return view( 'projects.create', compact( 'inputHandlers', 'outputHandlers' ) );
 	}
 
 	/**
@@ -93,9 +96,11 @@ class ProjectsController extends Controller {
 	 * @return Response
 	 */
 	public function edit( ProjectRequest $request, $id ) {
-		$project = Project::findOrFail( $id );
+		$project        = Project::findOrFail( $id );
+		$inputHandlers  = InputHandlerFactory::$availableHandlers;
+		$outputHandlers = OutputHandlerFactory::$availableHandlers;
 
-		return view( 'projects.edit', compact( 'project' ) );
+		return view( 'projects.edit', compact( 'project', 'inputHandlers', 'outputHandlers' ) );
 	}
 
 	/**

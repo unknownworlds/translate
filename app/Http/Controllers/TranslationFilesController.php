@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\LanguageFileHandling\DataExportHandler;
 use App\LanguageFileHandling\DiffHandler;
-use App\LanguageFileHandling\InputHandlerFactory;
-use App\LanguageFileHandling\OutputHandlerFactory;
+use App\LanguageFileHandling\InputHandlers\InputHandlerFactory;
+use App\LanguageFileHandling\OutputHandlers\OutputHandlerFactory;
 use App\Project;
 use Request;
 use Response;

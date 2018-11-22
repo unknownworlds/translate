@@ -2179,10 +2179,10 @@ CREATE TABLE IF NOT EXISTS `projects` (
 -- Zrzucanie danych dla tabeli uwetranslate.projects: ~4 rows (około)
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
 INSERT INTO `projects` (`id`, `name`, `api_key`, `created_at`, `updated_at`, `deleted_at`, `data_input_handler`, `data_output_handler`) VALUES
-	(1, 'Subnautica', 'secret_api_key', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 'SimpleJsonObject', 'SimpleJsonObject'),
-	(2, 'API test project', 'test_api_key_wow', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 'SimpleJsonObject', 'SimpleJsonObject'),
-	(3, 'Another test project', 'another_test_project', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 'SimpleJsonObject', 'SimpleJsonObject'),
-	(4, 'Achievements test project', 'very_creative_key', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 'SteamAchievements', 'SteamAchievements');
+	(1, 'Subnautica', 'secret_api_key', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 1, 1),
+	(2, 'API test project', 'test_api_key_wow', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 1, 1),
+	(3, 'Another test project', 'another_test_project', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 1, 1),
+	(4, 'Achievements test project', 'very_creative_key', '2018-11-21 22:34:26', '2018-11-21 22:34:26', NULL, 3, 2);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 
 -- Zrzut struktury tabela uwetranslate.roles

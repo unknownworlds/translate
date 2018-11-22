@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LanguageFileHandling;
+namespace App\LanguageFileHandling\OutputHandlers;
 
 use File;
 use VdfParser\Parser;
