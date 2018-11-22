@@ -14,6 +14,8 @@ class OutputHandlerFactory {
 				return new ManualOutputHandler( $project, $translations );
 			case 'SteamAchievements':
 				return new SteamAchievementsOutputHandler( $project, $translations );
+			case 'PredefinedTemplate':
+				return new PredefinedTemplateOutputHandler( $project, $translations );
 			default:
 				throw new Exception( 'Undefined output handler.' );
 		}
