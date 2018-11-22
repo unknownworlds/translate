@@ -49,7 +49,7 @@
                                             </a>
                                         @endif
 
-                                        @if($project->data_output_handler == 2)
+                                        @if($project->data_output_handler == 2 || $project->data_output_handler == 3)
                                             <a href="{{ url("projects/{$project->id}/export") }}"
                                                class="btn btn-default">
                                                 Export
