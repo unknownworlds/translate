@@ -13,7 +13,7 @@ class OutputHandlerFactory {
 	public static $availableHandlers = [
 		self::SIMPLE_JSON         => 'Simple JSON',
 		self::STEAM_ACHIEVEMENTS  => 'Steam achievements',
-		self::PREDEFINED_TEMPLATE => 'Manual',
+		self::PREDEFINED_TEMPLATE => 'Predefined template',
 	];
 
 	public static function getFileHandler( $handlerType, $project, $translations ) {
