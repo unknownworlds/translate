@@ -25,7 +25,7 @@ class BusOauthProvider extends AbstractProvider implements ProviderInterface {
 	 * @return string
 	 */
 	protected function getAuthUrl( $state ) {
-		return $this->buildAuthUrlFromBase( $this->getUrl( '/oauth/authorize' ), $state );
+		return $this->buildAuthUrlFromBase( $this->getUrl( 'oauth/authorize' ), $state );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class BusOauthProvider extends AbstractProvider implements ProviderInterface {
 	 * @return string
 	 */
 	protected function getTokenUrl() {
-		return $this->getUrl( '/oauth/token' );
+		return $this->getUrl( 'oauth/token' );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class BusOauthProvider extends AbstractProvider implements ProviderInterface {
 	 * @return array
 	 */
 	protected function getUserByToken( $token ) {
-		$response = $this->getHttpClient()->get( $this->getUrl( '/api/user' ), [
+		$response = $this->getHttpClient()->get( $this->getUrl( 'api/user' ), [
 			'headers' => [
 				'Authorization' => 'Bearer ' . $token,
 			],
