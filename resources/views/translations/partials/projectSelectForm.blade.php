@@ -23,7 +23,7 @@
                 </div>
                 {!! Form::close() !!}
 
-                <div v-show="projectHandlers[currentProject] == 'Manual' && isRoot">
+                <div v-show="projectHandlers[currentProject] == 2 && isRoot">
                     <hr>
 
                     <button class="btn btn-default" @click="showNewBaseStringForm()">

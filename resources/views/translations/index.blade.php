@@ -19,11 +19,11 @@
                         <h3 class="panel-title">@{{baseString.key}}
                             <div class="btn-group pull-right clearfix" role="group" aria-label="actions">
                                 <button type="button" class="btn btn-default"
-                                        @click="trashBaseString(baseString)" v-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Move to trash">
+                                        @click="trashBaseString(baseString)" v-if="projectHandlers[currentProject] == 2 && isRoot" title="Move to trash">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
                                 <button type="button" class="btn btn-default"
-                                        @click="editBaseString(baseString)" v-if="projectHandlers[currentProject] == 'Manual' && isRoot" title="Edit">
+                                        @click="editBaseString(baseString)" v-if="projectHandlers[currentProject] == 2 && isRoot" title="Edit">
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
                                 <button type="button" class="btn btn-default"
