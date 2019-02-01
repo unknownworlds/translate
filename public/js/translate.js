@@ -366,7 +366,7 @@ var app = new Vue({
             var currentTimestamp = this.getCurrentTimestamp();
 
             if ((data.pageLoadedAt + 3600 * 2) < currentTimestamp) {
-                location.reload();
+                alert('Session expired. Please reload the page.');
             }
         },
         getCurrentTimestamp: function () {
