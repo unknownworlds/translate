@@ -245,7 +245,9 @@ class ToolsController extends Controller {
 				$copiedStrings ++;
 			}
 
-			TranslatedString::create( $insertDataBatch );
+			if ( ! empty( $insertDataBatch ) ) {
+				TranslatedString::create( $insertDataBatch );
+			}
 
 		}
 
