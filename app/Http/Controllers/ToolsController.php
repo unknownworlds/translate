@@ -208,6 +208,7 @@ class ToolsController extends Controller {
 			}
 
 			// iterate over all languages
+			$insertDataBatch = [];
 			foreach ( $languages as $language ) {
 
 				$existingTargetTranslation = TranslatedString::where( 'project_id', '=', $targetProject )
@@ -232,17 +233,19 @@ class ToolsController extends Controller {
 					continue;
 				}
 
-				TranslatedString::create( [
+				$insertDataBatch[] = [
 					'project_id'     => $targetProject,
 					'language_id'    => $existingSourceTranslation->language_id,
 					'base_string_id' => $targetProjectKeys[ $key ],
 					'text'           => $existingSourceTranslation->text,
 					'is_accepted'    => true,
 					'user_id'        => $existingSourceTranslation->user_id,
-				] );
+				];
 
 				$copiedStrings ++;
 			}
+
+			TranslatedString::create( $insertDataBatch );
 
 		}
 
