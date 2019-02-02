@@ -173,6 +173,7 @@ class ToolsController extends Controller {
 	}
 
 	/**
+	 * TODO: batch queries, make less database intensive
 	 * translationsTransfer procedure
 	 * allows for transfer accepted translations from one project to another
 	 * if the same translation keys exist in both
@@ -209,13 +210,6 @@ class ToolsController extends Controller {
 			// iterate over all languages
 			foreach ( $languages as $language ) {
 
-				// get approved translation for given key
-				$existingSourceTranslation = TranslatedString::where( 'project_id', '=', $sourceProject )
-				                                             ->where( 'is_accepted', '=', true )
-				                                             ->where( 'base_string_id', '=', $sourceProjectKeys[ $key ] )
-				                                             ->where( 'language_id', '=', $language->id )
-				                                             ->first();
-
 				$existingTargetTranslation = TranslatedString::where( 'project_id', '=', $targetProject )
 				                                             ->where( 'is_accepted', '=', true )
 				                                             ->where( 'base_string_id', '=', $targetProjectKeys[ $key ] )
@@ -223,8 +217,18 @@ class ToolsController extends Controller {
 				                                             ->first();
 
 				// skip if we already have an accepted translation
-				// or we don't have that translation ready in the source project
-				if ( $existingTargetTranslation != null || $existingSourceTranslation == null ) {
+				if ( $existingTargetTranslation != null ) {
+					continue;
+				}
+
+				$existingSourceTranslation = TranslatedString::where( 'project_id', '=', $sourceProject )
+				                                             ->where( 'is_accepted', '=', true )
+				                                             ->where( 'base_string_id', '=', $sourceProjectKeys[ $key ] )
+				                                             ->where( 'language_id', '=', $language->id )
+				                                             ->first();
+
+				// skip if we don't have that translation ready in the source project
+				if ( $existingSourceTranslation == null ) {
 					continue;
 				}
 
