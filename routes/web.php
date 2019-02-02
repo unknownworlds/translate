@@ -46,6 +46,8 @@ Route::get('tools/translation-quality/strings', 'ToolsController@translationQual
 Route::get('tools/translation-quality/download', 'ToolsController@translationQualityDownload');
 Route::get('tools/file-import', 'ToolsController@fileImport');
 Route::post('tools/file-import', 'ToolsController@processFileImport');
+Route::get('tools/translations-transfer', 'ToolsController@translationsTransfer');
+Route::post('tools/translations-transfer', 'ToolsController@processTranslationsTransfer');
 
 // Private API
 Route::group(['prefix' => 'api'], function () {

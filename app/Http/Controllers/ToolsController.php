@@ -161,4 +161,88 @@ class ToolsController extends Controller {
 		return \Response::download( $outputFile );
 	}
 
+	/**
+	 * translationsTransfer interface
+	 *
+	 * @return Response
+	 */
+	public function translationsTransfer() {
+		$projects = Project::orderBy( 'name' )->pluck( 'name', 'id' );
+
+		return view( 'tools/translationsTransfer', compact( 'projects' ) );
+	}
+
+	/**
+	 * translationsTransfer procedure
+	 * allows for transfer accepted translations from one project to another
+	 * if the same translation keys exist in both
+	 *
+	 * @param Request $request
+	 *
+	 * @return Response
+	 */
+	public function ProcessTranslationsTransfer( Request $request ) {
+		$sourceProject = $request->get( 'source_project' );
+		$targetProject = $request->get( 'target_project' );
+
+		$languages     = Language::all();
+		$copiedStrings = 0;
+
+		// validate
+		if ( $sourceProject == $targetProject ) {
+			return back()->withErrors( [ 'Source and target cannot be the same' ] );
+		}
+
+		// get base strings from both projects
+		$sourceProjectKeys = BaseString::where( 'project_id', '=', $sourceProject )
+		                               ->pluck( 'id', 'key' )->toArray();
+		$targetProjectKeys = BaseString::where( 'project_id', '=', $targetProject )
+		                               ->pluck( 'id', 'key' )->toArray();
+
+		// iterate over target project strings
+		foreach ( $targetProjectKeys as $key => $id ) {
+			// skip if it's not present in source
+			if ( ! array_key_exists( $key, $sourceProjectKeys ) ) {
+				continue;
+			}
+
+			// iterate over all languages
+			foreach ( $languages as $language ) {
+
+				// get approved translation for given key
+				$existingSourceTranslation = TranslatedString::where( 'project_id', '=', $sourceProject )
+				                                             ->where( 'is_accepted', '=', true )
+				                                             ->where( 'base_string_id', '=', $sourceProjectKeys[ $key ] )
+				                                             ->where( 'language_id', '=', $language->id )
+				                                             ->first();
+
+				$existingTargetTranslation = TranslatedString::where( 'project_id', '=', $targetProject )
+				                                             ->where( 'is_accepted', '=', true )
+				                                             ->where( 'base_string_id', '=', $targetProjectKeys[ $key ] )
+				                                             ->where( 'language_id', '=', $language->id )
+				                                             ->first();
+
+				// skip if we already have an accepted translation
+				// or we don't have that translation ready in the source project
+				if ( $existingTargetTranslation != null || $existingSourceTranslation == null ) {
+					continue;
+				}
+
+				TranslatedString::create( [
+					'project_id'     => $targetProject,
+					'language_id'    => $existingSourceTranslation->language_id,
+					'base_string_id' => $targetProjectKeys[ $key ],
+					'text'           => $existingSourceTranslation->text,
+					'is_accepted'    => true,
+					'user_id'        => $existingSourceTranslation->user_id,
+				] );
+
+				$copiedStrings ++;
+			}
+
+		}
+
+		return back()->withMessage( 'Copied ' . $copiedStrings . ' translations' );
+	}
+
 }
