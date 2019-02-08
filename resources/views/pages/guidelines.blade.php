@@ -45,8 +45,9 @@
                                 yourself to other administrators of your language.
                             </li>
                             <li>
-                                It is FORBIDDEN to change translations approved by other admins. Before you do so, you
-                                MUST ask them for permission.
+                                It is FORBIDDEN to change translations that are already approved by other admins, but
+                                contain no grammatical nor factual errors. Before you change such translation, you
+                                MUST ask that admin to find out why it was accepted.
                             </li>
                             <li>
                                 Translation quality is very important.
