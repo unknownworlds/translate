@@ -10,7 +10,7 @@
 
                     <div class="panel-body">
 
-                        <p>Guidelines for Subnautica:</p>
+                        <p>Guidelines for Subnautica and Below Zero:</p>
 
                         <ul>
                             <li>Feel free to translate creature names.</li>
