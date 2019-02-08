@@ -91,6 +91,8 @@ class AdminToolController extends Controller
         $language = Request::get('language_id', 1);
         $languages = Language::orderBy('name')->pluck('name', 'id');
 
+        // TODO: refactor
+	    // It looks like old, Laravel 4 way of doing things
         $admins = [];
         $adminIds = [];
         $users = User::has('roles')->with('roles')->get();
@@ -107,6 +109,7 @@ class AdminToolController extends Controller
 
         $counts = [];
         $acceptedCountsRaw = TranslatedString::selectRaw('user_id, is_accepted, count(*) as count')
+            ->whereIn('user_id', $adminIds)
             ->groupBy('user_id', 'is_accepted')
             ->get()->toArray();
 
@@ -115,6 +118,7 @@ class AdminToolController extends Controller
         }
 
         $voteCounts = TranslatedString::selectRaw('user_id, SUM(up_votes) AS up_votes_sum, SUM(down_votes) AS down_votes_sum')
+            ->whereIn('user_id', $adminIds)
             ->groupBy('user_id')
             ->get()->toArray();
 
@@ -123,23 +127,25 @@ class AdminToolController extends Controller
             $counts[$item['user_id']]['down_votes_sum'] = $item['down_votes_sum'];
         }
 
-        $acceptedStrings = TranslatedString::selectRaw('accepted_by AS user_id, MAX(updated_at) AS last_date, COUNT(*) AS count')
+        $acceptedStrings = TranslatedString::selectRaw('accepted_by AS admin_id, MAX(updated_at) AS last_date, COUNT(*) AS count')
+	        ->groupBy('accepted_by')
             ->whereIn('accepted_by', $adminIds)
             ->get()->toArray();
 
         foreach ($acceptedStrings as $data) {
-            $counts[$data['user_id']]['last_accepted'] = $data['last_date'];
-            $counts[$data['user_id']]['accepted_by_count'] = $data['count'];
+            $counts[$data['admin_id']]['last_accepted'] = $data['last_date'];
+            $counts[$data['admin_id']]['accepted_by_count'] = $data['count'];
         }
 
-        $deletedStrings = TranslatedString::selectRaw('deleted_by AS user_id, MAX(deleted_at) AS last_date, COUNT(*) AS count')
+        $deletedStrings = TranslatedString::selectRaw('deleted_by AS admin_id, MAX(deleted_at) AS last_date, COUNT(*) AS count')
+            ->groupBy('deleted_by')
             ->whereIn('deleted_by', $adminIds)
             ->withTrashed()
             ->get()->toArray();
 
         foreach ($deletedStrings as $data) {
-            $counts[$data['user_id']]['last_deleted'] = $data['last_date'];
-            $counts[$data['user_id']]['deleted_by_count'] = $data['count'];
+            $counts[$data['admin_id']]['last_deleted'] = $data['last_date'];
+            $counts[$data['admin_id']]['deleted_by_count'] = $data['count'];
         }
 
         return view('adminTool/audit', compact('admins', 'counts', 'languages', 'language'));
