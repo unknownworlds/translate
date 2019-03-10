@@ -31,7 +31,9 @@
                                     <td>{{ $languageAdmins[$language->name] ?? "No admins!" }}</td>
                                     <td>
                                         {{ $acceptedStrings[$language->id] ?? 0 }} / {{ $baseStrings ?? 0 }}
+                                        @if($baseStrings > 0)
                                         ({{ round(($acceptedStrings[$language->id] ?? 0)  /  $baseStrings * 100, 2) }}%)
+                                        @endif
                                     </td>
                                     <td>{{ $unacceptedStrings[$language->id] ?? 0 }}</td>
                                 </tr>
