@@ -11,15 +11,7 @@
                     <div class="panel-body">
 
                         <div class="alert alert-info">
-                            <p>
-                                Language you're working on isn't getting any strings approved? Apply to become an admin!
-                                Remember we're aiming for high quality and you need to follow Guidelines. If you want to
-                                apply, send an email to lukas@unknownworlds.com
-                            </p>
-                            <p>
-                                Please report any bugs and feature requests to lukas@unknownworlds.com or via twitter
-                                to @lnowaczek. Remember to take a look at the Guidelines, Instructions, and FAQ.
-                            </p>
+                            {!! $news->content  !!}
                         </div>
 
                         {{--<div class="alert alert-info">--}}

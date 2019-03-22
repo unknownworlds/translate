@@ -50,6 +50,7 @@
                             <li><a href="{{ url('/roles') }}">Roles</a></li>
                             <li><a href="{{ url('/languages') }}">Languages</a></li>
                             <li><a href="{{ url('/projects') }}">Projects</a></li>
+                            <li><a href="{{ url('/pages') }}">Pages</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

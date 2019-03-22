@@ -15,21 +15,21 @@ Auth::routes();
 Route::get('social-login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/social-callback/{provider}', 'Auth\LoginController@handleProviderCallback');
 
-// Frontend - public
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index');
-Route::get('translations', 'TranslationsController@index');
-Route::get('pages/{name}', 'PagesController@index');
-Route::get('theme/{name}', 'ThemesController@index');
-Route::get('rss', 'RssController@index');
-Route::get('rss/base-strings/{id}', 'RssController@baseStrings');
-Route::get('rss/translations/{project}/{language}', 'RssController@translations');
-
 // Backend
 Route::resource('users', 'UsersController');
 Route::resource('languages', 'LanguagesController');
 Route::resource('roles', 'RolesController');
 Route::resource('projects', 'ProjectsController');
+Route::resource('pages', 'PagesController');
+
+// Frontend - public
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
+Route::get('translations', 'TranslationsController@index');
+Route::get('theme/{name}', 'ThemesController@index');
+Route::get('rss', 'RssController@index');
+Route::get('rss/base-strings/{id}', 'RssController@baseStrings');
+Route::get('rss/translations/{project}/{language}', 'RssController@translations');
 
 Route::get('projects/{id}/import', 'ProjectsController@importData');
 Route::post('projects/{id}/import', 'ProjectsController@processDataImport');
