@@ -4977,6 +4977,23 @@ CREATE TABLE IF NOT EXISTS `votes` (
 -- Zrzucanie danych dla tabeli uwetranslate.votes: ~0 rows (około)
 /*!40000 ALTER TABLE `votes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `votes` ENABLE KEYS */;
+-- Zrzut struktury tabela uwetranslate.pages
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Zrzucanie danych dla tabeli uwetranslate.pages: ~2 rows (około)
+/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+INSERT INTO `pages` (`id`, `title`, `slug`, `content`, `created_at`, `updated_at`) VALUES
+	(1, 'Guidelines', 'guidelines', 'test rawr', '2019-03-21 23:58:04', '2019-03-22 00:27:59'),
+	(3, 'Home', 'home', '<p>test</p>', '2019-03-22 00:11:18', '2019-03-22 00:27:43');
+/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
