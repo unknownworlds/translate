@@ -37,7 +37,7 @@
                 <li><a href="{{ url('/translations') }}">Translate</a></li>
                 <li><a href="{{ url('/pages/instructions') }}">Instructions</a></li>
                 <li><a href="{{ url('/pages/guidelines') }}">Guidelines</a></li>
-                <li><a href="{{ url('/pages/faq') }}">FAQ</a></li>
+                <li><a href="{{ url('/pages/frequently-asked-questions') }}">FAQ</a></li>
                 <li><a href="{{ url('/rss') }}">RSS</a></li>
                 @if(env('TRANSLATION_FORUMS_URL'))
                     <li><a href="{{ env('TRANSLATION_FORUMS_URL') }}">Translations forums</a></li>
