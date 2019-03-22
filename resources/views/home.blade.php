@@ -10,9 +10,11 @@
 
                     <div class="panel-body">
 
-                        <div class="alert alert-info">
-                            {!! $news->content  !!}
-                        </div>
+                        @if($news)
+                            <div class="alert alert-info">
+                                {!! $news->content  !!}
+                            </div>
+                        @endif
 
                         {{--<div class="alert alert-info">--}}
                         {{--<p>--}}

@@ -6,7 +6,7 @@ use App\Http\Requests\PageRequest;
 use App\Page;
 use Illuminate\Support\Str;
 
-class PagesController extends BaseController
+class PagesController extends Controller
 {
 
     public function __construct()
