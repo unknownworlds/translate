@@ -17,7 +17,7 @@
                         <h2>Edit project</h2>
 
                         {!! Form::model($project, ['route' => ['projects.update', $project->id], 'method' => 'PATCH']) !!}
-                            @include('projects/partials/form', ['submitButton' => 'Save project'])
+                        @include('projects/partials/form', ['submitButton' => 'Save project'])
                         {!! Form::close() !!}
                     </div>
                 </div>

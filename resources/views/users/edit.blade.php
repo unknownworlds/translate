@@ -18,7 +18,7 @@
                         <h2>Edit user</h2>
 
                         {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'PATCH']) !!}
-                            @include('users/partials/form', ['submitButton' => 'Save user'])
+                        @include('users/partials/form', ['submitButton' => 'Save user'])
                         {!! Form::close() !!}
                     </div>
                 </div>

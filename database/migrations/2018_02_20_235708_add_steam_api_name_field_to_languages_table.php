@@ -13,9 +13,9 @@ class AddSteamApiNameFieldToLanguagesTable extends Migration
      */
     public function up()
     {
-	    Schema::table( 'languages', function ( Blueprint $table ) {
-		    $table->string( 'steam_api_name' )->nullable();
-	    } );
+        Schema::table('languages', function (Blueprint $table) {
+            $table->string('steam_api_name')->nullable();
+        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddSteamApiNameFieldToLanguagesTable extends Migration
      */
     public function down()
     {
-	    Schema::table( 'languages', function ( Blueprint $table ) {
-		    $table->dropColumn( 'steam_api_name' );
-	    } );
+        Schema::table('languages', function (Blueprint $table) {
+            $table->dropColumn('steam_api_name');
+        });
     }
 }

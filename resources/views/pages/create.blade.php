@@ -16,7 +16,7 @@
                         <h2>New page</h2>
 
                         {!! Form::open(['url' => 'pages']) !!}
-                            @include('pages/partials/form', ['submitButton' => 'Add page'])
+                        @include('pages/partials/form', ['submitButton' => 'Add page'])
                         {!! Form::close() !!}
                     </div>
                 </div>

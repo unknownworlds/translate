@@ -5,40 +5,41 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Auth;
 
-class RoleRequest extends Request {
+class RoleRequest extends Request
+{
 
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
-	public function authorize() {
-		return Auth::user()->hasRole( 'Root' );
-	}
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Auth::user()->hasRole('Root');
+    }
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array
-	 */
-	public function rules() {
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
         $requestMethod = \Request::getMethod();
 
-        if($requestMethod == 'POST') {
+        if ($requestMethod == 'POST') {
             return [
-                'name'   => 'required|unique:roles',
+                'name' => 'required|unique:roles',
             ];
-        }
-        elseif($requestMethod == 'PATCH') {
+        } elseif ($requestMethod == 'PATCH') {
             return [
-                'name'   => 'required',
+                'name' => 'required',
             ];
-        }
-        elseif($requestMethod == 'DELETE') {
+        } elseif ($requestMethod == 'DELETE') {
             return [];
         }
 
 
-	}
+    }
 
 }

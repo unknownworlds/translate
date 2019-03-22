@@ -17,7 +17,7 @@
                         <h2>New project</h2>
 
                         {!! Form::open(['url' => 'projects']) !!}
-                            @include('projects/partials/form', ['submitButton' => 'Add project'])
+                        @include('projects/partials/form', ['submitButton' => 'Add project'])
                         {!! Form::close() !!}
                     </div>
                 </div>

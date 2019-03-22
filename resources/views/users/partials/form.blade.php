@@ -9,19 +9,19 @@
 </div>
 
 {{--<div class="form-group">--}}
-    {{--{!! Form::label('password', 'Password:') !!}--}}
-    {{--{!! Form::password('password', ['class' => 'form-control']) !!}--}}
+{{--{!! Form::label('password', 'Password:') !!}--}}
+{{--{!! Form::password('password', ['class' => 'form-control']) !!}--}}
 {{--</div>--}}
 
 <h2>Roles</h2>
 
 @foreach($roles as $role)
-<div class="checkbox">
-    <label>
-        {!! Form::checkbox('userRoles[]', $role->id, $user->hasRole($role->name)) !!}
-        {{ $role->name }}
-    </label>
-</div>
+    <div class="checkbox">
+        <label>
+            {!! Form::checkbox('userRoles[]', $role->id, $user->hasRole($role->name)) !!}
+            {{ $role->name }}
+        </label>
+    </div>
 @endforeach
 
 <div class="form-group">

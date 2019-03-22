@@ -29,10 +29,12 @@
                                 <tr>
                                     <td>{{ $project->name }}</td>
                                     <td>
-                                        <a href="/tools/translation-quality/strings?project_id={{ $project->id }}" class="btn btn-default">
+                                        <a href="/tools/translation-quality/strings?project_id={{ $project->id }}"
+                                           class="btn btn-default">
                                             Select strings
                                         </a>
-                                        <a href="/tools/translation-quality/download?project_id={{ $project->id }}" class="btn btn-default">
+                                        <a href="/tools/translation-quality/download?project_id={{ $project->id }}"
+                                           class="btn btn-default">
                                             Download PDFs
                                         </a>
                                     </td>

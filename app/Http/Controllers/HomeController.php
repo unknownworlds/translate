@@ -71,7 +71,8 @@ class HomeController extends Controller
             }
         }
 
-        return view('home', compact('log', 'baseStringsLog', 'translationProgress', 'baseStringCounts', 'languages', 'news'));
+        return view('home',
+            compact('log', 'baseStringsLog', 'translationProgress', 'baseStringCounts', 'languages', 'news'));
     }
 
 }

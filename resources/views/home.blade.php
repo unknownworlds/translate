@@ -15,11 +15,11 @@
                         </div>
 
                         {{--<div class="alert alert-info">--}}
-                            {{--<p>--}}
-                                {{--<b>Do you want to appear in the credits?</b> Please email me at lukas@unknownworlds.com with--}}
-                                {{--your name and language you're working on. Only the most active translators can be--}}
-                                {{--added to the list.--}}
-                            {{--</p>--}}
+                        {{--<p>--}}
+                        {{--<b>Do you want to appear in the credits?</b> Please email me at lukas@unknownworlds.com with--}}
+                        {{--your name and language you're working on. Only the most active translators can be--}}
+                        {{--added to the list.--}}
+                        {{--</p>--}}
                         {{--</div>--}}
 
                         <ul class="nav nav-tabs" role="tablist">
@@ -53,18 +53,18 @@
                                         <tbody>
                                         @foreach($log as $entry)
                                             @if($entry->project)
-                                            <tr>
-                                                <td>{{ $entry->created_at->diffForHumans(null, true) }}</td>
-                                                <td>
-                                                    @if ($entry->language != null)
-                                                        <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
-                                                             alt="{{@ $languages[$entry->language_id] }}"
-                                                             title="{{ $entry->language->name }}"/>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $entry->project->name }}</td>
-                                                <td>{{ $entry->text }}</td>
-                                            </tr>
+                                                <tr>
+                                                    <td>{{ $entry->created_at->diffForHumans(null, true) }}</td>
+                                                    <td>
+                                                        @if ($entry->language != null)
+                                                            <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
+                                                                 alt="{{@ $languages[$entry->language_id] }}"
+                                                                 title="{{ $entry->language->name }}"/>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $entry->project->name }}</td>
+                                                    <td>{{ $entry->text }}</td>
+                                                </tr>
                                             @endif
                                         @endforeach
                                         </tbody>
@@ -109,34 +109,35 @@
                                         <tbody>
                                         @foreach($translationProgress as $entry)
                                             @if($entry->project)
-                                            <tr>
-                                                <td>{{ $entry->project->name }}</td>
-                                                <td>
-                                                    <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
-                                                         alt="{{@ $languages[$entry->language_id] }}"
-                                                         title="{{ $entry->language->name }}"/>
-                                                    {{ $entry->language->name }}
-                                                </td>
-                                                <td>
-                                                    {{ $entry->completion }} %
-                                                </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar {{ $entry->progress_bar_class }}"
-                                                             role="progressbar" aria-valuenow="{{ $entry->completion }}"
-                                                             aria-valuemin="0"
-                                                             aria-valuemax="100"
-                                                             style="width: {{ $entry->completion }}%;">
+                                                <tr>
+                                                    <td>{{ $entry->project->name }}</td>
+                                                    <td>
+                                                        <img src="img/country-flags/{{@ $languages[$entry->language_id] }}.png"
+                                                             alt="{{@ $languages[$entry->language_id] }}"
+                                                             title="{{ $entry->language->name }}"/>
+                                                        {{ $entry->language->name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $entry->completion }} %
+                                                    </td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar {{ $entry->progress_bar_class }}"
+                                                                 role="progressbar"
+                                                                 aria-valuenow="{{ $entry->completion }}"
+                                                                 aria-valuemin="0"
+                                                                 aria-valuemax="100"
+                                                                 style="width: {{ $entry->completion }}%;">
+                                                            </div>
+                                                            {{--<div ng-class="{'progress-bar': true, 'progress-bar-info': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 0.8 && {{$entry->count / $baseStringCounts[$entry->project_id]}} < 1, 'progress-bar-success': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 1}"--}}
+                                                            {{--role="progressbar" aria-valuenow="60"--}}
+                                                            {{--aria-valuemin="0"--}}
+                                                            {{--aria-valuemax="100"--}}
+                                                            {{--style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">--}}
+                                                            {{--</div>--}}
                                                         </div>
-                                                        {{--<div ng-class="{'progress-bar': true, 'progress-bar-info': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 0.8 && {{$entry->count / $baseStringCounts[$entry->project_id]}} < 1, 'progress-bar-success': {{$entry->count / $baseStringCounts[$entry->project_id]}} >= 1}"--}}
-                                                        {{--role="progressbar" aria-valuenow="60"--}}
-                                                        {{--aria-valuemin="0"--}}
-                                                        {{--aria-valuemax="100"--}}
-                                                        {{--style="width: {{ round($entry->count / $baseStringCounts[$entry->project_id] * 100, 3) }}%;">--}}
-                                                        {{--</div>--}}
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
                                             @endif
                                         @endforeach
                                         </tbody>

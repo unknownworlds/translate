@@ -2,11 +2,12 @@
 
 namespace App\LanguageFileHandling\InputHandlers;
 
-interface InputHandlerInterface {
+interface InputHandlerInterface
+{
 
-	/**
-	 * @return array
-	 */
-	public function getParsedInput();
+    /**
+     * @return array
+     */
+    public function getParsedInput();
 
 }

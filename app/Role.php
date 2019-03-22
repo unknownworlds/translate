@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
  * App\Role
  *
  */
-class Role extends Model {
+class Role extends Model
+{
 
-	/**
-	 * Fillable fields
-	 *
-	 * @var array
-	 */
-	protected $fillable = ['name'];
+    /**
+     * Fillable fields
+     *
+     * @var array
+     */
+    protected $fillable = ['name'];
 
 }

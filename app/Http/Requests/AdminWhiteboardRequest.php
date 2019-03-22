@@ -15,9 +15,9 @@ class AdminWhiteboardRequest extends Request
      */
     public function authorize()
     {
-        $language = Language::findOrFail( $this->get( 'language_id' ) );
+        $language = Language::findOrFail($this->get('language_id'));
 
-        return Auth::user()->hasRole( $language->name . ' admin' ) || Auth::user()->hasRole( 'Root' );
+        return Auth::user()->hasRole($language->name . ' admin') || Auth::user()->hasRole('Root');
     }
 
     /**

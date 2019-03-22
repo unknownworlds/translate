@@ -54,8 +54,12 @@
                                     <td>{{ $counts[$user->id]['accepted_count'] ?? 0 }}</td>
                                     <td>+{{ $counts[$user->id]['up_votes_sum'] ?? 0 }}</td>
                                     <td>-{{ $counts[$user->id]['down_votes_sum'] ?? 0 }}</td>
-                                    <td>{{ $counts[$user->id]['accepted_by_count'] ?? 'N/A' }} ({{ $counts[$user->id]['last_accepted'] ?? 'N/A' }})</td>
-                                    <td>{{ $counts[$user->id]['deleted_by_count'] ?? 'N/A' }} ({{ $counts[$user->id]['last_deleted'] ?? 'N/A' }})</td>
+                                    <td>{{ $counts[$user->id]['accepted_by_count'] ?? 'N/A' }}
+                                        ({{ $counts[$user->id]['last_accepted'] ?? 'N/A' }})
+                                    </td>
+                                    <td>{{ $counts[$user->id]['deleted_by_count'] ?? 'N/A' }}
+                                        ({{ $counts[$user->id]['last_deleted'] ?? 'N/A' }})
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -43,13 +43,16 @@
                     </div>
                     <div class="form-group">
                         <label for="newStringValue">Value</label>
-                        <textarea class="form-control" rows="10" id="newStringValue" v-model="manualInputBaseString.text"></textarea>
+                        <textarea class="form-control" rows="10" id="newStringValue"
+                                  v-model="manualInputBaseString.text"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="saveBaseString(manualInputBaseString.id)">Save changes</button>
+                <button type="button" class="btn btn-primary" @click="saveBaseString(manualInputBaseString.id)">Save
+                    changes
+                </button>
             </div>
         </div>
     </div>
@@ -68,13 +71,15 @@
                 <form>
                     <div class="form-group">
                         <label for="newStringValue">Text</label>
-                        <textarea class="form-control" rows="10" id="newStringValue" v-model="editStringModalData.text"></textarea>
+                        <textarea class="form-control" rows="10" id="newStringValue"
+                                  v-model="editStringModalData.text"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="saveString(editStringModalData)">Save changes</button>
+                <button type="button" class="btn btn-primary" @click="saveString(editStringModalData)">Save changes
+                </button>
             </div>
         </div>
     </div>

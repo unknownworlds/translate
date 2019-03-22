@@ -27,7 +27,7 @@
                     <hr>
 
                     <button class="btn btn-default" @click="showNewBaseStringForm()">
-                    Add string
+                        Add string
                     </button>
                 </div>
 
@@ -50,12 +50,12 @@
 
                     <div class="filters clearfix">
                         <button class="btn btn-default" @click="hideAccepted()"
-                        :class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
-                        translations
+                                :class="{'btn-success': acceptedStringsHidden}">Hide strings with accepted
+                            translations
                         </button>
 
                         <button class="btn btn-default" @click="showPendingOnly()"
-                        :class="{'btn-success': showingPendingOnly}">Show pending translations only
+                                :class="{'btn-success': showingPendingOnly}">Show pending translations only
                         </button>
 
                         <input id="searchInput" type="text" class="form-control pull-right"

@@ -13,14 +13,14 @@ class BusServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-	    $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
-	    $socialite->extend(
-		    'bus',
-		    function ($app) use ($socialite) {
-			    $config = $app['config']['services.bus'];
-			    return $socialite->buildProvider(BusOauthProvider::class, $config);
-		    }
-	    );
+        $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
+        $socialite->extend(
+            'bus',
+            function ($app) use ($socialite) {
+                $config = $app['config']['services.bus'];
+                return $socialite->buildProvider(BusOauthProvider::class, $config);
+            }
+        );
     }
 
     /**

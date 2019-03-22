@@ -29,8 +29,9 @@ class AdminToolController extends Controller
         foreach ($users as $user) {
             foreach ($user->roles as $role) {
 
-                if (!strstr($role->name, ' admin'))
+                if (!strstr($role->name, ' admin')) {
                     continue;
+                }
 
                 $languageName = substr($role->name, 0, strpos($role->name, ' admin'));
                 $languageAdmins[$languageName]++;
@@ -49,7 +50,8 @@ class AdminToolController extends Controller
 
         $baseStrings = BaseString::count();
 
-        return view('adminTool/languageStatus', compact('languages', 'languageAdmins', 'unacceptedStrings', 'acceptedStrings', 'baseStrings'));
+        return view('adminTool/languageStatus',
+            compact('languages', 'languageAdmins', 'unacceptedStrings', 'acceptedStrings', 'baseStrings'));
     }
 
     public function potentialAdmins()
@@ -92,15 +94,16 @@ class AdminToolController extends Controller
         $languages = Language::orderBy('name')->pluck('name', 'id');
 
         // TODO: refactor
-	    // It looks like old, Laravel 4 way of doing things
+        // It looks like old, Laravel 4 way of doing things
         $admins = [];
         $adminIds = [];
         $users = User::has('roles')->with('roles')->get();
         foreach ($users as $user) {
             foreach ($user->roles as $role) {
 
-                if ($role->name != $languages[$language] . ' admin')
+                if ($role->name != $languages[$language] . ' admin') {
                     continue;
+                }
 
                 $admins[] = $user;
                 $adminIds[] = $user->id;
@@ -128,7 +131,7 @@ class AdminToolController extends Controller
         }
 
         $acceptedStrings = TranslatedString::selectRaw('accepted_by AS admin_id, MAX(updated_at) AS last_date, COUNT(*) AS count')
-	        ->groupBy('accepted_by')
+            ->groupBy('accepted_by')
             ->whereIn('accepted_by', $adminIds)
             ->get()->toArray();
 

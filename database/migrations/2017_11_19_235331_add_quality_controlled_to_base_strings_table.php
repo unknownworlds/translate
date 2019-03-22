@@ -13,9 +13,9 @@ class AddQualityControlledToBaseStringsTable extends Migration
      */
     public function up()
     {
-	    Schema::table('base_strings', function (Blueprint $table) {
-		    $table->boolean('quality_controlled')->unsigned()->default(0);
-	    });
+        Schema::table('base_strings', function (Blueprint $table) {
+            $table->boolean('quality_controlled')->unsigned()->default(0);
+        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddQualityControlledToBaseStringsTable extends Migration
      */
     public function down()
     {
-	    Schema::table('base_strings', function (Blueprint $table) {
-		    $table->dropColumn('quality_controlled');
-	    });
+        Schema::table('base_strings', function (Blueprint $table) {
+            $table->dropColumn('quality_controlled');
+        });
     }
 }

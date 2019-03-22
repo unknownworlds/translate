@@ -19,8 +19,9 @@ class TranslatedStringTableSeeder extends Seeder
         foreach ($baseStringIds as $baseStringId) {
 
             // Skip 15% of base strings, so we have some without any stranslations
-            if ($faker->boolean(15))
+            if ($faker->boolean(15)) {
                 continue;
+            }
 
             // Choose if given base string should have an accepted translation
             $accept = $faker->boolean(25);
@@ -38,8 +39,9 @@ class TranslatedStringTableSeeder extends Seeder
                 ]);
 
                 // Make sure only one string is accepted
-                if ($accept == true)
+                if ($accept == true) {
                     $accept = false;
+                }
             }
         }
     }

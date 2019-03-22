@@ -13,9 +13,9 @@ class AddIsAlternativeToTranslatedStringsTable extends Migration
      */
     public function up()
     {
-	    Schema::table( 'translated_strings', function ( Blueprint $table ) {
-		    $table->boolean( 'alternative_or_empty' )->unsigned()->default( 0 );
-	    } );
+        Schema::table('translated_strings', function (Blueprint $table) {
+            $table->boolean('alternative_or_empty')->unsigned()->default(0);
+        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddIsAlternativeToTranslatedStringsTable extends Migration
      */
     public function down()
     {
-	    Schema::table( 'translated_strings', function ( Blueprint $table ) {
-		    $table->dropColumn( 'alternative_or_empty' );
-	    } );
+        Schema::table('translated_strings', function (Blueprint $table) {
+            $table->dropColumn('alternative_or_empty');
+        });
     }
 }

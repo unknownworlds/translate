@@ -18,7 +18,7 @@
                         <h2>Edit page</h2>
 
                         {!! Form::model($page, ['route' => ['pages.update', $page->id], 'method' => 'PATCH']) !!}
-                            @include('pages/partials/form', ['submitButton' => 'Save page'])
+                        @include('pages/partials/form', ['submitButton' => 'Save page'])
                         {!! Form::close() !!}
                     </div>
                 </div>
