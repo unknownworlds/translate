@@ -39,8 +39,9 @@
                 <li><a href="{{ url('/pages/guidelines') }}">Guidelines</a></li>
                 <li><a href="{{ url('/pages/faq') }}">FAQ</a></li>
                 <li><a href="{{ url('/rss') }}">RSS</a></li>
-                <li><a href="http://forums.unknownworlds.com/categories/subnautica-translations">Translations forums</a>
-                </li>
+                @if(env('TRANSLATION_FORUMS_URL'))
+                    <li><a href="{{ env('TRANSLATION_FORUMS_URL') }}">Translations forums</a></li>
+                @endif
                 @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
