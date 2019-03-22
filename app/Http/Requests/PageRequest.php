@@ -39,6 +39,8 @@ class PageRequest extends Request
             ];
         } elseif ($requestMethod == 'DELETE') {
             return [];
+        } else {
+            return [];
         }
 
 
