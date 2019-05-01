@@ -82,7 +82,7 @@ class ProjectsController extends Controller
      * Display the specified resource.
      *
      * @param ProjectRequest $request
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -97,7 +97,7 @@ class ProjectsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param ProjectRequest $request
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -134,8 +134,8 @@ class ProjectsController extends Controller
      * @param ProjectRequest $request
      *
      * @return Response
-     * @internal param int $id
      * @throws \Exception
+     * @internal param int $id
      */
     public function destroy($id, ProjectRequest $request)
     {
@@ -151,8 +151,8 @@ class ProjectsController extends Controller
      * @param ProjectRequest $request
      *
      * @return Response
-     * @internal param int $id
      * @throws \Exception
+     * @internal param int $id
      */
     public function importData($id, ProjectRequest $request)
     {
@@ -168,8 +168,8 @@ class ProjectsController extends Controller
      * @param ProjectDataImportRequest $request
      *
      * @return void
-     * @internal param int $id
      * @throws \Exception
+     * @internal param int $id
      */
     public function processDataImport($id, ProjectDataImportRequest $request)
     {

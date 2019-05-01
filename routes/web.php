@@ -66,6 +66,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/strings/users', 'TranslationsController@users');
     Route::get('/strings/admins', 'TranslationsController@admins');
     Route::get('/admin-whiteboard/{project_id}/{language_id}', 'AdminWhiteboardsController@find');
-	Route::post('/admin-whiteboard', 'AdminWhiteboardsController@store');
-	Route::post('/tools/mark-quality-controlled-string', 'ToolsApiController@markQualityControlledString');
+    Route::post('/admin-whiteboard', 'AdminWhiteboardsController@store');
+    Route::post('/tools/mark-quality-controlled-string', 'ToolsApiController@markQualityControlledString');
 });

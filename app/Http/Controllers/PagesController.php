@@ -57,7 +57,7 @@ class PagesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string $slug
+     * @param string $slug
      *
      * @return Response
      */
@@ -75,7 +75,7 @@ class PagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @param PageRequest $request
      * @return Response

@@ -10,9 +10,9 @@ class CheckRole
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @param  string|null $requiredRole
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param string|null $requiredRole
      * @return mixed
      */
     public function handle($request, Closure $next, $requiredRole = null)
