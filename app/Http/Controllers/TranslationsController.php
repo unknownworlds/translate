@@ -82,9 +82,9 @@ class TranslationsController extends BaseApiController
         $input['text'] = trim($input['text'], "\n");
 
         $duplicates = TranslatedString::where([
-            'project_id' => $input['project_id'],
+            'project_id' => $baseString->project_id,
             'language_id' => $input['language_id'],
-            'base_string_id' => $input['base_string_id'],
+            'base_string_id' => $baseString->id,
             'text' => $input['text'],
         ])->get();
 
@@ -95,14 +95,21 @@ class TranslationsController extends BaseApiController
             }
         }
 
-        $input['up_votes'] = 0;
-        $input['down_votes'] = 0;
-        $input['alternative_or_empty'] = $baseString->alternative_or_empty;
+        $newString = [
+            'project_id' => $baseString->project_id,
+            'language_id' => $input['language_id'],
+            'base_string_id' => $baseString->id,
+            'user_id' => Auth::user()->id,
+            'text' => $input['text'],
+            'up_votes' => 0,
+            'down_votes' => 0,
+            'alternative_or_empty' => $baseString->alternative_or_empty,
+        ];
 
-        $string = TranslatedString::create($input);
+        $string = TranslatedString::create($newString);
 
         Log::create([
-            'project_id' => $input['project_id'],
+            'project_id' => $baseString->project_id,
             'language_id' => $input['language_id'],
             'user_id' => Auth::user()->id,
             'text' => Auth::user()->name . ' translated ' . $baseString->key . ' to ' . $input['text']
