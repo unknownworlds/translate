@@ -83,7 +83,7 @@ class BusOauthProvider extends AbstractProvider implements ProviderInterface
         return (new User)->setRaw($user)->map([
             'id' => $user['id'],
             'email' => $user['email'],
-            'name' => $user['name'],
+            'name' => $user['display_name'],
 //			'display_name' => $user['display_name'],
 //			'avatar'   => ! empty( $user['images'] ) ? $user['images'][0]['url'] : null,
         ]);
