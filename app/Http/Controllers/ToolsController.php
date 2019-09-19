@@ -22,7 +22,7 @@ class ToolsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Interface for importing a JSON file that was translated outside of the app
      *
      * @return Response
      */
@@ -36,7 +36,8 @@ class ToolsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Procedure for importing a JSON file that was translated outside of the app
+     * TODO: refactor
      *
      * @param ToolsFileImportRequest $request
      *
@@ -68,7 +69,7 @@ class ToolsController extends Controller
                 continue;
             }
 
-            if ($text == '') {
+            if ($text == '' || $text == $baseString->text) {
                 continue;
             }
 
@@ -79,6 +80,12 @@ class ToolsController extends Controller
                 ->first();
 
             if ($string) {
+                continue;
+            }
+
+            // Logic for accepting if string is already present else invalidating current submissions if new string
+            // is going to be added and then accepted. Need to make this optional.
+            /*if ($string) {
                 $string->update([
                     'is_accepted' => true
                 ]);
@@ -91,7 +98,7 @@ class ToolsController extends Controller
                     ->update([
                         'is_accepted' => false
                     ]);
-            }
+            }*/
 
             TranslatedString::create([
                 'project_id' => $request->get('project_id'),
@@ -99,7 +106,7 @@ class ToolsController extends Controller
                 'base_string_id' => $baseString->id,
                 'user_id' => $request->get('user_id'),
                 'text' => $text,
-                'is_accepted' => true,
+                'is_accepted' => false, // Read comment above if you want to set this to true
                 'alternative_or_empty' => $baseString->alternative_or_empty
             ]);
 
