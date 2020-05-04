@@ -20,6 +20,12 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface
      */
     private function processInput()
     {
+        // Try to decode it right away, but keep processing if the JSON is... weird. As in SN1.
+        $output = json_decode($this->rawData, true);
+        if ($output != null) {
+            return $this->baseStrings = $output;
+        }
+
         $output = $this->rawData;
         // Remove whitespace from string
         $output = trim($output);
@@ -41,7 +47,7 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface
             $output[$key] = str_replace('<br>', "\n", $value);
         }
 
-        $this->baseStrings = $output;
+        return $this->baseStrings = $output;
     }
 
     /**
