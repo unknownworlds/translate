@@ -26,7 +26,8 @@
     "barryvdh/laravel-ide-helper": "~2.0",
     "fzaninotto/faker": "dev-master",
     "codeception/codeception": "^2.5",
-    "filp/whoops": "~2.0"
+    "filp/whoops": "~2.0",
+    "friendsofphp/php-cs-fixer": "3.*"
   },
   "autoload": {
     "classmap": [
