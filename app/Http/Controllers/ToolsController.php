@@ -11,6 +11,7 @@ use App\User;
 use PDF;
 use File;
 use App\TranslatedString;
+use Storage;
 use Symfony\Component\HttpFoundation\Request;
 
 class ToolsController extends Controller
@@ -269,6 +270,83 @@ class ToolsController extends Controller
         }
 
         return back()->withMessage('Copied ' . $copiedStrings . ' translations');
+    }
+
+    public function translationSpreadsheet()
+    {
+        $projects = Project::orderBy('name')->get();
+
+        return view('tools/translationSpreadsheetIndex', compact('projects'));
+    }
+
+    public function translationSpreadsheetDownload(Request $request)
+    {
+        ini_set('max_execution_time', 600);
+
+        $project = Project::findOrFail($request->get('project_id'));
+        $baseStrings = BaseString::where('project_id', '=', $project->id)
+            ->orderBy('key')->get(['id', 'key', 'text']);
+        $languages = Language::all();
+
+        $translatedStrings = TranslatedString::where('project_id', '=', $project->id)
+            ->where('is_accepted', '=', true)
+            ->get(['base_string_id', 'text', 'language_id']);
+
+        $translatedStringsCSVFriendly = [];
+        foreach ($translatedStrings as $string) {
+            $translatedStringsCSVFriendly[$string['language_id']][$string['base_string_id']] = $string['text'];
+        }
+
+        unset($translatedStrings);
+
+        $output = view('tools/translationSpreadsheetCSV',
+            compact('project', 'baseStrings', 'languages', 'translatedStringsCSVFriendly'));
+
+        Storage::put('translation-spreadsheet.csv', $output->render());
+
+        return Storage::download('translation-spreadsheet.csv');
+
+    }
+
+    public function wordCountsSpreadsheetDownload(Request $request)
+    {
+        ini_set('max_execution_time', 600);
+
+        response()->streamDownload(function () {
+            return 'w,t,f';
+        }, 'output.csv');
+
+        $project = Project::findOrFail($request->get('project_id'));
+        $languages = Language::all();
+
+        $baseStrings = BaseString::where('project_id', '=', $project->id)
+            ->orderBy('key')->get(['id', 'key', 'text']);
+        $baseStringsText = $baseStrings->pluck('text', 'id')->toArray();
+        $totalEnglishWordCount = 0;
+
+        foreach ($baseStringsText as $value) {
+            $totalEnglishWordCount += str_word_count($value);
+        }
+
+        $translatedStrings = TranslatedString::where('project_id', '=', $project->id)
+            ->where('is_accepted', '=', true)
+            ->get(['base_string_id', 'text', 'language_id']);
+
+        $translatedWordCounts = [];
+        foreach ($translatedStrings as $string) {
+            if (!array_key_exists($string['language_id'], $translatedWordCounts)) {
+                $translatedWordCounts[$string['language_id']] = 0;
+            }
+
+            $translatedWordCounts[$string['language_id']] += str_word_count($baseStringsText[$string['base_string_id']]);
+        }
+
+        $output = view('tools/translationSpreadsheetWordCountsCSV',
+            compact('project', 'baseStrings', 'languages', 'totalEnglishWordCount', 'translatedWordCounts'));
+
+        Storage::put('translated-word-count.csv', $output->render());
+
+        return Storage::download('translated-word-count.csv');
     }
 
 }

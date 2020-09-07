@@ -78,6 +78,7 @@
                             <li><a href="{{ url('/tools/translation-quality') }}">Quality control</a></li>
                             <li><a href="{{ url('/tools/file-import') }}">JSON file import</a></li>
                             <li><a href="{{ url('/tools/translations-transfer') }}">Translations transfer</a></li>
+                            <li><a href="{{ url('/tools/translation-spreadsheet') }}">Translation spreadsheet</a></li>
                         </ul>
                     </li>
                 @endif

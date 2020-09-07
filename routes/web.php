@@ -48,6 +48,9 @@ Route::get('tools/file-import', 'ToolsController@fileImport');
 Route::post('tools/file-import', 'ToolsController@processFileImport');
 Route::get('tools/translations-transfer', 'ToolsController@translationsTransfer');
 Route::post('tools/translations-transfer', 'ToolsController@processTranslationsTransfer');
+Route::get('tools/translation-spreadsheet', 'ToolsController@translationSpreadsheet');
+Route::get('tools/translation-spreadsheet/download-summary', 'ToolsController@translationSpreadsheetDownload');
+Route::get('tools/translation-spreadsheet/download-word-counts', 'ToolsController@wordCountsSpreadsheetDownload');
 
 // Private API
 Route::group(['prefix' => 'api'], function () {
