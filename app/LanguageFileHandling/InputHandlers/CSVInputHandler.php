@@ -28,7 +28,13 @@ class CSVInputHandler implements InputHandlerInterface
                 continue;
             }
 
-            $output[$string[0]] = str_replace('\n', "\n", $string[1]);
+            $key  = $string[0];
+
+            $text = $string[1];
+            $text = str_replace('\n', "\n", $text);
+            $text = html_entity_decode($text);
+
+            $output[$key] = $text;
         }
 
         return $this->translations = $output;
