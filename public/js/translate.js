@@ -164,8 +164,7 @@ var app = new Vue({
                 data.filteredData = data.baseStrings;
                 this.resetPagination();
                 data.acceptedStringsHidden = false;
-            }
-            else {
+            } else {
                 data.filteredData = data.baseStrings.filter(function (item) {
                     var result = true;
 
@@ -188,8 +187,7 @@ var app = new Vue({
                 data.filteredData = data.baseStrings;
                 this.resetPagination();
                 data.showingPendingOnly = false;
-            }
-            else {
+            } else {
                 data.filteredData = data.baseStrings.filter(function (item) {
                     var hasTranslations = false
                     var is_accepted = false;
@@ -359,6 +357,15 @@ var app = new Vue({
                 }
 
                 $('#baseStringEditModal').modal('hide');
+            });
+        },
+        lockBaseString: function (base_string) {
+            let postData = {
+                id: base_string.id,
+            };
+
+            app.postRequest("api/base-strings/lock", postData, function (response) {
+                base_string.locked = response.locked;
             });
         },
         // Refresh the page after 2 hours. Needed for CSRF token expiry, useful for phones.

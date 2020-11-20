@@ -29,11 +29,24 @@
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
                                 <button type="button" class="btn btn-default"
+                                        @click="lockBaseString(baseString)"
+                                        v-if="isRoot"
+                                        title="Toggle lock current translation">
+                                    <span class="glyphicon glyphicon-lock"
+                                          :class="{'glyphicon glyphicon-ok-circle': baseString.locked}"
+                                          aria-hidden="true">
+                                    </span>
+                                </button>
+                                <button type="button" class="btn btn-default"
                                         @click="showTranslationHistory(baseString.id)" title="Translations history">
                                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                 </button>
                             </div>
                         </h3>
+                        <div style="font-weight: bold;" v-if="baseString.locked">
+                            Base string locked! Due to formal requirements this string cannot have it's translation
+                            changed.
+                        </div>
                         <i style="white-space: pre-wrap">@{{baseString.text}}</i>
                     </div>
                     <div class="panel-body">

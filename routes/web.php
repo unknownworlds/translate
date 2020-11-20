@@ -58,6 +58,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/base-strings', 'TranslationsController@baseStrings');
     Route::post('/base-strings', 'TranslationsController@storeBaseString');
     Route::post('/base-strings/trash', 'TranslationsController@trashBaseString');
+    Route::post('/base-strings/lock', 'TranslationsController@lockBaseString');
     Route::get('/strings', 'TranslationsController@strings');
     Route::get('/check-privileges', 'TranslationsController@checkPrivileges');
     Route::post('/strings/store', 'TranslationsController@store');
