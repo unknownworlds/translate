@@ -11,12 +11,14 @@ class InputHandlerFactory
     const MANUAL = 2;
     const STEAM_ACHIEVEMENTS = 3;
     const INI = 4;
+    const CSV = 5;
 
     public static $availableHandlers = [
         self::SIMPLE_JSON => 'Simple JSON',
         self::MANUAL => 'Manual',
         self::STEAM_ACHIEVEMENTS => 'Steam achievements',
         self::INI => 'INI file',
+        self::CSV => 'CSV file',
     ];
 
     public static function getFileHandler($handlerType)
@@ -28,6 +30,8 @@ class InputHandlerFactory
                 return new SteamAchievementsInputHandler();
             case self::INI:
                 return new INIInputHandler();
+            case self::CSV:
+                return new CSVInputHandler();
             default:
                 throw new Exception('Undefined input handler.');
         }
