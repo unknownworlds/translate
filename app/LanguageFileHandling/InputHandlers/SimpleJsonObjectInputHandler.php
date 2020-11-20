@@ -2,16 +2,14 @@
 
 namespace App\LanguageFileHandling\InputHandlers;
 
-use Request;
-
 class SimpleJsonObjectInputHandler implements InputHandlerInterface
 {
     private $rawData;
-    private $baseStrings;
+    private $translations;
 
-    public function __construct()
+    public function __construct($rawData)
     {
-        $this->rawData = Request::get('data');
+        $this->rawData = $rawData;
         $this->processInput();
     }
 
@@ -23,7 +21,7 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface
         // Try to decode it right away, but keep processing if the JSON is... weird. As in SN1.
         $output = json_decode($this->rawData, true);
         if ($output != null) {
-            return $this->baseStrings = $output;
+            return $this->translations = $output;
         }
 
         $output = $this->rawData;
@@ -47,7 +45,7 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface
             $output[$key] = str_replace('<br>', "\n", $value);
         }
 
-        return $this->baseStrings = $output;
+        return $this->translations = $output;
     }
 
     /**
@@ -55,6 +53,6 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface
      */
     public function getParsedInput()
     {
-        return $this->baseStrings;
+        return $this->translations;
     }
 }

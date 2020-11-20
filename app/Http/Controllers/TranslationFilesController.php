@@ -24,7 +24,7 @@ class TranslationFilesController extends BaseApiController
         $project = Project::where(['api_key' => Request::get('api_key')])->firstOrFail();
 
         // init input handler
-        $inputHandler = InputHandlerFactory::getFileHandler($project->data_input_handler);
+        $inputHandler = InputHandlerFactory::getFileHandler($project->data_input_handler, Request::get('data'));
 
         // pass reader results to diff handler
         $input = $inputHandler->getParsedInput();

@@ -8,7 +8,13 @@ use VdfParser\Parser;
 class SteamAchievementsInputHandler implements InputHandlerInterface
 {
     private $rawData;
-    private $baseStrings;
+    private $translations;
+
+    public function __construct($rawData)
+    {
+        $this->rawData = $rawData;
+        $this->processInput();
+    }
 
     /**
      * @return bool
@@ -22,7 +28,7 @@ class SteamAchievementsInputHandler implements InputHandlerInterface
             return false;
         }
 
-        $this->baseStrings = $result['lang']['Tokens'];
+        $this->translations = $result['lang']['Tokens'];
 
         return true;
     }
@@ -34,7 +40,7 @@ class SteamAchievementsInputHandler implements InputHandlerInterface
     {
         $this->processInput();
 
-        return $this->baseStrings;
+        return $this->translations;
     }
 
     public function setRawInput($rawData)

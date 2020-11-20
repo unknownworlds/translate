@@ -49,8 +49,7 @@ class ToolsController extends Controller
     {
         $acceptTranslationsFormImport = $request->get('accept_translations') == 1;
 
-        $inputHandler = InputHandlerFactory::getFileHandler($request->get('input_type'));
-
+        $inputHandler      = InputHandlerFactory::getFileHandler($request->get('input_type'), $request->get('data'));
         $translatedStrings = $inputHandler->getParsedInput();
 
         if ( ! $translatedStrings) {

@@ -2,16 +2,14 @@
 
 namespace App\LanguageFileHandling\InputHandlers;
 
-use Request;
-
 class CSVInputHandler implements InputHandlerInterface
 {
     private $rawData;
-    private $baseStrings;
+    private $translations;
 
-    public function __construct()
+    public function __construct($rawData)
     {
-        $this->rawData = Request::get('data');
+        $this->rawData = $rawData;
         $this->processInput();
     }
 
@@ -33,7 +31,7 @@ class CSVInputHandler implements InputHandlerInterface
             $output[$string[0]] = str_replace('\n', "\n", $string[1]);
         }
 
-        return $this->baseStrings = $output;
+        return $this->translations = $output;
     }
 
     /**
@@ -41,6 +39,6 @@ class CSVInputHandler implements InputHandlerInterface
      */
     public function getParsedInput()
     {
-        return $this->baseStrings;
+        return $this->translations;
     }
 }
