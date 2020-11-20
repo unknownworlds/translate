@@ -30,7 +30,7 @@ class ToolsFileImportRequest extends Request
             'project_id' => 'required',
             'language_id' => 'required',
             'user_id' => 'required',
-            'input' => 'required',
+            'data' => 'required',
         ];
 
     }

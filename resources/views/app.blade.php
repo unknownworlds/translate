@@ -76,7 +76,7 @@
                            aria-expanded="false">Tools <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ url('/tools/translation-quality') }}">Quality control</a></li>
-                            <li><a href="{{ url('/tools/file-import') }}">JSON file import</a></li>
+                            <li><a href="{{ url('/tools/file-import') }}">Translation file import</a></li>
                             <li><a href="{{ url('/tools/translations-transfer') }}">Translations transfer</a></li>
                             <li><a href="{{ url('/tools/translation-spreadsheet') }}">Translation spreadsheet</a></li>
                         </ul>

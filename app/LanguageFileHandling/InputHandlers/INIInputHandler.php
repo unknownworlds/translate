@@ -20,7 +20,7 @@ class INIInputHandler implements InputHandlerInterface
      */
     private function processInput()
     {
-        $input = explode("\n", $this->rawData);
+        $input  = explode("\n", $this->rawData);
         $output = [];
 
         foreach ($input as $line) {
@@ -30,7 +30,7 @@ class INIInputHandler implements InputHandlerInterface
                 continue;
             }
 
-            $output[$string[0]] = substr($string[1], 0, -1);
+            $output[$string[0]] = substr(trim($string[1]), 0, -1);
         }
 
         return $this->baseStrings = $output;

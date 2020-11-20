@@ -38,8 +38,24 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('input', 'JSON input (lines with // will be deleted):') !!}
-                            {!! Form::textarea('input', null, ['class' => 'form-control']) !!}
+                            {!! Form::label('input_type', 'Input type:') !!}
+                            {!! Form::select('input_type', $supportedFileFormats, null, ['class' => 'form-control']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Options:</label>
+                            <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('accept_translations', true, false) !!}
+                                    Automatically accept all translations from this import.
+                                    Enabled if you trust the translation provider.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('input', 'Data input:') !!}
+                            {!! Form::textarea('data', null, ['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group">
