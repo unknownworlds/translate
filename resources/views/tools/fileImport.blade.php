@@ -15,8 +15,41 @@
                         @include('errors/list')
                         @if (Session::has('message'))
                             <div class="alert alert-info">
-                                <ul class="list">
-                                    <li>{{ Session::get('message') }}</li>
+                                {{ Session::get('message') }}
+                            </div>
+                        @endif
+                        @if (Session::has('stats'))
+                            <div class="alert alert-info">
+                                Import statistics:
+                                <ul>
+                                    <li>
+                                        Strings processed:
+                                        {{ Session::get('stats')['processedBaseStrings'] }}
+                                    </li>
+                                    <li>
+                                        Unrecognized base strings:
+                                        {{ Session::get('stats')['unknownBaseStrings'] }}
+                                    </li>
+                                    <li>
+                                        Empty or unnecessary translations:
+                                        {{ Session::get('stats')['emptyOrUnnecessaryTranslations'] }}
+                                    </li>
+                                    <li>
+                                        Translations already present and accepted:
+                                        {{ Session::get('stats')['translationsAlreadyAcceptedInDatabase'] }}
+                                    </li>
+                                    <li>
+                                        Translation already present but not accepted:
+                                        {{ Session::get('stats')['translationsAlreadyInDatabaseButNotAccepted'] }}
+                                    </li>
+                                    <li>
+                                        Translations already present that got accepted:
+                                        {{ Session::get('stats')['translationsAlreadyInDatabaseAccepted'] }}
+                                    </li>
+                                    <li>
+                                        New translations added:
+                                        {{ Session::get('stats')['newTranslationsAccepted'] }}
+                                    </li>
                                 </ul>
                             </div>
                         @endif

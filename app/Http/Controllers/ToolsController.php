@@ -49,6 +49,17 @@ class ToolsController extends Controller
     {
         ini_set('max_execution_time', 120);
 
+        $stats = [
+            'processedBaseStrings'                        => 0,
+            'unknownBaseStrings'                          => 0,
+            'emptyOrUnnecessaryTranslations'              => 0,
+            'translationsAlreadyAcceptedInDatabase'       => 0,
+            'translationsAlreadyInDatabaseButNotAccepted' => 0,
+            'translationsAlreadyInDatabaseAccepted'       => 0,
+            'newTranslationsAccepted'                     => 0,
+
+        ];
+
         $acceptTranslationsFormImport = $request->get('accept_translations') == 1;
 
         $inputHandler      = InputHandlerFactory::getFileHandler($request->get('input_type'), $request->get('data'));
@@ -59,15 +70,19 @@ class ToolsController extends Controller
         }
 
         foreach ($translatedStrings as $key => $text) {
+            $stats['processedBaseStrings']++;
+
             $baseString = BaseString::where('project_id', '=', $request->get('project_id'))
                                     ->where('key', '=', $key)
                                     ->first();
 
             if ( ! $baseString) {
+                $stats['unknownBaseStrings']++;
                 continue;
             }
 
             if ($text == '' || $text == $baseString->text) {
+                $stats['emptyOrUnnecessaryTranslations']++;
                 continue;
             }
 
@@ -78,10 +93,12 @@ class ToolsController extends Controller
                                       ->first();
 
             if ($string != null && $string->is_accepted == true) {
+                $stats['translationsAlreadyAcceptedInDatabase']++;
                 continue;
             }
 
             if ($string != null && $acceptTranslationsFormImport == false) {
+                $stats['translationsAlreadyInDatabaseButNotAccepted']++;
                 continue;
             }
 
@@ -99,6 +116,8 @@ class ToolsController extends Controller
                     'is_accepted' => true
                 ]);
 
+                $stats['translationsAlreadyInDatabaseAccepted']++;
+
                 continue;
             }
 
@@ -111,9 +130,11 @@ class ToolsController extends Controller
                 'is_accepted'          => $acceptTranslationsFormImport,
                 'alternative_or_empty' => $baseString->alternative_or_empty
             ]);
+
+            $stats['newTranslationsAccepted']++;
         }
 
-        return redirect('tools/file-import')->with('message', 'Import complete');
+        return redirect('tools/file-import')->with('message', 'Import complete')->with('stats', $stats);
     }
 
     public function translationQualityIndex()
@@ -312,7 +333,7 @@ class ToolsController extends Controller
 
     public function wordCountsSpreadsheetDownload(Request $request)
     {
-        ini_set('max_execution_time', 600);
+        ini_set('max_execution_time', 120);
 
         response()->streamDownload(function () {
             return 'w,t,f';
