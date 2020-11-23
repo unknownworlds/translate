@@ -47,6 +47,8 @@ class ToolsController extends Controller
      */
     public function processFileImport(ToolsFileImportRequest $request)
     {
+        ini_set('max_execution_time', 120);
+
         $acceptTranslationsFormImport = $request->get('accept_translations') == 1;
 
         $inputHandler      = InputHandlerFactory::getFileHandler($request->get('input_type'), $request->get('data'));
@@ -277,12 +279,16 @@ class ToolsController extends Controller
 
     public function translationSpreadsheetDownload(Request $request)
     {
-        ini_set('max_execution_time', 600);
+        ini_set('max_execution_time', 120);
 
         $project     = Project::findOrFail($request->get('project_id'));
         $baseStrings = BaseString::where('project_id', '=', $project->id)
                                  ->orderBy('key')->get(['id', 'key', 'text']);
         $languages   = Language::all();
+
+        foreach ($baseStrings as $baseString) {
+            $baseString->text = str_replace(["\r\n", "\n"], '\n', $baseString->text);
+        }
 
         $translatedStrings = TranslatedString::where('project_id', '=', $project->id)
                                              ->where('is_accepted', '=', true)
@@ -290,7 +296,8 @@ class ToolsController extends Controller
 
         $translatedStringsCSVFriendly = [];
         foreach ($translatedStrings as $string) {
-            $translatedStringsCSVFriendly[$string['language_id']][$string['base_string_id']] = $string['text'];
+            $translatedStringsCSVFriendly[$string['language_id']][$string['base_string_id']] =
+                html_entity_decode(str_replace(["\r\n", "\n", "\r"], '\n', $string['text']));
         }
 
         unset($translatedStrings);
