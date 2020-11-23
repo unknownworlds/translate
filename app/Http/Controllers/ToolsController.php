@@ -47,7 +47,7 @@ class ToolsController extends Controller
      */
     public function processFileImport(ToolsFileImportRequest $request)
     {
-        ini_set('max_execution_time', 120);
+        ini_set('max_execution_time', 180);
 
         $stats = [
             'processedBaseStrings'                        => 0,
