@@ -42,6 +42,10 @@
                                             Edit
                                         </a>
 
+                                        <a href="{{ url("projects/{$project->id}/base-strings") }}" class="btn btn-default">
+                                            Base strings
+                                        </a>
+
                                         @if($project->data_input_handler == 3)
                                             <a href="{{ url("projects/{$project->id}/import") }}"
                                                class="btn btn-default">

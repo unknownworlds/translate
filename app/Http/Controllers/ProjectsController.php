@@ -26,7 +26,7 @@ class ProjectsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param ProjectRequest $request
+     * @param  ProjectRequest  $request
      *
      * @return Response
      */
@@ -52,7 +52,7 @@ class ProjectsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param ProjectRequest $request
+     * @param  ProjectRequest  $request
      *
      * @return Response
      */
@@ -67,7 +67,7 @@ class ProjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ProjectRequest $request
+     * @param  ProjectRequest  $request
      *
      * @return Response
      */
@@ -81,8 +81,8 @@ class ProjectsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ProjectRequest $request
-     * @param int $id
+     * @param  ProjectRequest  $request
+     * @param  int  $id
      *
      * @return Response
      */
@@ -96,8 +96,8 @@ class ProjectsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param ProjectRequest $request
-     * @param int $id
+     * @param  ProjectRequest  $request
+     * @param  int  $id
      *
      * @return Response
      */
@@ -113,7 +113,7 @@ class ProjectsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ProjectRequest $request
+     * @param  ProjectRequest  $request
      *
      * @param $id
      *
@@ -131,7 +131,7 @@ class ProjectsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param ProjectRequest $request
+     * @param  ProjectRequest  $request
      *
      * @return Response
      * @throws \Exception
@@ -148,7 +148,7 @@ class ProjectsController extends Controller
      * Show language data import screen
      *
      * @param $id
-     * @param ProjectRequest $request
+     * @param  ProjectRequest  $request
      *
      * @return Response
      * @throws \Exception
@@ -165,7 +165,7 @@ class ProjectsController extends Controller
      * Import language file
      *
      * @param $id
-     * @param ProjectDataImportRequest $request
+     * @param  ProjectDataImportRequest  $request
      *
      * @return void
      * @throws \Exception
@@ -191,7 +191,7 @@ class ProjectsController extends Controller
      * Export language file
      *
      * @param $id
-     * @param ProjectRequest $request
+     * @param  ProjectRequest  $request
      *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      * @throws \Exception
@@ -210,6 +210,14 @@ class ProjectsController extends Controller
         $output = $outputHandler->getOutputFile();
 
         return Response::download($output);
+    }
+
+    public function baseStrings($projectId, Request $request)
+    {
+        $baseStrings = BaseString::where('project_id', '=', $projectId)->get(['id', 'key']);
+        $project = Project::findOrFail($projectId);
+
+        return view('projects.baseStrings', compact('baseStrings', 'project'));
     }
 
 }

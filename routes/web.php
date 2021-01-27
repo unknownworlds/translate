@@ -34,6 +34,8 @@ Route::get('rss/translations/{project}/{language}', 'RssController@translations'
 Route::get('projects/{id}/import', 'ProjectsController@importData');
 Route::post('projects/{id}/import', 'ProjectsController@processDataImport');
 Route::get('projects/{id}/export', 'ProjectsController@exportData');
+Route::get('projects/{id}/base-strings', 'ProjectsController@baseStrings');
+Route::post('projects/{id}/restore-translations', 'ProjectsController@processTranslationRestore');
 
 Route::get('admin-tool/language-status', 'AdminToolController@languageStatus');
 Route::get('admin-tool/potential-admins', 'AdminToolController@potentialAdmins');
@@ -59,6 +61,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/base-strings', 'TranslationsController@storeBaseString');
     Route::post('/base-strings/trash', 'TranslationsController@trashBaseString');
     Route::post('/base-strings/lock', 'TranslationsController@lockBaseString');
+    Route::post('/base-strings/restore-translations', 'TranslationsController@restoreTranslations');
     Route::get('/strings', 'TranslationsController@strings');
     Route::get('/check-privileges', 'TranslationsController@checkPrivileges');
     Route::post('/strings/store', 'TranslationsController@store');
