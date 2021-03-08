@@ -47,6 +47,10 @@
                                         {{ Session::get('stats')['translationsAlreadyInDatabaseAccepted'] }}
                                     </li>
                                     <li>
+                                        Translations already present, accepted and different from the import (skipped because of the option checked):
+                                        {{ Session::get('stats')['forceSkippedAlreadyTranslated'] }}
+                                    </li>
+                                    <li>
                                         New translations added:
                                         {{ Session::get('stats')['newTranslationsAccepted'] }}
                                     </li>
@@ -82,6 +86,13 @@
                                     {!! Form::checkbox('accept_translations', true, false) !!}
                                     Automatically accept all translations from this import.
                                     Enabled if you trust the translation provider.
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('ignore_already_translated', true, false) !!}
+                                    Ignore keys that already have an accepted translation. Enabled if you do not want to
+                                    overwrite approved translations.
                                 </label>
                             </div>
                         </div>
