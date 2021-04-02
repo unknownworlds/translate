@@ -8,9 +8,9 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "laravel/framework": "5.7.*",
+    "laravel/framework": "5.8.*",
     "laravel/socialite": "~4.0",
-    "laravelcollective/html": "^5.7.0",
+    "laravelcollective/html": "^5.8.0",
     "bugsnag/bugsnag-laravel": "^2.0",
     "h4cc/wkhtmltopdf-amd64": "0.12.x",
     "h4cc/wkhtmltoimage-amd64": "0.12.x",
