@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Response as IlluminateResponse;
 use Response;
-use Input;
+use Request;
 
 /**
  * Class BaseApiController
@@ -53,7 +53,7 @@ class BaseApiController extends Controller
         if ($json !== null) {
             return $json;
         } else {
-            return json_decode(json_encode(Input::all()));
+            return json_decode(json_encode(Request::all()));
         }
     }
 

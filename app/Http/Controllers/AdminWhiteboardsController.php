@@ -7,7 +7,6 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Input;
 
 class AdminWhiteboardsController extends BaseApiController
 {
@@ -32,7 +31,7 @@ class AdminWhiteboardsController extends BaseApiController
     public function store(Requests\AdminWhiteboardRequest $request)
     {
         try {
-            $data = Input::all();
+            $data = Request::all();
             $data['user_id'] = Auth::user()->id;
 
             AdminWhiteboard::create($data);
