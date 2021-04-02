@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -7,7 +9,7 @@ use Faker\Factory as Faker;
 class UserTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
