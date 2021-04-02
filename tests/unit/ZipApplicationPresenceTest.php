@@ -21,6 +21,6 @@ class ZipApplicationPresenceTest extends \Codeception\Test\Unit
     {
         $output = shell_exec('zip --help');
 
-        $this->assertContains('Copyright (c) 1990-2008 Info-ZIP', $output);
+        $this->assertStringContainsString('Copyright (c) 1990-2008 Info-ZIP', $output);
     }
 }
