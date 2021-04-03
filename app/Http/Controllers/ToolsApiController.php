@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BaseString;
+use App\Models\BaseString;
 use Symfony\Component\HttpFoundation\Request;
 
 class ToolsApiController extends BaseApiController

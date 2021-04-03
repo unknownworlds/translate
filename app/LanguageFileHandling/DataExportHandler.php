@@ -9,9 +9,9 @@
 namespace App\LanguageFileHandling;
 
 
-use App\BaseString;
-use App\Language;
-use App\TranslatedString;
+use App\Models\BaseString;
+use App\Models\Language;
+use App\Models\TranslatedString;
 
 class DataExportHandler
 {

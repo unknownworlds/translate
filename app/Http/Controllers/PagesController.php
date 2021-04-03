@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PageRequest;
-use App\Page;
+use App\Models\Page;
 use Illuminate\Support\Str;
 
 class PagesController extends Controller

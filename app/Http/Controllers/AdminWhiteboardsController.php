@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\AdminWhiteboard;
+use App\Models\AdminWhiteboard;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;

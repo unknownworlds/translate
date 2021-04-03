@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\BaseString;
+use App\Models\BaseString;
 use App\Http\Requests\BaseStringRequest;
 use App\Http\Requests\BaseStringTrashRequest;
 use App\Http\Requests\StringAdminRequest;
 use App\Http\Requests\StringRequest;
 use App\Http\Requests\StringVoteRequest;
-use App\Language;
-use App\Log;
-use App\Project;
-use App\TranslatedString;
-use App\User;
-use App\Vote;
+use App\Models\Language;
+use App\Models\Log;
+use App\Models\Project;
+use App\Models\TranslatedString;
+use App\Models\User;
+use App\Models\Vote;
 use Auth;
 use Request;
 

@@ -6,7 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\LanguageRequest;
-use App\Language;
+use App\Models\Language;
 use Request;
 
 class LanguagesController extends Controller

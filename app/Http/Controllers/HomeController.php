@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\BaseString;
-use App\Language;
-use App\Log;
-use App\Page;
-use App\Project;
-use App\TranslatedString;
+use App\Models\BaseString;
+use App\Models\Language;
+use App\Models\Log;
+use App\Models\Page;
+use App\Models\Project;
+use App\Models\TranslatedString;
 use DB;
 
 class HomeController extends Controller

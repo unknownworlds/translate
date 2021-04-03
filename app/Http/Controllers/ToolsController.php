@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\BaseString;
+use App\Models\BaseString;
 use App\Http\Requests;
 use App\Http\Requests\ToolsFileImportRequest;
-use App\Language;
+use App\Models\Language;
 use App\LanguageFileHandling\InputHandlers\InputHandlerFactory;
-use App\Project;
-use App\User;
+use App\Models\Project;
+use App\Models\User;
 use PDF;
 use File;
-use App\TranslatedString;
+use App\Models\TranslatedString;
 use Storage;
 use Symfony\Component\HttpFoundation\Request;
 

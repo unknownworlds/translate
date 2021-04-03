@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Language;
+use App\Models\Language;
 use Auth;
 
 class AdminWhiteboardRequest extends Request

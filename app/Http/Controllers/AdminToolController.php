@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\BaseString;
-use App\Language;
-use App\Role;
-use App\TranslatedString;
-use App\User;
+use App\Models\BaseString;
+use App\Models\Language;
+use App\Models\TranslatedString;
+use App\Models\User;
 use Request;
-
-use App\Http\Requests;
 
 class AdminToolController extends Controller
 {

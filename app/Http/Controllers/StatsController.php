@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\TranslatedString;
-use App\User;
+use App\Models\TranslatedString;
+use App\Models\User;
 use Carbon\Carbon;
 
 class StatsController extends Controller

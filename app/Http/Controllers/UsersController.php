@@ -6,8 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\UserRequest;
-use App\Role;
-use App\User;
+use App\Models\Role;
+use App\Models\User;
 use Request;
 
 class UsersController extends Controller

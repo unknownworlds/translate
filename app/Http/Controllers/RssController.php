@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Language;
-use App\Log;
-use App\Project;
+use App\Models\Language;
+use App\Models\Log;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 

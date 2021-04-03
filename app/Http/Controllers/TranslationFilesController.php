@@ -6,7 +6,7 @@ use App\LanguageFileHandling\DataExportHandler;
 use App\LanguageFileHandling\DiffHandler;
 use App\LanguageFileHandling\InputHandlers\InputHandlerFactory;
 use App\LanguageFileHandling\OutputHandlers\OutputHandlerFactory;
-use App\Project;
+use App\Models\Project;
 use Request;
 use Response;
 

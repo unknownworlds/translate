@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class AdminWhiteboard extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User')->select(['id', 'name']);
+        return $this->belongsTo('App\Models\User')->select(['id', 'name']);
     }
 }

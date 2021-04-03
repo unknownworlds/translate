@@ -11,4 +11,4 @@ $I->fillField('password_confirmation', 'kopytko5566');
 $I->click('Register', 'form');
 
 $I->see('Tester');
-$I->seeRecord('App\User', ['name' => 'Tester']);
+$I->seeRecord('App\Models\User', ['name' => 'Tester']);

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\BaseString;
+use App\Models\BaseString;
 use App\Http\Requests\ProjectDataImportRequest;
 use App\Http\Requests\ProjectRequest;
-use App\Language;
+use App\Models\Language;
 use App\LanguageFileHandling\DataExportHandler;
 use App\LanguageFileHandling\DiffHandler;
 use App\LanguageFileHandling\InputHandlers\InputHandlerFactory;
 use App\LanguageFileHandling\OutputHandlers\OutputHandlerFactory;
-use App\Project;
-use App\TranslatedString;
+use App\Models\Project;
+use App\Models\TranslatedString;
 use Request;
 use Response;
 

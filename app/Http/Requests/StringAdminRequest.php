@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Language;
-use App\TranslatedString;
+use App\Models\Language;
+use App\Models\TranslatedString;
 use Auth;
 
 class StringAdminRequest extends Request

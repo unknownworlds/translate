@@ -2,9 +2,9 @@
 
 namespace App\LanguageFileHandling;
 
-use App\BaseString;
-use App\Log;
-use App\TranslatedString;
+use App\Models\BaseString;
+use App\Models\Log;
+use App\Models\TranslatedString;
 
 class DiffHandler
 {

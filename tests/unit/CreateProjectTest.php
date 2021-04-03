@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Project;
+use App\Models\Project;
 
 class CreateProjectTest extends \Codeception\Test\Unit
 {
@@ -29,6 +29,6 @@ class CreateProjectTest extends \Codeception\Test\Unit
         ]);
 
         $this->assertEquals($project->name, 'Test project');
-        $this->tester->seeRecord('App\Project', ['name' => 'Test project', 'api_key' => 'test_api_key']);
+        $this->tester->seeRecord('App\Models\Project', ['name' => 'Test project', 'api_key' => 'test_api_key']);
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\RoleRequest;
-use App\Role;
+use App\Models\Role;
 use Request;
 
 class RolesController extends Controller

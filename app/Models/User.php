@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,7 +35,7 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany('App\Role')->withTimestamps();
+        return $this->belongsToMany('App\Models\Role')->withTimestamps();
     }
 
     /**
@@ -82,7 +82,7 @@ class User extends Authenticatable
 
     public function translatedStrings()
     {
-        return $this->hasMany('App\TransaltedString');
+        return $this->hasMany('App\Models\TransaltedString');
     }
 
     public function getSocialiteUser($provider, $userData)
