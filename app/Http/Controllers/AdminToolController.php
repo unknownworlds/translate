@@ -59,7 +59,7 @@ class AdminToolController extends Controller
         $users = TranslatedString::join('users', 'users.id', '=', 'translated_strings.user_id')
             ->selectRaw('count(*) AS count, user_id, name')
             ->where('language_id', '=', $language)
-            ->groupBy('translated_strings.user_id')
+            ->groupBy('translated_strings.user_id', 'name')
             ->orderBy('count', 'desc')
             ->limit(25)
             ->get();
