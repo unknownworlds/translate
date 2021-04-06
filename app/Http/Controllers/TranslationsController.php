@@ -112,7 +112,7 @@ class TranslationsController extends BaseApiController
             'project_id' => $baseString->project_id,
             'language_id' => $input['language_id'],
             'user_id' => Auth::user()->id,
-            'text' => Auth::user()->name.' translated '.$baseString->key.' to '.$input['text']
+            'text' => Auth::user()->name.' translated '.$baseString->key.' to '.substr($input['text'], 0, 200)
         ]);
 
         return $this->respond($string);
