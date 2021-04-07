@@ -169,6 +169,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -234,11 +235,11 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Socialite' => 'Laravel\Socialite\Facades\Socialite',
-        'Form'      => Collective\Html\FormFacade::class,
-        'Html'      => Collective\Html\HtmlFacade::class,
-        'Gate'      => Illuminate\Support\Facades\Gate::class,
-        'Input'     => Illuminate\Support\Facades\Input::class,
-        'Bugsnag'   => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Gate' => Illuminate\Support\Facades\Gate::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 

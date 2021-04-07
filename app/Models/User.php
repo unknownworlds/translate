@@ -75,7 +75,7 @@ class User extends Authenticatable
 
     public function translatedStrings()
     {
-        return $this->hasMany('App\Models\TransaltedString');
+        return $this->hasMany('App\Models\TranslatedString');
     }
 
     public function getSocialiteUser($provider, $userData)
