@@ -10,13 +10,6 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -107,15 +100,5 @@ class User extends Authenticatable
 
         return $user;
     }
-
-    /**
-     * Set the password to be hashed when saved
-     *
-     * @param $password
-     */
-//	public function setPasswordAttribute($password)
-//	{
-//		$this->attributes['password'] = \Hash::make($password);
-//	}
 
 }
