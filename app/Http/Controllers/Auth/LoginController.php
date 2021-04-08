@@ -9,6 +9,7 @@ use Exception;
 use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class LoginController extends Controller
 {
@@ -23,7 +24,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, ThrottlesLogins;
 
     /**
      * Where to redirect users after login.
@@ -52,7 +53,7 @@ class LoginController extends Controller
             return $socialiteWrapper->handleProviderCallback($provider);
         } catch (QueryException $e) {
             Bugsnag::notifyException($e);
-            return redirect('/login')->withErrors('Looks like the email you are trying to use is taken. This might happen 
+            return redirect('/login')->withErrors('Looks like the email you are trying to use is taken. This might happen
             if you used our own account system instead of an external login provider.');
         } catch (ConnectException $e) {
             Bugsnag::notifyException($e);
