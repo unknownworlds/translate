@@ -52,14 +52,11 @@ class LoginController extends Controller
         try {
             return $socialiteWrapper->handleProviderCallback($provider);
         } catch (QueryException $e) {
-            Bugsnag::notifyException($e);
             return redirect('/login')->withErrors('Looks like the email you are trying to use is taken. This might happen
-            if you used our own account system instead of an external login provider.');
+            if you used wrong login provider.');
         } catch (ConnectException $e) {
-            Bugsnag::notifyException($e);
             return redirect('/login')->withErrors('Cannot communicate with selected login provider. Try again please.');
         } catch (Exception $e) {
-            Bugsnag::notifyException($e);
             return redirect('/login')->withErrors('Unknown error. Try again please.');
         }
     }
