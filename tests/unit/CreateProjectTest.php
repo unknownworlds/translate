@@ -5,6 +5,8 @@ use App\Models\Project;
 
 class CreateProjectTest extends \Codeception\Test\Unit
 {
+    use \Illuminate\Foundation\Testing\DatabaseTransactions;
+
     /**
      * @var \UnitTester
      */
