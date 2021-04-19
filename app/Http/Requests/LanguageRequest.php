@@ -15,7 +15,7 @@ class LanguageRequest extends Request
      */
     public function authorize()
     {
-        return Auth::user()->hasRole('Root');
+        return Auth::check() && Auth::user()->hasRole('Root');
     }
 
     /**

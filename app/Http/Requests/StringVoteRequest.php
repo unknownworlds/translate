@@ -15,7 +15,7 @@ class StringVoteRequest extends Request
      */
     public function authorize()
     {
-        return !Auth::guest();
+        return Auth::check();
     }
 
     /**

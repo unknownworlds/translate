@@ -20,7 +20,9 @@ class StringAdminRequest extends Request
         $string = TranslatedString::findOrFail($this->get('string_id'));
         $language = Language::findOrFail($string->language_id);
 
-        return Auth::user()->hasRole($language->name . ' admin') || Auth::user()->hasRole('Root');
+        return Auth::check() &&
+            (Auth::user()->hasRole($language->name . ' admin')
+                || Auth::user()->hasRole('Root'));
     }
 
     /**
