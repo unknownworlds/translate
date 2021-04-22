@@ -58,11 +58,13 @@ class ToolsController extends Controller
             'translationsAlreadyInDatabaseAccepted' => 0,
             'forceSkippedAlreadyTranslated' => 0,
             'newTranslationsAccepted' => 0,
+            'processedLockedStrings' => 0,
 
         ];
 
         $acceptTranslationsFormImport = $request->get('accept_translations') == 1;
         $ignoreIfAlreadyTranslated = $request->get('ignore_already_translated') == 1;
+        $overwriteLockedStrings = $request->get('overwrite_locked_strings') == 1;
 
         $inputHandler = InputHandlerFactory::getFileHandler($request->get('input_type'), $request->get('data'));
         $translatedStrings = $inputHandler->getParsedInput();
@@ -86,6 +88,14 @@ class ToolsController extends Controller
             if ($text == '' || $text == $baseString->text) {
                 $stats['emptyOrUnnecessaryTranslations']++;
                 continue;
+            }
+
+            if ($baseString->locked) {
+                if (!$overwriteLockedStrings) {
+                    continue;
+                } else {
+                    $stats['processedLockedStrings']++;
+                }
             }
 
             $string = TranslatedString::where('project_id', '=', $request->get('project_id'))

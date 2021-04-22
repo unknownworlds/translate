@@ -47,12 +47,17 @@
                                         {{ Session::get('stats')['translationsAlreadyInDatabaseAccepted'] }}
                                     </li>
                                     <li>
-                                        Translations already present, accepted and different from the import (skipped because of the option checked):
+                                        Translations already present, accepted and different from the import (skipped
+                                        because of the option checked):
                                         {{ Session::get('stats')['forceSkippedAlreadyTranslated'] }}
                                     </li>
                                     <li>
                                         New translations added:
                                         {{ Session::get('stats')['newTranslationsAccepted'] }}
+                                    </li>
+                                    <li>
+                                        Processed locked strings:
+                                        {{ Session::get('stats')['processedLockedStrings'] }}
                                     </li>
                                 </ul>
                             </div>
@@ -93,6 +98,12 @@
                                     {!! Form::checkbox('ignore_already_translated', true, false) !!}
                                     Ignore keys that already have an accepted translation. Enabled if you do not want to
                                     overwrite approved translations.
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('overwrite_locked_strings', true, false) !!}
+                                    Overwrite locked strings.
                                 </label>
                             </div>
                         </div>
