@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -21,6 +22,7 @@ class UserTableSeeder extends Seeder
             User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
+                'password' => Hash::make('SuperSecretPassword'),
             ]);
         }
 

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\BaseString;
+use App\Models\BaseString;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 

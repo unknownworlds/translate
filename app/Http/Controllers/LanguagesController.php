@@ -42,7 +42,7 @@ class LanguagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param LanguageRequest $request
+     * @param  LanguageRequest  $request
      *
      * @return Response
      */
@@ -56,7 +56,7 @@ class LanguagesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      *
      * @return Response
      */
@@ -70,7 +70,7 @@ class LanguagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      *
      * @return Response
      */
@@ -84,7 +84,7 @@ class LanguagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param LanguageRequest $request
+     * @param  LanguageRequest  $request
      *
      * @param $id
      *
@@ -93,13 +93,16 @@ class LanguagesController extends Controller
      */
     public function update($id, LanguageRequest $request)
     {
-        Language::findOrFail($id)->update($request->only([
+        $updatedLanguage = $request->only([
             'name',
             'locale',
-            'is_rtl',
-            'skip_in_output',
             'steam_api_name'
-        ]));
+        ]);
+
+        $updatedLanguage['is_rtl'] = $request->get('is_rtl', false);
+        $updatedLanguage['skip_in_output'] = $request->get('skip_in_output', false);
+
+        Language::findOrFail($id)->update($updatedLanguage);
 
         return redirect('languages');
     }
@@ -108,7 +111,7 @@ class LanguagesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param LanguageRequest $request
+     * @param  LanguageRequest  $request
      *
      * @return Response
      * @throws \Exception

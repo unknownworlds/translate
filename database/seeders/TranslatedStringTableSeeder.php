@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\TranslatedString;
+use App\Models\BaseString;
+use App\Models\TranslatedString;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -16,7 +17,7 @@ class TranslatedStringTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $baseStringIds = \App\BaseString::where('project_id', '=', 1)->get()->pluck('id');
+        $baseStringIds = BaseString::where('project_id', '=', 1)->get()->pluck('id');
 
         foreach ($baseStringIds as $baseStringId) {
 

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\LanguageFileHandling\InputHandlers\InputHandlerFactory;
 use App\LanguageFileHandling\OutputHandlers\OutputHandlerFactory;
-use App\Project;
+use App\Models\Project;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
