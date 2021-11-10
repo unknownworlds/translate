@@ -30,7 +30,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        \Auth::loginUsingId(101);
         $this->middleware('auth');
     }
 
