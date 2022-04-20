@@ -13,7 +13,12 @@
                         <h3>About</h3>
                         <p>
                             You can use any of the RSS feeds below to stay up to date with changes to the translated
-                            strings. RSS feeds can be used by both specialized RSS readers or some email clients.
+                            strings. To check latest changes to the base, English language files - follow a "Base string
+                            updates" feed.<br>
+                        </p>
+                        <p>
+                            RSS feeds can be used by both specialized RSS readers, some email clients, or even browser
+                            plugins. You could also use a mobile app.
                         </p>
 
                         @foreach($projects as $project)

@@ -40,7 +40,10 @@
                 <li><a href="{{ url('/pages/frequently-asked-questions') }}">FAQ</a></li>
                 <li><a href="{{ url('/rss') }}">RSS</a></li>
                 @if(env('TRANSLATION_FORUMS_URL'))
-                    <li><a href="{{ env('TRANSLATION_FORUMS_URL') }}">Translations forums</a></li>
+                    <li><a href="{{ env('TRANSLATION_FORUMS_URL') }}" target="_blank">Translations forums</a></li>
+                @endif
+                @if(env('MAILING_LIST_URL'))
+                    <li><a href="{{ env('MAILING_LIST_URL') }}" target="_blank">Mailing list</a></li>
                 @endif
                 @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
                     <li class="dropdown">
