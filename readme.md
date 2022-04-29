@@ -13,13 +13,14 @@ Based on Laravel.
 - Check in those files into your repository and proceed with the build process 
 
 ## Requirements
-- PHP >= 5.6.4
+- PHP >= 8
 - OpenSSL PHP Extension
 - PDO PHP Extension
 - Mbstring PHP Extension
 - Tokenizer PHP Extension
 - XML PHP Extension
 - libxext6 and libxrender1 libraries
+- zip/unzip utilities
 
 ## Installation instructions
 - Point web server's root directory to /public

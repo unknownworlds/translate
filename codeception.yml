@@ -1,25 +1,22 @@
-actor: Tester
+namespace: Tests
+support_namespace: Support
 paths:
     tests: tests
-    log: tests/_output
-    data: tests/_data
-    support: tests/_support
+    output: tests/_output
+    data: tests/Support/Data
+    support: tests/Support
     envs: tests/_envs
-settings:
-    colors: true
-    memory_limit: 1024M
-bootstrap: _bootstrap.php
+actor_suffix: Tester
+modules:
+  enabled:
+    - Db:
+        dsn: 'mysql:host=localhost;dbname=uwetranslate-testing'
+        user: 'homestead'
+        password: 'secret'
+        dump: 'tests/_data/dump.sql'
+        populate: true
+        cleanup: true
+        reconnect: true
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
-modules:
-    config:
-        Db:
-            dsn: 'mysql:host=localhost;dbname=uwetranslate-testing'
-            user: 'homestead'
-            password: 'secret'
-            dump: tests/_data/dump.sql
-            populate: true
-            cleanup: false
-        Laravel5:
-            cleanup: false

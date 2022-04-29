@@ -1,0 +1,12 @@
+actor: ApiTester
+suite_namespace: Tests\Api
+modules:
+    # enable helpers as array
+    enabled:
+      - REST:
+          url: /api/
+          depends: Laravel
+      - Laravel:
+          environment_file: .env.testing
+      - Asserts
+      - Db
