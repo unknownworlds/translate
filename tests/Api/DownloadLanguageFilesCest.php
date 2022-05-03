@@ -1,10 +1,10 @@
 <?php
+use Tests\Support\ApiTester;
 
-class DownloadLanguageFilesCept
+class DownloadLanguageFilesCest
 {
-    public function tryToTest(AcceptanceTester $I)
+    public function tryToTest(ApiTester $I)
     {
-        $I = new ApiTester($scenario);
         $I->wantTo('test download of translation files *.zip');
 
         $I->seeRecord('App\Models\Project', ['name' => 'Another test project']);

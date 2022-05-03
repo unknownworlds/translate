@@ -1,10 +1,11 @@
 <?php
 
-class RegisterCept
+use Tests\Support\FunctionalTester;
+
+class RegisterCest
 {
-    public function tryToTest(AcceptanceTester $I)
+    public function tryToTest(FunctionalTester $I)
     {
-        $I = new FunctionalTester($scenario);
         $I->wantTo('register a new account');
 
         $I->amOnPage('/');

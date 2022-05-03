@@ -1,9 +1,11 @@
 <?php
-class HomeCept
+
+use Tests\Support\AcceptanceTester;
+
+class HomeCest
 {
     public function tryToTest(AcceptanceTester $I)
     {
-        $I = new AcceptanceTester();
         $I->wantTo('ensure that frontpage works');
         $I->amOnPage('/');
         $I->see('Home');

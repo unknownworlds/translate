@@ -5,6 +5,7 @@ namespace App\LanguageFileHandling;
 use App\Models\BaseString;
 use App\Models\Log;
 use App\Models\TranslatedString;
+use App\UWE\TeamChat\Slack;
 
 class DiffHandler
 {
@@ -15,16 +16,18 @@ class DiffHandler
     /**
      * @var int
      */
-    private $projectId;
+    private string $fullLog;
+    private int $projectId;
 
     /**
-     * @param array $input
-     * @param int $projectId
+     * @param  array  $input
+     * @param  int  $projectId
      */
     public function __construct(array $input, $projectId)
     {
         $this->input = $input;
         $this->projectId = $projectId;
+        $this->fullLog = '';
 
         $this->process();
     }
@@ -42,7 +45,7 @@ class DiffHandler
                 'project_id' => $this->projectId
             ])->firstOrFail()->delete();
 
-            $this->log('String ' . $key . ' was deleted');
+            $this->log('String '.$key.' was deleted');
         }
 
         // Add new strings
@@ -55,7 +58,7 @@ class DiffHandler
                 'alternative_or_empty' => empty($text) || strstr($key, '.'),
             ]);
 
-            $this->log('String ' . $key . ' added');
+            $this->log('String '.$key.' added');
         }
 
         // Update current strings
@@ -73,12 +76,18 @@ class DiffHandler
             ]);
 
             // Remove related translations
-            $alternativeBaseStrings = BaseString::where('key', 'like', $key . '.%')->get()->pluck('id')->toArray();
+            $alternativeBaseStrings = BaseString::where('key', 'like', $key.'.%')->get()->pluck('id')->toArray();
 
             TranslatedString::whereIn('base_string_id', array_merge($alternativeBaseStrings, [$baseString->id]))
                 ->delete();
 
-            $this->log('String ' . $key . ' changed');
+            $this->log('String '.$key.' changed');
+        }
+
+        // Update change watchers
+        if (env('SLACK_UPDATE_CHANNEL')) {
+            $chat = new Slack();
+            $chat->message(env('SLACK_UPDATE_CHANNEL'), null, $this->fullLog);
         }
     }
 
@@ -90,5 +99,7 @@ class DiffHandler
             'log_type' => 2,
             'text' => $text
         ]);
+
+        $this->fullLog .= $text."\n";
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
-class UploadAchievementsLanguageFileCept
+use Tests\Support\FunctionalTester;
+
+class DownloadAchievementsLanguageFileCest
 {
-    public function tryToTest(AcceptanceTester $I)
+    public function tryToTest(FunctionalTester $I)
     {
-        $I = new FunctionalTester($scenario);
         $I->wantTo('upload Steam Achievements translation file');
 
         $I->amOnPage('/');
@@ -16,11 +17,9 @@ class UploadAchievementsLanguageFileCept
         $I->see('Test Root user');
 
         $I->click('Projects');
-        $I->click('Import');
-        $I->attachFile('input#file', 'steam_achievements.vdf');
-        $I->click('Import', 'form');
+        $I->click('Export');
 
-        $I->see('34');
+        $I->haveHttpHeader('Content-Type', 'application/octet-stream');
     }
 }
 

@@ -1,10 +1,11 @@
 <?php
 
-class UploadAlternativeLanguageFileCept
+use Tests\Support\ApiTester;
+
+class UploadAlternativeLanguageFileCest
 {
-    public function tryToTest(AcceptanceTester $I)
+    public function tryToTest(ApiTester $I)
     {
-        $I = new ApiTester($scenario);
         $I->wantTo('test upload a translation file with modifications');
 
         $I->seeRecord('App\Models\Project', ['name' => 'API test project']);

@@ -1,12 +1,12 @@
 <?php
 
 use App\Models\User;
+use Tests\Support\ApiTester;
 
-class AddTamperedTranslationCept
+class AddTamperedTranslationCest
 {
-    public function tryToTest(AcceptanceTester $I)
+    public function tryToTest(ApiTester $I)
     {
-        $I = new ApiTester($scenario);
         $I->wantTo('add a translation with incorrect base_string_id and project_id pair');
 
         $user = User::create([
