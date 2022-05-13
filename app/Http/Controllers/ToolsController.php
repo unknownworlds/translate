@@ -360,10 +360,6 @@ class ToolsController extends Controller
     {
         ini_set('max_execution_time', 120);
 
-        response()->streamDownload(function () {
-            return 'w,t,f';
-        }, 'output.csv');
-
         $project = Project::findOrFail($request->get('project_id'));
         $languages = Language::all();
 
