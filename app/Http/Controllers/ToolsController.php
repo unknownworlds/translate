@@ -326,6 +326,7 @@ class ToolsController extends Controller
     public function translationSpreadsheetDownload(Request $request)
     {
         ini_set('max_execution_time', 120);
+        ini_set('memory_limit', '256M');
 
         $project = Project::findOrFail($request->get('project_id'));
         $baseStrings = BaseString::where('project_id', '=', $project->id)
@@ -359,6 +360,7 @@ class ToolsController extends Controller
     public function wordCountsSpreadsheetDownload(Request $request)
     {
         ini_set('max_execution_time', 120);
+        ini_set('memory_limit', '256M');
 
         $project = Project::findOrFail($request->get('project_id'));
         $languages = Language::all();
