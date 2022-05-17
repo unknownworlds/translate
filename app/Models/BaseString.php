@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\BaseString
@@ -33,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
 class BaseString extends Model
 {
 
-    protected $fillable = ['project_id', 'key', 'text', 'quality_controlled', 'alternative_or_empty'];
+    use SoftDeletes;
+
+    protected $fillable = ['project_id', 'key', 'text', 'quality_controlled', 'alternative_or_empty', 'deleted_at'];
 
 }

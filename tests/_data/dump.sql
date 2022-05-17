@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `base_strings` (
   `text` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `quality_controlled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `alternative_or_empty` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
