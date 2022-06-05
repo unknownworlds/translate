@@ -19,7 +19,8 @@ class AdminWhiteboardRequest extends Request
 
         return Auth::check()
             && (Auth::user()->hasRole($language->name . ' admin')
-                || Auth::user()->hasRole('Root'));
+                || Auth::user()->hasRole('Root')
+                || Auth::user()->hasRole('Admin'));
     }
 
     /**

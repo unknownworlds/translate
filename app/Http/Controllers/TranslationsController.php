@@ -64,7 +64,7 @@ class TranslationsController extends BaseApiController
         $language = Language::findOrFail(Request::get('language_id'));
 
         $result = [
-            'is_admin' => Auth::user()->hasRole($language->name.' admin') || Auth::user()->hasRole('Root'),
+            'is_admin' => Auth::user()->hasRole($language->name.' admin') || Auth::user()->hasRole('Root') || Auth::user()->hasRole('Admin'),
             'is_root' => Auth::user()->hasRole('Root')
         ];
 
