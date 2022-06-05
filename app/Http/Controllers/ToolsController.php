@@ -20,7 +20,7 @@ class ToolsController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'hasRole:Root']);
+        $this->middleware(['auth', 'hasRole:Root|Admin']);
     }
 
     /**

@@ -74,16 +74,18 @@
                             <li><a href="{{ url('/stats/users-per-day') }}">Users per day</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false">Tools <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/tools/translation-quality') }}">Quality control</a></li>
-                            <li><a href="{{ url('/tools/file-import') }}">Translation file import</a></li>
-                            <li><a href="{{ url('/tools/translations-transfer') }}">Translations transfer</a></li>
-                            <li><a href="{{ url('/tools/translation-spreadsheet') }}">Translation spreadsheet</a></li>
-                        </ul>
-                    </li>
+                @endif
+                @if ( !Auth::guest() && (Auth::user()->hasRole('Root') || Auth::user()->hasRole('Admin')))
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">Tools <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/tools/translation-quality') }}">Quality control</a></li>
+                                <li><a href="{{ url('/tools/file-import') }}">Translation file import</a></li>
+                                <li><a href="{{ url('/tools/translations-transfer') }}">Translations transfer</a></li>
+                                <li><a href="{{ url('/tools/translation-spreadsheet') }}">Translation spreadsheet</a></li>
+                            </ul>
+                        </li>
                 @endif
             </ul>
 
