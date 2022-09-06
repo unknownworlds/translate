@@ -309,7 +309,7 @@ class ToolsController extends Controller
             }
 
             if (!empty($insertDataBatch)) {
-                TranslatedString::create($insertDataBatch);
+                TranslatedString::insert($insertDataBatch);
             }
         }
 
