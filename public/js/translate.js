@@ -112,7 +112,12 @@ var app = new Vue({
                 language_id: data.currentLanguage
             }, function (response) {
                 Object.keys(response).forEach(function (key) {
-                    data.strings[response[key].base_string_id].push(response[key]);
+                    let translatedStrings = data.strings[response[key].base_string_id];
+
+                    if(!Array.isArray(translatedStrings)){
+                        translatedStrings = [];
+                    }
+                    translatedStrings.push(response[key]);
                 });
             });
         },
