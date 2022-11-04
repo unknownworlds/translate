@@ -27,6 +27,7 @@ class DataExportHandler
                 ->where('translated_strings.project_id', '=', $projectId)
                 ->where('language_id', '=', $language->id)
                 ->where('is_accepted', '=', true)
+                ->where('base_strings.deleted_at', '=', null)
                 ->get(['key', 'translated_strings.text'])
                 ->pluck('text', 'key')
                 ->toArray();
