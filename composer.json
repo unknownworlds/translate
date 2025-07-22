@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "~2.0",
-        "codeception/codeception": "5.0.x-dev",
+        "codeception/codeception": "~5.0",
         "codeception/module-asserts": "^3.0",
         "codeception/module-db": "^3.0",
         "codeception/module-laravel": "^3.0",
