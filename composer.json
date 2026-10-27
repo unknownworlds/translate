@@ -8,11 +8,11 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.1",
         "bugsnag/bugsnag-laravel": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^10.0",
+        "laravel/framework": "^11.0",
         "laravel/socialite": "~5.0",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.0",
@@ -20,7 +20,7 @@
         "spatie/laravel-html": "^3.5"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "~2.0",
+        "barryvdh/laravel-ide-helper": "^3.0",
         "codeception/codeception": "~5.0",
         "codeception/module-asserts": "^3.0",
         "codeception/module-db": "^3.0",
@@ -32,7 +32,7 @@
         "friendsofphp/php-cs-fixer": "3.*",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
+        "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^10.0",
         "laravel/sail": "^1.0.1"
     },
