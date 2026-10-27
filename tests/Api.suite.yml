@@ -10,3 +10,5 @@ modules:
           environment_file: .env.testing
       - Asserts
       - Db
+      - Tests\Support\Helper\Fixtures
+      - Tests\Support\Helper\Responses

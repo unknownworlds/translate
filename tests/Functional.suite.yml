@@ -10,4 +10,7 @@ modules:
     enabled:
       - Laravel:
           environment_file: .env.testing
+      - Asserts
+      - Tests\Support\Helper\Fixtures
+      - Tests\Support\Helper\Responses
     step_decorators: ~

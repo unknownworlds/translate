@@ -9,4 +9,5 @@ modules:
         - Laravel:
             part: ORM
             environment_file: .env.testing
+        - Tests\Support\Helper\Fixtures
     step_decorators: ~
