@@ -8,13 +8,13 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^8.2",
+        "php": "^8.5",
         "barryvdh/laravel-dompdf": "^3.1",
         "bugsnag/bugsnag-laravel": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^13.0",
         "laravel/socialite": "~5.0",
-        "laravel/tinker": "^2.8",
+        "laravel/tinker": "^3.0",
         "laravel/ui": "^4.0",
         "lukezbihlyj/vdf-parser": "~1.0",
         "spatie/laravel-html": "^3.5"
@@ -33,7 +33,7 @@
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^8.1",
-        "phpunit/phpunit": "^11.0",
+        "phpunit/phpunit": "^12.0",
         "laravel/sail": "^1.0.1"
     },
     "autoload": {

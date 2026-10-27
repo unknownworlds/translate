@@ -13,7 +13,7 @@ Based on Laravel.
 - Check in those files into your repository and proceed with the build process 
 
 ## Requirements
-- PHP >= 8
+- PHP >= 8.5
 - OpenSSL PHP Extension
 - PDO PHP Extension
 - Mbstring PHP Extension
