@@ -29,10 +29,15 @@ Based on Laravel.
 - Run "php artisan key:generate" to set unique crypto key
 
 ## Development environment
-Use [Laravel Homestead](https://laravel.com/docs/master/homestead)
+Use [Laravel Herd](https://herd.laravel.com/) (Pro, for the MySQL service)
+- Link the site as `uwetranslate.test` and isolate it to the PHP version it should run on (`herd isolate 8.5`)
+- Create the testing database: `herd db:create uwetranslate-testing`
+- Point `.env.testing` at Herd's MySQL (`DB_HOST=127.0.0.1`, `DB_PORT=3307`, `DB_USERNAME=root`, empty password) - Codeception reads its DB settings from it too
+- The `zip` CLI has to be in PATH on Windows (`scoop install zip`)
 
 ## Testing
-./codeception run (works under linux)
+- `./codeception run` (Linux/macOS)
+- `codeception run` (Windows/Herd - uses the PHP version Herd serves the site with)
 
 ## Worth knowing
 - You can't use numbers as translation keys

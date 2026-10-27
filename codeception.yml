@@ -7,12 +7,19 @@ paths:
     support: tests/Support
     envs: tests/_envs
 actor_suffix: Tester
+settings:
+    # The tests don't rely on $GLOBALS. The global-state backup skips closures, so
+    # restoring it unsets Herd's $__herd_closure, which Herd's rewritten
+    # bootstrap/app.php calls, and every later app bootstrap fails.
+    backup_globals: false
+params:
+    - .env.testing
 modules:
   enabled:
     - Db:
-        dsn: 'mysql:host=localhost;dbname=uwetranslate-testing'
-        user: 'homestead'
-        password: 'secret'
+        dsn: 'mysql:host=%DB_HOST%;port=%DB_PORT%;dbname=%DB_DATABASE%'
+        user: '%DB_USERNAME%'
+        password: '%DB_PASSWORD%'
         dump: 'tests/_data/dump.sql'
         populate: true
         cleanup: true

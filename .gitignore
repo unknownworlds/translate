@@ -9,6 +9,7 @@ tests/_output/*
 /public/storage
 /storage/*.key
 .env.backup
+.env*.bak
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
