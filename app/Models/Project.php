@@ -41,6 +41,8 @@ class Project extends Model
 
     protected $fillable = ['name', 'data_input_handler', 'data_output_handler', 'api_key', 'output_template'];
 
-    protected $dates = ['deleted_at'];
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
 
 }
