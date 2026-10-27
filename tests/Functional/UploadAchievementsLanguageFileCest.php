@@ -1,13 +1,11 @@
 <?php
 
 use App\Models\BaseString;
-use Codeception\Attribute\Skip;
 use Tests\Support\FunctionalTester;
 use Tests\Support\Helper\Fixtures;
 
 class UploadAchievementsLanguageFileCest
 {
-    #[Skip('Known bug: the input handler parses before it receives the uploaded file')]
     public function tryToTest(FunctionalTester $I)
     {
         $I->wantTo('upload Steam Achievements translation file');
