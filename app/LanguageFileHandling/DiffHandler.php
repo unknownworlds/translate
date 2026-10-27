@@ -76,7 +76,10 @@ class DiffHandler
             ]);
 
             // Remove related translations
-            $alternativeBaseStrings = BaseString::where('key', 'like', $key.'.%')->get()->pluck('id')->toArray();
+            $alternativeBaseStrings = BaseString::where('project_id', '=', $this->projectId)
+                ->where('key', 'like', $key.'.%')
+                ->pluck('id')
+                ->toArray();
 
             TranslatedString::whereIn('base_string_id', array_merge($alternativeBaseStrings, [$baseString->id]))
                 ->delete();

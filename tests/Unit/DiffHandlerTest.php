@@ -46,8 +46,6 @@ class DiffHandlerTest extends \Codeception\Test\Unit
 
     public function testChangedStringsKeepAlternativesOfOtherProjects()
     {
-        $this->markTestSkipped('Known bug: alternatives are looked up across all projects');
-
         new DiffHandler(['Play' => 'Play', 'Play.alt' => 'Start'], self::PROJECT_ID);
         $otherProjectAlternative = BaseString::create(['project_id' => 3, 'key' => 'Play.alt', 'text' => 'Start']);
         $otherProjectTranslation = TranslatedString::create([
