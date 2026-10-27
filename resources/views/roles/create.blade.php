@@ -15,9 +15,9 @@
 
                         <h2>New role</h2>
 
-                        {!! Form::open(['url' => 'roles']) !!}
+                        {{ html()->form('POST', url('roles'))->open() }}
                         @include('roles/partials/form', ['submitButton' => 'Add role'])
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
             </div>

@@ -12,16 +12,16 @@
                     </div>
 
                     <div class="panel-body">
-                        {!! Form::open([ 'class' => 'form-inline', 'method' => 'GET' ]) !!}
+                        {{ html()->form('GET', url()->current())->class('form-inline')->open() }}
 
                         <div class="form-group">
-                            {!! Form::select('language_id', $languages, $language, ['class' => 'form-control']) !!}
+                            {{ html()->select('language_id', $languages, $language)->class('form-control') }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Load data', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ html()->submit('Load data')->class('btn btn-primary form-control') }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
 

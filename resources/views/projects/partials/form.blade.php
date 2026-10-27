@@ -1,28 +1,28 @@
 <div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
-    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+    {{ html()->label('Name:', 'name') }}
+    {{ html()->text('name')->class('form-control') }}
 </div>
 
 <div class="form-group">
-    {!! Form::label('data_input_handler', 'Data input handler:') !!}
-    {!! Form::select('data_input_handler', $inputHandlers, null, ['class' => 'form-control']) !!}
+    {{ html()->label('Data input handler:', 'data_input_handler') }}
+    {{ html()->select('data_input_handler', $inputHandlers)->class('form-control') }}
 </div>
 
 <div class="form-group">
-    {!! Form::label('data_output_handler', 'Data output handler:') !!}
-    {!! Form::select('data_output_handler', $outputHandlers, null, ['class' => 'form-control']) !!}
+    {{ html()->label('Data output handler:', 'data_output_handler') }}
+    {{ html()->select('data_output_handler', $outputHandlers)->class('form-control') }}
 </div>
 
 <div class="form-group">
-    {!! Form::label('api_key', 'API key:') !!}
-    {!! Form::text('api_key', null, ['class' => 'form-control']) !!}
+    {{ html()->label('API key:', 'api_key') }}
+    {{ html()->text('api_key')->class('form-control') }}
 </div>
 
 <div class="form-group">
-    {!! Form::label('output_template', 'Output template (optional):') !!}
-    {!! Form::textarea('output_template', null, ['class' => 'form-control']) !!}
+    {{ html()->label('Output template (optional):', 'output_template') }}
+    {{ html()->textarea('output_template')->class('form-control')->attributes(['cols' => 50, 'rows' => 10])->text(old('output_template', $project->output_template ?? '')) }}
 </div>
 
 <div class="form-group">
-    {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control']) !!}
+    {{ html()->submit($submitButton)->class('btn btn-primary form-control') }}
 </div>

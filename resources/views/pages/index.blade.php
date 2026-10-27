@@ -37,9 +37,9 @@
                                             Edit
                                         </a>
 
-                                        {!! Form::open(['route' => ['pages.destroy', $page->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-default']) !!}
-                                        {!! Form::close() !!}
+                                        {{ html()->form('DELETE', route('pages.destroy', $page->id))->attribute('style', 'display: inline')->open() }}
+                                        {{ html()->submit('Delete')->class('btn btn-default') }}
+                                        {{ html()->form()->close() }}
                                     </td>
                                 </tr>
                             @endforeach

@@ -17,9 +17,9 @@
 
                         <h2>Edit role</h2>
 
-                        {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'PATCH']) !!}
+                        {{ html()->modelForm($role, 'PATCH', route('roles.update', $role->id))->open() }}
                         @include('roles/partials/form', ['submitButton' => 'Save role'])
-                        {!! Form::close() !!}
+                        {{ html()->closeModelForm() }}
                     </div>
                 </div>
             </div>

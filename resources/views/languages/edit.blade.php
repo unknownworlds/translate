@@ -14,9 +14,9 @@
                     <div class="panel-body">
                         <h2>Edit language</h2>
 
-                        {!! Form::model($language, ['route' => ['languages.update', $language->id], 'method' => 'PATCH']) !!}
+                        {{ html()->modelForm($language, 'PATCH', route('languages.update', $language->id))->open() }}
                         @include('languages/partials/form', ['submitButton' => 'Save language'])
-                        {!! Form::close() !!}
+                        {{ html()->closeModelForm() }}
                     </div>
                 </div>
             </div>

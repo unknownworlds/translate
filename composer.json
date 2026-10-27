@@ -16,8 +16,8 @@
         "laravel/socialite": "~5.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.0",
-        "laravelcollective/html": "^6.0.0",
-        "lukezbihlyj/vdf-parser": "~1.0"
+        "lukezbihlyj/vdf-parser": "~1.0",
+        "spatie/laravel-html": "^3.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "~2.0",

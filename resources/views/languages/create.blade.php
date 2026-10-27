@@ -14,9 +14,9 @@
                     <div class="panel-body">
                         <h2>New language</h2>
 
-                        {!! Form::open(['url' => 'languages']) !!}
+                        {{ html()->form('POST', url('languages'))->open() }}
                         @include('languages/partials/form', ['submitButton' => 'Add language'])
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
             </div>

@@ -15,9 +15,9 @@
 
                         <h2>New page</h2>
 
-                        {!! Form::open(['url' => 'pages']) !!}
+                        {{ html()->form('POST', url('pages'))->open() }}
                         @include('pages/partials/form', ['submitButton' => 'Add page'])
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
             </div>

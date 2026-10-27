@@ -7,21 +7,21 @@
             </div>
 
             <div class="panel-body">
-                {!! Form::open([ 'class' => 'form-inline' ]) !!}
+                {{ html()->form('POST', url()->current())->class('form-inline')->open() }}
                 <div class="form-group">
-                    {!! Form::label('project', 'Project:') !!}
-                    {!! Form::select('project', $projectList, null, ['class' => 'form-control']) !!}
+                    {{ html()->label('Project:', 'project') }}
+                    {{ html()->select('project', $projectList)->class('form-control') }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('language', 'Language:') !!}
-                    {!! Form::select('language', $languages, null, ['class' => 'form-control']) !!}
+                    {{ html()->label('Language:', 'language') }}
+                    {{ html()->select('language', $languages)->class('form-control') }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::button('Load data', ['class' => 'btn btn-primary form-control', '@click' => 'loadData()']) !!}
+                    {{ html()->button('Load data', 'button')->class('btn btn-primary form-control')->attribute('@click', 'loadData()') }}
                 </div>
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
 
                 <div v-show="projectHandlers[currentProject] == 2 && isRoot">
                     <hr>

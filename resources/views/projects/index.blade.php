@@ -60,9 +60,9 @@
                                             </a>
                                         @endif
 
-                                        {!! Form::open(['route' => ['projects.destroy', $project->id], 'method' => 'DELETE', 'style' => 'display: inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-default']) !!}
-                                        {!! Form::close() !!}
+                                        {{ html()->form('DELETE', route('projects.destroy', $project->id))->attribute('style', 'display: inline')->open() }}
+                                        {{ html()->submit('Delete')->class('btn btn-default') }}
+                                        {{ html()->form()->close() }}
                                     </td>
                                 </tr>
                             @endforeach

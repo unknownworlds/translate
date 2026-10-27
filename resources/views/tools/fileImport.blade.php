@@ -63,60 +63,60 @@
                             </div>
                         @endif
 
-                        {!! Form::open([ 'url' => 'tools/file-import', 'method' => 'POST' ]) !!}
+                        {{ html()->form('POST', url('tools/file-import'))->open() }}
                         <div class="form-group">
-                            {!! Form::label('project_id', 'Project:') !!}
-                            {!! Form::select('project_id', $projects, null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Project:', 'project_id') }}
+                            {{ html()->select('project_id', $projects)->class('form-control') }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('language_id', 'Language:') !!}
-                            {!! Form::select('language_id', $languages, null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Language:', 'language_id') }}
+                            {{ html()->select('language_id', $languages)->class('form-control') }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('user_id', 'User:') !!}
-                            {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
+                            {{ html()->label('User:', 'user_id') }}
+                            {{ html()->select('user_id', $users)->class('form-control') }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('input_type', 'Input type:') !!}
-                            {!! Form::select('input_type', $supportedFileFormats, null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Input type:', 'input_type') }}
+                            {{ html()->select('input_type', $supportedFileFormats)->class('form-control') }}
                         </div>
 
                         <div class="form-group">
                             <label>Options:</label>
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('accept_translations', true, false) !!}
+                                    {{ html()->checkbox('accept_translations', false) }}
                                     Automatically accept all translations from this import.
                                     Enabled if you trust the translation provider.
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('ignore_already_translated', true, false) !!}
+                                    {{ html()->checkbox('ignore_already_translated', false) }}
                                     Ignore keys that already have an accepted translation. Enabled if you do not want to
                                     overwrite approved translations.
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('overwrite_locked_strings', true, false) !!}
+                                    {{ html()->checkbox('overwrite_locked_strings', false) }}
                                     Overwrite locked strings.
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('input', 'Data input:') !!}
-                            {!! Form::textarea('data', null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Data input:', 'input') }}
+                            {{ html()->textarea('data')->class('form-control')->attributes(['cols' => 50, 'rows' => 10])->text(old('data', '')) }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Process', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ html()->submit('Process')->class('btn btn-primary form-control') }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
             </div>

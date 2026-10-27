@@ -14,16 +14,16 @@
 
                         @include('errors/list')
 
-                        {!! Form::model($project, ['url' => url("projects/{$project->id}/import"), 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                        {{ html()->modelForm($project, 'POST', url("projects/{$project->id}/import"))->acceptsFiles()->open() }}
                         <div class="form-group">
-                            {!! Form::label('file', 'Select file:') !!}
-                            {!! Form::file('file') !!}
+                            {{ html()->label('Select file:', 'file') }}
+                            {{ html()->file('file') }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Import', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ html()->submit('Import')->class('btn btn-primary form-control') }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ html()->closeModelForm() }}
                     </div>
                 </div>
             </div>

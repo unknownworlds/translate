@@ -166,7 +166,6 @@ return [
          * Package Service Providers...
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
@@ -234,8 +233,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Socialite' => 'Laravel\Socialite\Facades\Socialite',
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,

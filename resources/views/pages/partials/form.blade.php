@@ -1,13 +1,13 @@
 <div class="form-group">
-    {!! Form::label('title', 'Title:') !!}
-    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+    {{ html()->label('Title:', 'title') }}
+    {{ html()->text('title')->class('form-control') }}
 </div>
 
 <div class="form-group">
-    {!! Form::label('content', 'Content (raw HTML):') !!}
-    {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
+    {{ html()->label('Content (raw HTML):', 'content') }}
+    {{ html()->textarea('content')->class('form-control')->attributes(['cols' => 50, 'rows' => 10])->text(old('content', $page->content ?? '')) }}
 </div>
 
 <div class="form-group">
-    {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control']) !!}
+    {{ html()->submit($submitButton)->class('btn btn-primary form-control') }}
 </div>

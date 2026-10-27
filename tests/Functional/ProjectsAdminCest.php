@@ -80,6 +80,32 @@ class ProjectsAdminCest
         $I->seeRecord(Project::class, ['id' => 4, 'name' => 'Renamed project', 'data_output_handler' => 4]);
     }
 
+    public function editingKeepsOutputTemplateIntact(FunctionalTester $I)
+    {
+        $template = "\"{Menu.Play}\" & <{Menu.Quit}>\n</textarea>";
+        Project::whereKey(4)->update(['output_template' => $template]);
+
+        $I->amOnPage('/projects/4/edit');
+        $I->seeInField('output_template', $template);
+        $I->click('Save project');
+
+        $I->assertSame($template, Project::findOrFail(4)->output_template);
+    }
+
+    public function keepInputAfterFailedValidation(FunctionalTester $I)
+    {
+        $I->amOnPage('/projects/create');
+        $I->fillField('name', 'Almost a project');
+        $I->selectOption('data_output_handler', 'INI file');
+        $I->fillField('output_template', 'Hello {greeting}');
+        $I->click('Add project');
+
+        $I->seeCurrentUrlEquals('/projects/create');
+        $I->seeInField('name', 'Almost a project');
+        $I->seeOptionIsSelected('data_output_handler', 'INI file');
+        $I->seeInField('output_template', 'Hello {greeting}');
+    }
+
     public function deleteProject(FunctionalTester $I)
     {
         $I->amOnPage('/projects');

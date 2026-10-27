@@ -21,21 +21,21 @@
                             </div>
                         @endif
 
-                        {!! Form::open([ 'url' => 'tools/translations-transfer', 'method' => 'POST' ]) !!}
+                        {{ html()->form('POST', url('tools/translations-transfer'))->open() }}
                         <div class="form-group">
-                            {!! Form::label('source_project', 'Source project:') !!}
-                            {!! Form::select('source_project', $projects, null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Source project:', 'source_project') }}
+                            {{ html()->select('source_project', $projects)->class('form-control') }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('target_project', 'Target project:') !!}
-                            {!! Form::select('target_project', $projects, null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Target project:', 'target_project') }}
+                            {{ html()->select('target_project', $projects)->class('form-control') }}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Process', ['class' => 'btn btn-primary form-control']) !!}
+                            {{ html()->submit('Process')->class('btn btn-primary form-control') }}
                         </div>
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
             </div>

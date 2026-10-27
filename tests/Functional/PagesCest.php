@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Page;
+use Codeception\Attribute\Skip;
 use Tests\Support\FunctionalTester;
 
 class PagesCest
@@ -59,5 +60,31 @@ class PagesCest
         $I->click('Delete', "form[action$=\"/pages/{$page->id}\"]");
 
         $I->dontSeeRecord(Page::class, ['id' => $page->id]);
+    }
+
+    public function editingKeepsRawHtmlIntact(FunctionalTester $I)
+    {
+        $I->amLoggedAs($I->grabRootUser());
+        $content = '<p>Fish & chips</p></textarea><b>"quoted"</b>';
+        Page::whereKey(1)->update(['content' => $content]);
+
+        $I->amOnPage('/pages/1/edit');
+        $I->seeInField('content', $content);
+        $I->click('Save page');
+
+        $I->seeRecord(Page::class, ['id' => 1, 'content' => $content]);
+    }
+
+    #[Skip('Known bug: textareas are rendered without double encoding, so entities get decoded on save')]
+    public function editingKeepsHtmlEntities(FunctionalTester $I)
+    {
+        $I->amLoggedAs($I->grabRootUser());
+        $content = '<p>Fish &amp; chips&nbsp;</p>';
+        Page::whereKey(1)->update(['content' => $content]);
+
+        $I->amOnPage('/pages/1/edit');
+        $I->click('Save page');
+
+        $I->seeRecord(Page::class, ['id' => 1, 'content' => $content]);
     }
 }

@@ -50,7 +50,8 @@ class PublicPagesCest
         $I->seeOptionIsSelected('project', 'Achievements test project');
         $I->seeElement('select[name=language] option[value="1"]');
         // Vue binds to the button rendered by the form builder
-        $I->seeInSource('@click="loadData()" type="button">Load data</button>');
+        $I->seeElement(['xpath' => "//button[@type='button' and normalize-space()='Load data']"]);
+        $I->seeInSource('@click="loadData()"');
         $I->seeElement('meta[name=csrf-token]');
     }
 }
