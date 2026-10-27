@@ -92,6 +92,18 @@ class ProjectsAdminCest
         $I->assertSame($template, Project::findOrFail(4)->output_template);
     }
 
+    public function editingKeepsHtmlEntitiesInOutputTemplate(FunctionalTester $I)
+    {
+        $template = "<string name=\"play\">{Menu.Play}</string> &amp; &lt;{Menu.Quit}&gt;";
+        Project::whereKey(4)->update(['output_template' => $template]);
+
+        $I->amOnPage('/projects/4/edit');
+        $I->seeInField('output_template', $template);
+        $I->click('Save project');
+
+        $I->assertSame($template, Project::findOrFail(4)->output_template);
+    }
+
     public function keepInputAfterFailedValidation(FunctionalTester $I)
     {
         $I->amOnPage('/projects/create');

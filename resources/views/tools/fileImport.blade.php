@@ -110,7 +110,7 @@
 
                         <div class="form-group">
                             {{ html()->label('Data input:', 'input') }}
-                            {{ html()->textarea('data')->class('form-control')->attributes(['cols' => 50, 'rows' => 10])->text(old('data', '')) }}
+                            {{ html()->textarea('data')->class('form-control')->attributes(['cols' => 50, 'rows' => 10])->html(e(old('data', ''))) }}
                         </div>
 
                         <div class="form-group">

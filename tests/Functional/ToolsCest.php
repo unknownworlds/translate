@@ -56,6 +56,18 @@ class ToolsCest
         $I->dontSeeRecord(TranslatedString::class, ['text' => 'Should not be imported']);
     }
 
+    public function keepImportDataAfterFailedValidation(FunctionalTester $I)
+    {
+        $data = '{"Menu.Play": "Fish &amp; chips &lt;b&gt;"}';
+
+        $I->amOnPage('/tools/file-import');
+        $I->submitForm('form[action$="/tools/file-import"]', ['user_id' => '', 'data' => $data]);
+
+        $I->seeCurrentUrlEquals('/tools/file-import');
+        $I->seeElement('.alert-danger');
+        $I->seeInField('data', $data);
+    }
+
     public function rejectUndecodableImport(FunctionalTester $I)
     {
         $I->amOnPage('/tools/file-import');

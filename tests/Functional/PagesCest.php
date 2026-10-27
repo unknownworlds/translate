@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Page;
-use Codeception\Attribute\Skip;
 use Tests\Support\FunctionalTester;
 
 class PagesCest
@@ -75,14 +74,14 @@ class PagesCest
         $I->seeRecord(Page::class, ['id' => 1, 'content' => $content]);
     }
 
-    #[Skip('Known bug: textareas are rendered without double encoding, so entities get decoded on save')]
     public function editingKeepsHtmlEntities(FunctionalTester $I)
     {
         $I->amLoggedAs($I->grabRootUser());
-        $content = '<p>Fish &amp; chips&nbsp;</p>';
+        $content = '<p>Fish &amp; chips&nbsp;</p> <code>&lt;b&gt;</code> &amp;lt;';
         Page::whereKey(1)->update(['content' => $content]);
 
         $I->amOnPage('/pages/1/edit');
+        $I->seeInField('content', $content);
         $I->click('Save page');
 
         $I->seeRecord(Page::class, ['id' => 1, 'content' => $content]);

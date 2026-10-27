@@ -20,7 +20,7 @@
 
 <div class="form-group">
     {{ html()->label('Output template (optional):', 'output_template') }}
-    {{ html()->textarea('output_template')->class('form-control')->attributes(['cols' => 50, 'rows' => 10])->text(old('output_template', $project->output_template ?? '')) }}
+    {{ html()->textarea('output_template')->class('form-control')->attributes(['cols' => 50, 'rows' => 10])->html(e(old('output_template', $project->output_template ?? ''))) }}
 </div>
 
 <div class="form-group">
