@@ -168,7 +168,6 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
         //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
@@ -240,8 +239,6 @@ return [
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
-        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
-        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],
 

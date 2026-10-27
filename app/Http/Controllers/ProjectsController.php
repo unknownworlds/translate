@@ -178,7 +178,8 @@ class ProjectsController extends Controller
         $file = $request->file('file');
         $data = file_get_contents($file->getRealPath());
 
-        $inputHandler = InputHandlerFactory::getFileHandler($project->data_input_handler, $data);
+        $inputHandler = InputHandlerFactory::getFileHandler($project->data_input_handler);
+        $inputHandler->setRawInput($data);
         $input = $inputHandler->getParsedInput();
 
         new DiffHandler($input, $project->id);

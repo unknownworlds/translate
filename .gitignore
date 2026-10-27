@@ -1,11 +1,9 @@
 /vendor
-/node_modules
 .env
 .env.testing
 .idea
 /public/output/
 tests/_output/*
-/public/hot
 /public/storage
 /storage/*.key
 .env.backup
@@ -14,5 +12,3 @@ tests/_output/*
 docker-compose.override.yml
 Homestead.json
 Homestead.yaml
-npm-debug.log
-yarn-error.log

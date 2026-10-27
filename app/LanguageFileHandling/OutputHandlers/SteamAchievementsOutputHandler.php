@@ -2,6 +2,7 @@
 
 namespace App\LanguageFileHandling\OutputHandlers;
 
+use App\LanguageFileHandling\Zip;
 use File;
 use VdfParser\Parser;
 
@@ -36,11 +37,7 @@ class SteamAchievementsOutputHandler implements OutputHandlerInterface
         }
 
         $outputFile = public_path() . '/output/' . $this->project->id . '/output.zip';
-        if (is_file($outputFile)) {
-            unlink($outputFile);
-        }
-
-        exec('cd ' . public_path() . '/output/' . $this->project->id . ' && zip -j output.zip ' . $dir . '/*');
+        Zip::directory($dir, $outputFile);
 
         File::deleteDirectory($dir);
 

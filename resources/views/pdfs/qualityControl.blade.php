@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{{ $project->name }} :: Quality Control</title>
 
-    <link href="{{ asset('/css/pdf.css') }}" rel="stylesheet">
+    {{-- Inlined: dompdf doesn't fetch remote resources --}}
+    <style>{!! file_get_contents(public_path('css/pdf.css')) !!}</style>
 </head>
 
 <body>

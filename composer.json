@@ -9,18 +9,15 @@
     "type": "project",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^3.1",
+        "bugsnag/bugsnag-laravel": "^2.0",
+        "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.10",
         "laravel/socialite": "~5.0",
-        "laravelcollective/html": "^6.0.0",
-        "bugsnag/bugsnag-laravel": "^2.0",
-        "h4cc/wkhtmltopdf-amd64": "0.12.x",
-        "h4cc/wkhtmltoimage-amd64": "0.12.x",
-        "barryvdh/laravel-snappy": "^1.0.0",
-        "lukezbihlyj/vdf-parser": "~1.0",
+        "laravel/tinker": "^2.7",
         "laravel/ui": "^3.0",
-        "fruitcake/laravel-cors": "^3.0",
-        "guzzlehttp/guzzle": "^7.2",
-        "laravel/tinker": "^2.7"
+        "laravelcollective/html": "^6.0.0",
+        "lukezbihlyj/vdf-parser": "~1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "~2.0",

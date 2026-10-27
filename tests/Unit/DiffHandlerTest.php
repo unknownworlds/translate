@@ -44,6 +44,26 @@ class DiffHandlerTest extends \Codeception\Test\Unit
         $this->assertFalse($quit->fresh()->trashed());
     }
 
+    public function testChangedStringsKeepAlternativesOfOtherProjects()
+    {
+        $this->markTestSkipped('Known bug: alternatives are looked up across all projects');
+
+        new DiffHandler(['Play' => 'Play', 'Play.alt' => 'Start'], self::PROJECT_ID);
+        $otherProjectAlternative = BaseString::create(['project_id' => 3, 'key' => 'Play.alt', 'text' => 'Start']);
+        $otherProjectTranslation = TranslatedString::create([
+            'project_id' => 3,
+            'language_id' => 1,
+            'base_string_id' => $otherProjectAlternative->id,
+            'user_id' => 101,
+            'text' => 'Zacznij',
+            'is_accepted' => true,
+        ]);
+
+        new DiffHandler(['Play' => 'Play now', 'Play.alt' => 'Start'], self::PROJECT_ID);
+
+        $this->assertFalse($otherProjectTranslation->fresh()->trashed());
+    }
+
     public function testRemovedStringsGetSoftDeleted()
     {
         new DiffHandler(['Play' => 'Play', 'Quit' => 'Quit'], self::PROJECT_ID);

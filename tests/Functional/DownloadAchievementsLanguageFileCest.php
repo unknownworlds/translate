@@ -1,5 +1,7 @@
 <?php
 
+use App\LanguageFileHandling\DiffHandler;
+use App\LanguageFileHandling\InputHandlers\SteamAchievementsInputHandler;
 use App\Models\BaseString;
 use App\Models\TranslatedString;
 use Tests\Support\FunctionalTester;
@@ -16,9 +18,8 @@ class DownloadAchievementsLanguageFileCest
         $I->fillField('password', Fixtures::ROOT_PASSWORD);
         $I->click('Login', 'button');
 
-        $I->amOnPage('/projects/4/import');
-        $I->attachFile('input#file', '../../_data/steam_achievements.vdf');
-        $I->click('Import', 'form');
+        $vdf = file_get_contents(codecept_data_dir('../../_data/steam_achievements.vdf'));
+        new DiffHandler((new SteamAchievementsInputHandler($vdf))->getParsedInput(), 4);
 
         $baseString = BaseString::where(['project_id' => 4, 'key' => 'NEW_ACHIEVEMENT_5_1_NAME'])->firstOrFail();
         TranslatedString::create([

@@ -61,6 +61,8 @@ table {
 body {
     padding: 0px;
     line-height: 1.1;
+    /* Bundled with dompdf, covers far more scripts than the built-in PDF fonts */
+    font-family: "DejaVu Sans", sans-serif;
 }
 
 h1 {

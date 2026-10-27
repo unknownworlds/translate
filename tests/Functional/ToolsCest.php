@@ -130,13 +130,9 @@ class ToolsCest
 
     public function downloadQualityControlPdfs(FunctionalTester $I)
     {
-        $binary = config('snappy.pdf.binary');
-        exec(escapeshellarg($binary).' --version 2>&1', $output, $exitCode);
-        if ($exitCode !== 0) {
-            $I->markTestSkipped("wkhtmltopdf can't run on this machine ($binary)");
-        }
-
         BaseString::whereKey([1, 2])->update(['quality_controlled' => true]);
+        TranslatedString::where(['base_string_id' => 1, 'language_id' => 1])->firstOrFail()
+            ->update(['is_accepted' => true, 'text' => 'Zażółć gęślą jaźń']);
 
         $I->amOnPage('/tools/translation-quality');
         $I->click('Download PDFs');
@@ -147,5 +143,7 @@ class ToolsCest
         $I->assertCount(11, $files);
         $I->assertArrayHasKey('Test language.pdf', $files);
         $I->assertStringStartsWith('%PDF', $files['Test language.pdf']);
+        // Non-ANSI text needs an embedded Unicode font, the core PDF fonts would render it as "?"
+        $I->assertStringContainsString('DejaVuSans', $files['Test language.pdf']);
     }
 }

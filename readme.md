@@ -19,8 +19,7 @@ Based on Laravel.
 - Mbstring PHP Extension
 - Tokenizer PHP Extension
 - XML PHP Extension
-- libxext6 and libxrender1 libraries
-- zip/unzip utilities
+- Zip PHP Extension
 
 ## Installation instructions
 - Point web server's root directory to /public
@@ -33,7 +32,6 @@ Use [Laravel Herd](https://herd.laravel.com/) (Pro, for the MySQL service)
 - Link the site as `uwetranslate.test` and isolate it to the PHP version it should run on (`herd isolate 8.5`)
 - Create the testing database: `herd db:create uwetranslate-testing`
 - Point `.env.testing` at Herd's MySQL (`DB_HOST=127.0.0.1`, `DB_PORT=3307`, `DB_USERNAME=root`, empty password) - Codeception reads its DB settings from it too
-- The `zip` CLI has to be in PATH on Windows (`scoop install zip`)
 
 ## Testing
 - `./codeception run` (Linux/macOS)

@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\ToolsFileImportRequest;
 use App\Models\Language;
 use App\LanguageFileHandling\InputHandlers\InputHandlerFactory;
+use App\LanguageFileHandling\Zip;
 use App\Models\Project;
 use App\Models\User;
 use PDF;
@@ -212,11 +213,7 @@ class ToolsController extends Controller
 
         // zip & clean
         $outputFile = $baseDir.'/QA_PDFs.zip';
-        if (is_file($outputFile)) {
-            unlink($outputFile);
-        }
-
-        exec('cd '.$baseDir.'/ && zip -j QA_PDFs.zip '.$tempDir.'/*');
+        Zip::directory($tempDir, $outputFile);
         File::deleteDirectory($tempDir);
 
         // return file
