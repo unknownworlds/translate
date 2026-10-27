@@ -22,7 +22,7 @@ class INIInputHandler implements InputHandlerInterface
         $output = [];
 
         foreach ($input as $line) {
-            $string = explode(' = "', $line);
+            $string = explode(' = "', $line, 2);
 
             if (count($string) != 2) {
                 continue;

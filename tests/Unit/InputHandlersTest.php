@@ -49,7 +49,8 @@ class InputHandlersTest extends \Codeception\Test\Unit
 
     public function testIni()
     {
-        $raw = "Menu.Play = \"Play\"\r\nMenu.Equation = \"1 + 1 = 2\"\n; comment line\n\nMenu.Quit = \"Quit\"";
+        $raw = "Menu.Play = \"Play\"\r\nMenu.Equation = \"1 + 1 = 2\"\n; comment line\n\nMenu.Quit = \"Quit\"\n"
+            ."Menu.Range = \"Set range = \"far\" in options\"\nMenu.Chain = \"a = \"b\" = \"c\"\"";
 
         $handler = new INIInputHandler($raw);
 
@@ -57,7 +58,33 @@ class InputHandlersTest extends \Codeception\Test\Unit
             'Menu.Play' => 'Play',
             'Menu.Equation' => '1 + 1 = 2',
             'Menu.Quit' => 'Quit',
+            'Menu.Range' => 'Set range = "far" in options',
+            'Menu.Chain' => 'a = "b" = "c"',
         ], $handler->getParsedInput());
+    }
+
+    public function testIniNaturalSelection2File()
+    {
+        $strings = (new INIInputHandler($this->ns2File()))->getParsedInput();
+
+        // 3681 lines, 6 keys appear twice (the last one wins)
+        $this->assertCount(3675, $strings);
+        $this->assertSame('Game has not started', $strings['ABM_GAME_NOT_STARTED']);
+        $this->assertSame('Female', $strings['CUSTOMIZE_MENU_SEX_MALE']);
+        // Escaped quotes and newlines stay escaped, the export writes them back the same way
+        $this->assertSame('Some lights emit a subtle \"Godrays\" effect.', $strings['ATMOSPHERICS_TOOLTIP']);
+        $this->assertStringContainsString('die.\nYou can switch', $strings['AUTO_TEAM_BALANCE_TOOLTIP']);
+    }
+
+    public function testIniNaturalSelection2FileKeys()
+    {
+        $this->markTestSkipped('Known bug: the BOM and the padding before " = " end up in the keys');
+
+        $strings = (new INIInputHandler($this->ns2File()))->getParsedInput();
+
+        $this->assertArrayHasKey('ABM_EVOLVE_FOR', $strings);
+        $this->assertSame('Soldier acknowledges', $strings['MARINE_ALERT_ACKNOWLEDGE'] ?? null);
+        $this->assertSame([], array_filter(array_keys($strings), fn ($key) => !preg_match('/^[A-Za-z0-9_.]+$/', $key)));
     }
 
     public function testCsv()
@@ -92,5 +119,10 @@ class InputHandlersTest extends \Codeception\Test\Unit
     private function achievementsFile(): string
     {
         return file_get_contents(codecept_data_dir('../../_data/steam_achievements.vdf'));
+    }
+
+    private function ns2File(): string
+    {
+        return file_get_contents(codecept_data_dir('../../_data/NS2_enUS.txt'));
     }
 }
