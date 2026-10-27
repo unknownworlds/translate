@@ -15,7 +15,7 @@ class Discord implements TeamChatInterface {
 	private $client;
 
 	public function __construct() {
-		$this->client = new DiscordClient( [ 'token' => env('DISCORD_TOKEN') ] );
+		$this->client = new DiscordClient( [ 'token' => config('services.discord.token') ] );
 	}
 
 	/**

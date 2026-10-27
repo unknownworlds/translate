@@ -31,27 +31,41 @@ return [
     ],
 
     'github'   => [
+        'enabled'       => env( 'GITHUB_LOGIN_ENABLED', false ),
         'client_id'     => env( 'GITHUB_CLIENT_ID' ),
         'client_secret' => env( 'GITHUB_CLIENT_SECRET' ),
         'redirect'      => env( 'GITHUB_REDIRECT' )
     ],
 
     'facebook'   => [
+        'enabled'       => env( 'FACEBOOK_LOGIN_ENABLED', false ),
         'client_id'     => env( 'FACEBOOK_CLIENT_ID' ),
         'client_secret' => env( 'FACEBOOK_CLIENT_SECRET' ),
         'redirect'      => env( 'FACEBOOK_REDIRECT' )
     ],
 
     'google'   => [
+        'enabled'       => env( 'GOOGLE_LOGIN_ENABLED', false ),
         'client_id'     => env( 'GOOGLE_CLIENT_ID' ),
         'client_secret' => env( 'GOOGLE_CLIENT_SECRET' ),
         'redirect'      => env( 'GOOGLE_REDIRECT' )
     ],
 
     'bus'   => [
+        'enabled'       => env( 'BUS_LOGIN_ENABLED', false ),
+        'host'          => env( 'BUS_HOST' ),
         'client_id'     => env( 'BUS_CLIENT_ID' ),
         'client_secret' => env( 'BUS_CLIENT_SECRET' ),
         'redirect'      => env( 'BUS_REDIRECT' )
+    ],
+
+    'slack' => [
+        'token'          => env( 'SLACK_TOKEN' ),
+        'update_channel' => env( 'SLACK_UPDATE_CHANNEL' ),
+    ],
+
+    'discord' => [
+        'token' => env( 'DISCORD_TOKEN' ),
     ],
 
 ];

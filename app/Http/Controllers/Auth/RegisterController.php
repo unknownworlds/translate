@@ -71,7 +71,7 @@ class RegisterController extends Controller
 
     protected function showRegistrationForm()
     {
-        if (env('BUS_LOGIN_ENABLED') == false) {
+        if (config('services.bus.enabled') == false) {
             return view('auth.register');
         } else {
             return back();

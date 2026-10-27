@@ -39,11 +39,11 @@
                 <li><a href="{{ url('/pages/guidelines') }}">Guidelines</a></li>
                 <li><a href="{{ url('/pages/frequently-asked-questions') }}">FAQ</a></li>
                 <li><a href="{{ url('/rss') }}">RSS</a></li>
-                @if(env('TRANSLATION_FORUMS_URL'))
-                    <li><a href="{{ env('TRANSLATION_FORUMS_URL') }}" target="_blank">Translations forums</a></li>
+                @if(config('links.translation_forums'))
+                    <li><a href="{{ config('links.translation_forums') }}" target="_blank">Translations forums</a></li>
                 @endif
-                @if(env('MAILING_LIST_URL'))
-                    <li><a href="{{ env('MAILING_LIST_URL') }}" target="_blank">Mailing list</a></li>
+                @if(config('links.mailing_list'))
+                    <li><a href="{{ config('links.mailing_list') }}" target="_blank">Mailing list</a></li>
                 @endif
                 @if ( !Auth::guest() && Auth::user()->hasRole('Root'))
                     <li class="dropdown">
@@ -92,8 +92,8 @@
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
                     <li><a href="{{ url('/login') }}">Login</a></li>
-                    @if(env('BUS_LOGIN_ENABLED'))
-                        <li><a href="{{ env('BUS_HOST') }}/register" target="_blank">Register</a></li>
+                    @if(config('services.bus.enabled'))
+                        <li><a href="{{ config('services.bus.host') }}/register" target="_blank">Register</a></li>
                     @else
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @endif

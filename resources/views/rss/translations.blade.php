@@ -2,7 +2,7 @@
 <rss version="2.0">
     <channel>
         <title>{{ $project->name }} {{ $language->name }} translations log</title>
-        <link>{{ env('APP_URL') }}</link>
+        <link>{{ config('app.url') }}</link>
         <description>Latest translations for {{ $project->name }} in {{ $language->name }}</description>
         @foreach($log as $entry)
             <item>
@@ -13,7 +13,7 @@
                     {{ $entry->created_at->toRssString() }}
                 </pubDate>
                 <link>
-                {{ env('APP_URL') }}/#{{ md5($entry->text.$entry->created_at) }}
+                {{ config('app.url') }}/#{{ md5($entry->text.$entry->created_at) }}
                 </link>
                 <description>
                     {{ $entry->text }}

@@ -96,6 +96,6 @@ class BusOauthProvider extends AbstractProvider implements ProviderInterface
      */
     private function getUrl($location)
     {
-        return env('BUS_HOST') . '/' . $location;
+        return config('services.bus.host') . '/' . $location;
     }
 }

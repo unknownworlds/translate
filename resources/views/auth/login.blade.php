@@ -35,7 +35,7 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                            @if(env('BUS_LOGIN_ENABLED'))
+                            @if(config('services.bus.enabled'))
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
                                         <a class="btn btn-primary" href="{{ url('/social-login/bus') }}">
@@ -91,17 +91,17 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    @if(env('GITHUB_LOGIN_ENABLED'))
+                                    @if(config('services.github.enabled'))
                                         <a class="btn btn-primary" href="{{ url('/social-login/github') }}">
                                             Login with GitHub
                                         </a>
                                     @endif
-                                    @if(env('FACEBOOK_LOGIN_ENABLED'))
+                                    @if(config('services.facebook.enabled'))
                                         <a class="btn btn-primary" href="{{ url('/social-login/facebook') }}">
                                             Login with Facebook
                                         </a>
                                     @endif
-                                    @if(env('GOOGLE_LOGIN_ENABLED'))
+                                    @if(config('services.google.enabled'))
                                         <a class="btn btn-primary" href="{{ url('/social-login/google') }}">
                                             Login with Google
                                         </a>

@@ -85,9 +85,9 @@ class DiffHandler
         }
 
         // Update change watchers
-        if (env('SLACK_UPDATE_CHANNEL')) {
+        if (config('services.slack.update_channel')) {
             $chat = new Slack();
-            $chat->message(env('SLACK_UPDATE_CHANNEL'), null, $this->fullLog);
+            $chat->message(config('services.slack.update_channel'), null, $this->fullLog);
         }
     }
 

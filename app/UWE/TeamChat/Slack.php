@@ -15,7 +15,7 @@ class Slack implements TeamChatInterface {
 	private $client, $token;
 
 	public function __construct() {
-		$this->token  = env('SLACK_TOKEN');
+		$this->token  = config('services.slack.token');
 		$this->client = new Client();
 	}
 

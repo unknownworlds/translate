@@ -116,7 +116,7 @@ class User extends Authenticatable
     {
         // Automatically upgrade user to BUS if it's enabled
         // We can do that cause BUS emails are verified
-        if (env('BUS_LOGIN_ENABLED') && $provider == 'bus') {
+        if (config('services.bus.enabled') && $provider == 'bus') {
             $user = $this->where('email', $userData->email)->first();
         } else {
             $user = $this->where('oauth_provider', $provider)->where('oauth_id', $userData->id)->first();
