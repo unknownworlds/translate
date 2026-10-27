@@ -18,7 +18,8 @@ class INIInputHandler implements InputHandlerInterface
      */
     private function processInput()
     {
-        $input  = explode("\n", $this->rawData);
+        // Files saved by Windows tools start with a UTF-8 byte order mark
+        $input  = explode("\n", preg_replace('/^\xEF\xBB\xBF/', '', (string) $this->rawData));
         $output = [];
 
         foreach ($input as $line) {
@@ -28,7 +29,8 @@ class INIInputHandler implements InputHandlerInterface
                 continue;
             }
 
-            $output[$string[0]] = substr(trim($string[1]), 0, -1);
+            // Keys may be padded with spaces to align the values
+            $output[trim($string[0])] = substr(trim($string[1]), 0, -1);
         }
 
         return $this->translations = $output;

@@ -49,8 +49,9 @@ class InputHandlersTest extends \Codeception\Test\Unit
 
     public function testIni()
     {
-        $raw = "Menu.Play = \"Play\"\r\nMenu.Equation = \"1 + 1 = 2\"\n; comment line\n\nMenu.Quit = \"Quit\"\n"
-            ."Menu.Range = \"Set range = \"far\" in options\"\nMenu.Chain = \"a = \"b\" = \"c\"\"";
+        $raw = "\xEF\xBB\xBFMenu.Play = \"Play\"\r\nMenu.Equation = \"1 + 1 = 2\"\n; comment line\n\nMenu.Quit = \"Quit\"\n"
+            ."Menu.Range = \"Set range = \"far\" in options\"\nMenu.Chain = \"a = \"b\" = \"c\"\"\n"
+            ."Menu.Aligned        = \"Padded key\"   \r\n";
 
         $handler = new INIInputHandler($raw);
 
@@ -60,6 +61,7 @@ class InputHandlersTest extends \Codeception\Test\Unit
             'Menu.Quit' => 'Quit',
             'Menu.Range' => 'Set range = "far" in options',
             'Menu.Chain' => 'a = "b" = "c"',
+            'Menu.Aligned' => 'Padded key',
         ], $handler->getParsedInput());
     }
 
@@ -78,13 +80,14 @@ class InputHandlersTest extends \Codeception\Test\Unit
 
     public function testIniNaturalSelection2FileKeys()
     {
-        $this->markTestSkipped('Known bug: the BOM and the padding before " = " end up in the keys');
-
         $strings = (new INIInputHandler($this->ns2File()))->getParsedInput();
 
         $this->assertArrayHasKey('ABM_EVOLVE_FOR', $strings);
         $this->assertSame('Soldier acknowledges', $strings['MARINE_ALERT_ACKNOWLEDGE'] ?? null);
-        $this->assertSame([], array_filter(array_keys($strings), fn ($key) => !preg_match('/^[A-Za-z0-9_.]+$/', $key)));
+        $this->assertSame([], array_filter(array_keys($strings), fn ($key) => preg_match('/\s|\xEF\xBB\xBF/', $key)));
+        // Keys keep their other characters, as the game looks them up
+        $this->assertArrayHasKey('BINDINGS_WEAPON_#1', $strings);
+        $this->assertArrayHasKey('COMBINDINGS_GRID_SPOT_10_(DEFAULT_G)', $strings);
     }
 
     public function testCsv()
