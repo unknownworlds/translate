@@ -38,8 +38,6 @@ class SteamAchievementsInputHandler implements InputHandlerInterface
      */
     public function getParsedInput()
     {
-        $this->processInput();
-
         return $this->translations;
     }
 }
