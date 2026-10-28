@@ -75,9 +75,10 @@ class DiffHandler
                 'alternative_or_empty' => empty($text) || strstr($key, '.'),
             ]);
 
-            // Remove related translations
+            // Remove related translations; "\", "%" and "_" in the key must match literally
+            $keyPattern = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $key);
             $alternativeBaseStrings = BaseString::where('project_id', '=', $this->projectId)
-                ->where('key', 'like', $key.'.%')
+                ->where('key', 'like', $keyPattern.'.%')
                 ->pluck('id')
                 ->toArray();
 

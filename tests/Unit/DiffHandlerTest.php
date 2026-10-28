@@ -62,6 +62,40 @@ class DiffHandlerTest extends \Codeception\Test\Unit
         $this->assertFalse($otherProjectTranslation->fresh()->trashed());
     }
 
+    public function testLikeWildcardsInKeysOnlyMatchRealAlternatives()
+    {
+        $strings = [
+            'MENU_PLAY' => 'Play', 'MENU_PLAY.Switch' => 'Play', 'MENU-PLAY.XB1' => 'Play', 'MENUXPLAY.PS4' => 'Play',
+            '100%' => 'Full', '100%.Switch' => 'Full', '100%_DONE.Switch' => 'Done',
+        ];
+        new DiffHandler($strings, self::PROJECT_ID);
+        $translations = [];
+        foreach (array_keys($strings) as $key) {
+            $translations[$key] = $this->translate($key, 'Translated '.$key);
+        }
+
+        new DiffHandler(['MENU_PLAY' => 'Play now', '100%' => 'Complete'] + $strings, self::PROJECT_ID);
+
+        // Changed strings and their real alternatives get invalidated...
+        foreach (['MENU_PLAY', 'MENU_PLAY.Switch', '100%', '100%.Switch'] as $key) {
+            $this->assertTrue($translations[$key]->fresh()->trashed(), "$key should be invalidated");
+        }
+        // ...keys that only match because "_" and "%" are LIKE wildcards don't
+        foreach (['MENU-PLAY.XB1', 'MENUXPLAY.PS4', '100%_DONE.Switch'] as $key) {
+            $this->assertFalse($translations[$key]->fresh()->trashed(), "$key should be kept");
+        }
+    }
+
+    public function testBackslashInKeyStillMatchesItsAlternatives()
+    {
+        new DiffHandler(['Path\Name' => 'Name', 'Path\Name.Switch' => 'Name'], self::PROJECT_ID);
+        $alternative = $this->translate('Path\Name.Switch', 'Nazwa');
+
+        new DiffHandler(['Path\Name' => 'Full name', 'Path\Name.Switch' => 'Name'], self::PROJECT_ID);
+
+        $this->assertTrue($alternative->fresh()->trashed());
+    }
+
     public function testRemovedStringsGetSoftDeleted()
     {
         new DiffHandler(['Play' => 'Play', 'Quit' => 'Quit'], self::PROJECT_ID);
