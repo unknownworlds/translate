@@ -47,6 +47,12 @@ class InputHandlersTest extends \Codeception\Test\Unit
         $this->assertSame(['Intro' => "First line\nSecond line", 'Outro' => 'Bye'], $handler->getParsedInput());
     }
 
+    public function testSimpleJsonRejectsCorruptedInput()
+    {
+        $this->assertNull((new SimpleJsonObjectInputHandler('{"Menu.Play": "Play", oops}'))->getParsedInput());
+        $this->assertNull((new SimpleJsonObjectInputHandler(''))->getParsedInput());
+    }
+
     public function testIni()
     {
         $raw = "\xEF\xBB\xBFMenu.Play = \"Play\"\r\nMenu.Equation = \"1 + 1 = 2\"\n; comment line\n\nMenu.Quit = \"Quit\"\n"

@@ -79,6 +79,17 @@ class ToolsCest
         $I->see("Can't decode the input");
     }
 
+    public function rejectCorruptedJsonImport(FunctionalTester $I)
+    {
+        $I->amOnPage('/tools/file-import');
+        $I->selectOption('input_type', 'Simple JSON');
+        $I->fillField('data', '{"Enim aut dolores ea.": "Zaimportowane", oops}');
+        $I->click('Process');
+
+        $I->seeCurrentUrlEquals('/tools/file-import');
+        $I->see("Can't decode the input");
+    }
+
     public function transferTranslationsBetweenProjects(FunctionalTester $I)
     {
         $source = BaseString::create(['project_id' => 1, 'key' => 'Shared.key', 'text' => 'Shared string']);

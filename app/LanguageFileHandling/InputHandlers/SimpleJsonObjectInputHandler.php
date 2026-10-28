@@ -40,6 +40,9 @@ class SimpleJsonObjectInputHandler implements InputHandlerInterface
         $output = preg_replace('/\t/im', ' ', $output);
         // Decode JSON
         $output = json_decode($output, true);
+        if (!is_array($output)) {
+            return $this->translations = null;
+        }
         // Bring back the newline char
         foreach ($output as $key => $value) {
             $output[$key] = str_replace('<br>', "\n", $value);

@@ -38,6 +38,32 @@ class PublicApiCest
         $I->assertTrue(BaseString::withTrashed()->where(['project_id' => 2, 'key' => 'Menu.Quit'])->firstOrFail()->trashed());
     }
 
+    public function uploadJsonWithByteOrderMark(ApiTester $I)
+    {
+        // The TrimStrings middleware strips the BOM, the input handlers don't handle it themselves
+        $I->sendPost('strings/translation-file', [
+            'api_key' => 'test_api_key_wow',
+            'data' => "\xEF\xBB\xBF".json_encode(['Menu.Play' => 'Play']),
+        ]);
+
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseContains('"Success!"');
+        $I->assertSame(['Menu.Play' => 'Play'], BaseString::where('project_id', 2)->pluck('text', 'key')->all());
+    }
+
+    public function rejectCorruptedJsonUpload(ApiTester $I)
+    {
+        $I->sendPost('strings/translation-file', [
+            'api_key' => 'another_test_project',
+            'data' => '{"Menu.Play": "Play", oops}',
+        ]);
+
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseContains('"Fail, probably the input file is corrupted"');
+        // Nothing gets removed from the project
+        $I->assertSame(500, BaseString::where('project_id', 3)->count());
+    }
+
     public function corsHeadersForBrowserClients(ApiTester $I)
     {
         $I->haveHttpHeader('Origin', 'https://example.com');
