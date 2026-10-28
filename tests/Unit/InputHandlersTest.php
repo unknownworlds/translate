@@ -98,7 +98,8 @@ class InputHandlersTest extends \Codeception\Test\Unit
 
     public function testCsv()
     {
-        $raw = "Menu.Play,Play\nMenu.Quit,\"Quit, really?\"\nMenu.Multiline,First\\nSecond &amp; third\nbroken line\nKey,Text,Extra";
+        $raw = "Menu.Play,Play\nMenu.Quit,\"Quit, really?\"\nMenu.Multiline,First\\nSecond &amp; third\nbroken line\nKey,Text,Extra\n"
+            ."Menu.Double,\"Say \"\"hi\"\" now\"\nMenu.Backslash,\"Say \\\"hi\\\" now\"";
 
         $handler = new CSVInputHandler($raw);
 
@@ -106,6 +107,9 @@ class InputHandlersTest extends \Codeception\Test\Unit
             'Menu.Play' => 'Play',
             'Menu.Quit' => 'Quit, really?',
             'Menu.Multiline' => "First\nSecond & third",
+            'Menu.Double' => 'Say "hi" now',
+            // Backslash is the escape character: the quote after it doesn't end the field and both are kept
+            'Menu.Backslash' => 'Say \"hi\" now',
         ], $handler->getParsedInput());
     }
 

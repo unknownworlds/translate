@@ -22,7 +22,7 @@ class CSVInputHandler implements InputHandlerInterface
         $output = [];
 
         foreach ($input as $line) {
-            $string = str_getcsv($line);
+            $string = str_getcsv($line, ',', '"', '\\');
 
             if (count($string) != 2) {
                 continue;
