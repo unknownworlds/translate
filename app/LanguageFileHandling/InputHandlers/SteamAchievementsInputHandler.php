@@ -42,9 +42,4 @@ class SteamAchievementsInputHandler implements InputHandlerInterface
 
         return $this->translations;
     }
-
-    public function setRawInput($rawData)
-    {
-        $this->rawData = $rawData;
-    }
 }
